@@ -34,8 +34,6 @@ trait CreateLinkTrait
 
         $link->setLinktype('direct');
         $link->setDirect('https://example.com/' . $key);
-        $link->setProperty('navigation_title', 'text', $navigationTitle);
-        $link->setProperty('navigation_name', 'text', $navigationTitle);
 
         return $link;
     }
