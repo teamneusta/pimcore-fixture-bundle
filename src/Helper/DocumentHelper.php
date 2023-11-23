@@ -6,19 +6,19 @@ use Pimcore\Model\Document;
 
 class DocumentHelper
 {
-    public const SHOP_PREFIX = '/shop';
-
-    public static function createFolderByPath(string $path, string $locale = ''): Document\Folder
+    public function __construct(private readonly string $prefix)
     {
-        $locale = $locale ? '/' . $locale : '';
-
-        return Document\Service::createFolderByPath($locale . self::SHOP_PREFIX . $path);
     }
 
-    public static function getFullPathByPath(string $path, string $locale = ''): string
+    public function createFolderByPath(string $path, string $locale = ''): Document\Folder
+    {
+        return Document\Service::createFolderByPath($this->getFullPathByPath($path, $locale));
+    }
+
+    public function getFullPathByPath(string $path, string $locale = ''): string
     {
         $locale = $locale ? '/' . $locale : '';
 
-        return $locale . self::SHOP_PREFIX . $path;
+        return $locale . '/' . trim($this->prefix, '/') . '/' . ltrim($path, '/');
     }
 }

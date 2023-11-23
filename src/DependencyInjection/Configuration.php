@@ -16,6 +16,9 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('fixture_class')->defaultValue(null)->end()
+                ->scalarNode('asset_base_path')->defaultValue(null)->end()
+                ->scalarNode('data_object_base_path')->defaultValue(null)->end()
+                ->scalarNode('document_base_path')->defaultValue(null)->end()
             ->end();
 
         return $treeBuilder;

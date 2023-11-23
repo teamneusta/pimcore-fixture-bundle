@@ -7,11 +7,12 @@ use Pimcore\Model\Asset\Service;
 
 class AssetHelper
 {
-    public const SHOP_PREFIX = '/shop';
-    public const DEV_FOLDER = '/dev';
-
-    public static function createAssetFolder(string $path = ''): Asset\Folder
+    public function __construct(private readonly string $prefix)
     {
-        return Service::createFolderByPath(self::SHOP_PREFIX . self::DEV_FOLDER . $path);
+    }
+
+    public function createAssetFolder(string $path = ''): Asset\Folder
+    {
+        return Service::createFolderByPath('/' . trim($this->prefix, '/') . '/' . ltrim($path, '/'));
     }
 }

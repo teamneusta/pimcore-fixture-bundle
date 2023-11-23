@@ -2,5 +2,18 @@ services:
   Neusta\Pimcore\FixtureBundle\Command\LoadFixturesCommand:
     arguments:
       $container: '@Symfony\Component\DependencyInjection\ContainerInterface'
+      $fixtureClass: !abstract defined in extension
     tags:
       - { name: 'console.command' }
+
+  Neusta\Pimcore\FixtureBundle\Helper\AssetHelper:
+    arguments:
+      $prefix: !abstract defined in extension
+
+  Neusta\Pimcore\FixtureBundle\Helper\DataObjectHelper:
+    arguments:
+      $prefix: !abstract defined in extension
+
+  Neusta\Pimcore\FixtureBundle\Helper\DocumentHelper:
+    arguments:
+      $prefix: !abstract defined in extension

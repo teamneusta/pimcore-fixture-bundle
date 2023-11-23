@@ -3,6 +3,7 @@
   "description": "Provide basic functionality to enable installing fixtures in Pimcore",
   "license": "GPL-3.0-or-later",
   "require": {
+    "php": "~8.1.0",
     "pimcore/pimcore": "10.5"
   },
   "autoload": {

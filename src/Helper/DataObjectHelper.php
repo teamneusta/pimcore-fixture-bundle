@@ -6,16 +6,17 @@ use Pimcore\Model\DataObject;
 
 class DataObjectHelper
 {
-    public const SHOP_PREFIX = '/shop';
-    public const DEV_FOLDER = '/dev';
-
-    public static function createFolderByPath(string $path = ''): DataObject\Folder
+    public function __construct(private readonly string $prefix)
     {
-        return DataObject\Service::createFolderByPath(self::SHOP_PREFIX . self::DEV_FOLDER . $path);
     }
 
-    public static function getFullPathByPath(string $path): string
+    public function createFolderByPath(string $path = ''): DataObject\Folder
     {
-        return self::SHOP_PREFIX . self::DEV_FOLDER . $path;
+        return DataObject\Service::createFolderByPath($this->getFullPathByPath($path));
+    }
+
+    public function getFullPathByPath(string $path): string
+    {
+        return '/' . trim($this->prefix, '/') . '/' . ltrim($path, '/');
     }
 }
