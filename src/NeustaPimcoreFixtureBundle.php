@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace NspPimcore\FixtureBase;
+namespace Neusta\Pimcore\FixtureBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class FixtureBaseBundle extends Bundle
+class NeustaPimcoreFixtureBundle extends Bundle
 {
     public function getPath(): string
     {

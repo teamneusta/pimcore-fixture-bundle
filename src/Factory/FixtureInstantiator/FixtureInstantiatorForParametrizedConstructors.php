@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace NspPimcore\FixtureBase\Factory\FixtureInstantiator;
+namespace Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator;
 
-use NspPimcore\FixtureBase\Fixture;
+use Neusta\Pimcore\FixtureBundle\Fixture;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class FixtureInstantiatorForParametrizedConstructors implements FixtureInstantiator

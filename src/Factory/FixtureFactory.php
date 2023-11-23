@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace NspPimcore\FixtureBase\Factory;
+namespace Neusta\Pimcore\FixtureBundle\Factory;
 
-use NspPimcore\FixtureBase\Factory\FixtureInstantiator\FixtureInstantiator;
-use NspPimcore\FixtureBase\Fixture;
+use Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator\FixtureInstantiator;
+use Neusta\Pimcore\FixtureBundle\Fixture;
 use Pimcore\Cache;
 use Pimcore\Db;
 use Pimcore\Model\Version;

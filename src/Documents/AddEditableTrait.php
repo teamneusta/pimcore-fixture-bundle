@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace NspPimcore\FixtureBase\Documents;
+namespace Neusta\Pimcore\FixtureBundle\Documents;
 
-use NspPimcore\FixtureBase\Documents\Model\EditableConfig;
+use Neusta\Pimcore\FixtureBundle\Documents\Model\EditableConfig;
 use Pimcore\Model\Document\Editable;
 use Pimcore\Model\Document\Editable\Areablock;
 use Pimcore\Model\Document\PageSnippet;

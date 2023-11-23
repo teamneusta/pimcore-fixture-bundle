@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace NspPimcore\FixtureBase\Documents\Model;
+namespace Neusta\Pimcore\FixtureBundle\Documents\Model;
 
 class NavItem
 {

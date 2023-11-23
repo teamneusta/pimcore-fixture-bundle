@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace NspPimcore\FixtureBase;
+namespace Neusta\Pimcore\FixtureBundle;
 
 /**
  * @method void create(...$params) May specify other fixtures as dependencies as its parameters

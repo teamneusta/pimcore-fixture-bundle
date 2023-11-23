@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace NspPimcore\FixtureBase\Command;
+namespace Neusta\Pimcore\FixtureBundle\Command;
 
-use NspPimcore\FixtureBase\Factory\FixtureFactory;
-use NspPimcore\FixtureBase\Factory\FixtureInstantiator\FixtureInstantiatorForAll;
-use NspPimcore\FixtureBase\Factory\FixtureInstantiator\FixtureInstantiatorForParametrizedConstructors;
+use Neusta\Pimcore\FixtureBundle\Factory\FixtureFactory;
+use Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator\FixtureInstantiatorForAll;
+use Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator\FixtureInstantiatorForParametrizedConstructors;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
 
 #[AsCommand(
-    name: 'neusta:fixtures:load',
+    name: 'neusta:pimcore-fixtures:load',
     description: 'Loads a defined fixture class.',
 )]
 class LoadFixturesCommand extends Command
@@ -33,10 +33,10 @@ class LoadFixturesCommand extends Command
     {
         $this->setHelp(
             <<<'EOF'
-            The <info>%command.name%</info> command takes a single fixture and load it.
+            The <info>%command.name%</info> command takes a single fixture and loads it.
             That fixture itself may of course depend on further fixtures, thus allowing to build up
             an entire fixture hierarchy to load.
-            The result are sample data in your Pimcore instance.
+            The result is sample data in your Pimcore instance.
 
             Use <info>-v, --verbose</info> to output the time the fixtures took to create and to show an ordered list
             of executed fixtures.

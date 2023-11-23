@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace NspPimcore\FixtureBase\Documents;
+namespace Neusta\Pimcore\FixtureBundle\Documents;
 
 use Pimcore\Model\Document;
 use Pimcore\Model\Document\Link;

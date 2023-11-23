@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace NspPimcore\FixtureBase\DependencyInjection;
+namespace Neusta\Pimcore\FixtureBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -10,7 +10,7 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('fixture_base');
+        $treeBuilder = new TreeBuilder('neusta_pimcore_fixture');
         $rootNode = $treeBuilder->getRootNode();
 
         $rootNode

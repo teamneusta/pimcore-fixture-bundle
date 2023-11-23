@@ -1,13 +1,13 @@
 {
-  "name": "nsp-pimcore/fixture-base",
-  "description": "Provide basic functionality to enable installing fixtures",
+  "name": "teamneusta/pimcore-fixture-bundle",
+  "description": "Provide basic functionality to enable installing fixtures in Pimcore",
   "license": "GPL-3.0-or-later",
   "require": {
-    "pimcore/pimcore": "~10.5.3"
+    "pimcore/pimcore": "10.5"
   },
   "autoload": {
     "psr-4": {
-      "NspPimcore\\FixtureBase\\": "src/"
+      "Neusta\\Pimcore\\FixtureBundle\\": "src/"
     }
   }
 }

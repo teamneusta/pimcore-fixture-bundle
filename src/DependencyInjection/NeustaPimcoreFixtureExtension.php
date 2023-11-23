@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace NspPimcore\FixtureBase\DependencyInjection;
+namespace Neusta\Pimcore\FixtureBundle\DependencyInjection;
 
-use NspPimcore\FixtureBase\Command\LoadFixturesCommand;
+use Neusta\Pimcore\FixtureBundle\Command\LoadFixturesCommand;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-class FixtureBaseExtension extends ConfigurableExtension
+class NeustaPimcoreFixtureExtension extends ConfigurableExtension
 {
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {

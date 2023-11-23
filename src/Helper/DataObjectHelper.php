@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace NspPimcore\FixtureBase\Helper;
+namespace Neusta\Pimcore\FixtureBundle\Helper;
 
 use Pimcore\Model\DataObject;
 
