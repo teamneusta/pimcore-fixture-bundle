@@ -1,0 +1,33 @@
+services:
+  database:
+    image: mariadb:10.11.4
+    command: [ "mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci" ]
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_DATABASE: pimcore
+      MYSQL_PASSWORD: pimcore
+      MYSQL_USER: pimcore
+    tmpfs:
+      - /tmp/
+      - /var/lib/mysql/
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 10s
+
+  php:
+    image: pimcore/pimcore:php8.1-latest
+    volumes:
+      - ./:/var/www/html/
+    environment:
+      # Enable step debugging (will be activated by trigger). See https://xdebug.org/docs/all_settings#mode
+      XDEBUG_MODE: debug
+      # Use Host IP from Docker Daemon. See https://xdebug.org/docs/all_settings#client_host
+      XDEBUG_CLIENT_HOST: "host.docker.internal"
+      MYSQL_SERVER_VERSION: mariadb-10.11.4
+    extra_hosts:
+      # See https://gitlab.neusta.de/NSD/p_pimcore/pimcore-project-template/-/blob/2.1.0/compose.dev.yaml#L18-L24
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      database:
+        condition: service_healthy

@@ -5,6 +5,9 @@ namespace Neusta\Pimcore\FixtureBundle\Documents\Model;
 
 class EditableConfig
 {
+    /**
+     * @param string|array<string> $data
+     */
     public function __construct(
         public string $type,
         public string $name,

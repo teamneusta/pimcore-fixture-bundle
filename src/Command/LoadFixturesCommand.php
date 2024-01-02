@@ -73,9 +73,9 @@ class LoadFixturesCommand extends Command
             $executionTimes = $fixtureFactory->getExecutionTimes();
             $convertedExecutionTimes = array_map(
                 // some magic formatting '0.02' => '    0.020'
-                static fn ($value, $key) => [$key, \str_pad(\sprintf('%.3f', $value), 9, ' ', \STR_PAD_LEFT)],
+                static fn ($value, $key) => [$key, str_pad(sprintf('%.3f', $value), 9, ' ', \STR_PAD_LEFT)],
                 $executionTimes,
-                \array_keys($executionTimes),
+                array_keys($executionTimes),
             );
 
             $output->writeln('<info>Print the execution times of the fixtures:</info>');
