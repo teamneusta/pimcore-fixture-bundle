@@ -16,16 +16,6 @@ parameters:
 			path: src/Command/LoadFixturesCommand.php
 
 		-
-			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\DependencyInjection\\\\NeustaPimcoreFixtureExtension\\:\\:loadInternal\\(\\) has parameter \\$mergedConfig with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/DependencyInjection/NeustaPimcoreFixtureExtension.php
-
-		-
-			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Documents\\\\Model\\\\EditableConfig\\:\\:__construct\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Documents/Model/EditableConfig.php
-
-		-
 			message: "#^Call to an undefined method Pimcore\\\\Db\\\\ConnectionInterface\\:\\:getConfiguration\\(\\)\\.$#"
 			count: 3
 			path: src/Factory/FixtureFactory.php

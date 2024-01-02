@@ -15,7 +15,7 @@
         <ini name="display_errors" value="On"/>
         <ini name="error_reporting" value="-1"/>
         <env name="KERNEL_CLASS" value="TestKernel"/>
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
     </php>
 
     <testsuites>

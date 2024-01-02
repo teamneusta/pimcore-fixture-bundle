@@ -14,6 +14,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 class NeustaPimcoreFixtureExtension extends ConfigurableExtension
 {
+    /**
+     * @param array<string, mixed> $mergedConfig
+     */
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader($container, new FileLocator(\dirname(__DIR__, 2) . '/config'));
