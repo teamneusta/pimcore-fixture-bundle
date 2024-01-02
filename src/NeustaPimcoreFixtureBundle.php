@@ -5,7 +5,7 @@ namespace Neusta\Pimcore\FixtureBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class NeustaPimcoreFixtureBundle extends Bundle
+final class NeustaPimcoreFixtureBundle extends Bundle
 {
     public function getPath(): string
     {

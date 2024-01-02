@@ -29,7 +29,7 @@ class ClassificationstoreHelper
             $keyConfig->setDescription($description);
             $keyConfig->setEnabled(true);
             $keyConfig->setType($field->getFieldtype());
-            $keyConfig->setDefinition(\json_encode($field));
+            $keyConfig->setDefinition(json_encode($field));
             $keyConfig->setStoreId($storeId);
             $keyConfig->save();
         }
@@ -70,7 +70,7 @@ class ClassificationstoreHelper
         Data $field,
         StoreConfig $storeConfig,
     ): array {
-        $keyConfig = ClassificationstoreHelper::createKeyConfig(
+        $keyConfig = self::createKeyConfig(
             $keyConfigName,
             'Created by fixture',
             $field,
@@ -78,14 +78,14 @@ class ClassificationstoreHelper
         );
 
         // GroupConfig
-        $groupConfig = ClassificationstoreHelper::createGroupConfig(
+        $groupConfig = self::createGroupConfig(
             $keyConfigName,
             'Created by fixture',
             $storeConfig->getId(),
         );
 
         // KeyGroupRelation
-        ClassificationstoreHelper::createKeyGroupRelation(
+        self::createKeyGroupRelation(
             $keyConfig->getId(),
             $groupConfig->getId(),
         );

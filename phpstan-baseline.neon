@@ -1,0 +1,141 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\:\\:section\\(\\)\\.$#"
+			count: 1
+			path: src/Command/LoadFixturesCommand.php
+
+		-
+			message: "#^Offset 'fixtureClass' does not exist on array\\<class\\-string, int\\>\\.$#"
+			count: 1
+			path: src/Command/LoadFixturesCommand.php
+
+		-
+			message: "#^Offset 'level' does not exist on array\\<class\\-string, int\\>\\.$#"
+			count: 1
+			path: src/Command/LoadFixturesCommand.php
+
+		-
+			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\DependencyInjection\\\\NeustaPimcoreFixtureExtension\\:\\:loadInternal\\(\\) has parameter \\$mergedConfig with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/DependencyInjection/NeustaPimcoreFixtureExtension.php
+
+		-
+			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Documents\\\\Model\\\\EditableConfig\\:\\:__construct\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Documents/Model/EditableConfig.php
+
+		-
+			message: "#^Call to an undefined method Pimcore\\\\Db\\\\ConnectionInterface\\:\\:getConfiguration\\(\\)\\.$#"
+			count: 3
+			path: src/Factory/FixtureFactory.php
+
+		-
+			message: "#^Call to an undefined method ReflectionType\\:\\:getName\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/FixtureFactory.php
+
+		-
+			message: "#^Cannot call method getName\\(\\) on ReflectionClass\\|null\\.$#"
+			count: 1
+			path: src/Factory/FixtureFactory.php
+
+		-
+			message: "#^Property Neusta\\\\Pimcore\\\\FixtureBundle\\\\Factory\\\\FixtureFactory\\:\\:\\$executionTimes \\(array\\<class\\-string, float\\>\\) does not accept array\\<string, float\\>\\.$#"
+			count: 1
+			path: src/Factory/FixtureFactory.php
+
+		-
+			message: "#^Property Neusta\\\\Pimcore\\\\FixtureBundle\\\\Factory\\\\FixtureFactory\\:\\:\\$executionTimes \\(array\\<class\\-string, float\\>\\) does not accept array\\<string, float\\|int\\>\\.$#"
+			count: 1
+			path: src/Factory/FixtureFactory.php
+
+		-
+			message: "#^Property Neusta\\\\Pimcore\\\\FixtureBundle\\\\Factory\\\\FixtureFactory\\:\\:\\$executionTree \\(array\\<array\\<class\\-string, int\\>\\>\\) does not accept array\\<array\\<string, class\\-string\\<Neusta\\\\Pimcore\\\\FixtureBundle\\\\Fixture\\>\\|int\\>\\>\\.$#"
+			count: 1
+			path: src/Factory/FixtureFactory.php
+
+		-
+			message: "#^Variable \\$start might not be defined\\.$#"
+			count: 1
+			path: src/Factory/FixtureFactory.php
+
+		-
+			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Factory\\\\FixtureInstantiator\\\\FixtureInstantiatorForAll\\:\\:instantiate\\(\\) should return Neusta\\\\Pimcore\\\\FixtureBundle\\\\Fixture but returns object\\.$#"
+			count: 1
+			path: src/Factory/FixtureInstantiator/FixtureInstantiatorForAll.php
+
+		-
+			message: "#^Cannot call method getName\\(\\) on ReflectionClass\\|null\\.$#"
+			count: 1
+			path: src/Factory/FixtureInstantiator/FixtureInstantiatorForParametrizedConstructors.php
+
+		-
+			message: "#^Cannot call method getName\\(\\) on ReflectionType\\|null\\.$#"
+			count: 1
+			path: src/Factory/FixtureInstantiator/FixtureInstantiatorForParametrizedConstructors.php
+
+		-
+			message: "#^Cannot call method getParameters\\(\\) on ReflectionMethod\\|null\\.$#"
+			count: 1
+			path: src/Factory/FixtureInstantiator/FixtureInstantiatorForParametrizedConstructors.php
+
+		-
+			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Factory\\\\FixtureInstantiator\\\\FixtureInstantiatorForParametrizedConstructors\\:\\:instantiate\\(\\) should return Neusta\\\\Pimcore\\\\FixtureBundle\\\\Fixture but returns object\\.$#"
+			count: 1
+			path: src/Factory/FixtureInstantiator/FixtureInstantiatorForParametrizedConstructors.php
+
+		-
+			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
+			count: 2
+			path: src/Factory/FixtureInstantiator/FixtureInstantiatorForParametrizedConstructors.php
+
+		-
+			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Helper\\\\AssetHelper\\:\\:createAssetFolder\\(\\) should return Pimcore\\\\Model\\\\Asset\\\\Folder but returns Pimcore\\\\Model\\\\Asset\\\\Folder\\|Pimcore\\\\Model\\\\DataObject\\\\Folder\\|Pimcore\\\\Model\\\\Document\\\\Folder\\.$#"
+			count: 1
+			path: src/Helper/AssetHelper.php
+
+		-
+			message: "#^Cannot call method getId\\(\\) on Pimcore\\\\Model\\\\DataObject\\\\Classificationstore\\\\GroupConfig\\|null\\.$#"
+			count: 1
+			path: src/Helper/ClassificationstoreHelper.php
+
+		-
+			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Helper\\\\ClassificationstoreHelper\\:\\:createNewEntriesForClassificationValues\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ClassificationstoreHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$definition of method Pimcore\\\\Model\\\\DataObject\\\\Classificationstore\\\\KeyConfig\\:\\:setDefinition\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/Helper/ClassificationstoreHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$keyConfigId of static method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Helper\\\\ClassificationstoreHelper\\:\\:createKeyGroupRelation\\(\\) expects int, int\\|null given\\.$#"
+			count: 1
+			path: src/Helper/ClassificationstoreHelper.php
+
+		-
+			message: "#^Parameter \\#2 \\$groupConfigId of static method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Helper\\\\ClassificationstoreHelper\\:\\:createKeyGroupRelation\\(\\) expects int, int\\|null given\\.$#"
+			count: 1
+			path: src/Helper/ClassificationstoreHelper.php
+
+		-
+			message: "#^Parameter \\#3 \\$storeId of static method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Helper\\\\ClassificationstoreHelper\\:\\:createGroupConfig\\(\\) expects int, int\\|null given\\.$#"
+			count: 1
+			path: src/Helper/ClassificationstoreHelper.php
+
+		-
+			message: "#^Parameter \\#4 \\$storeId of static method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Helper\\\\ClassificationstoreHelper\\:\\:createKeyConfig\\(\\) expects int, int\\|null given\\.$#"
+			count: 1
+			path: src/Helper/ClassificationstoreHelper.php
+
+		-
+			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Helper\\\\DataObjectHelper\\:\\:createFolderByPath\\(\\) should return Pimcore\\\\Model\\\\DataObject\\\\Folder but returns Pimcore\\\\Model\\\\Asset\\\\Folder\\|Pimcore\\\\Model\\\\DataObject\\\\Folder\\|Pimcore\\\\Model\\\\Document\\\\Folder\\.$#"
+			count: 1
+			path: src/Helper/DataObjectHelper.php
+
+		-
+			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Helper\\\\DocumentHelper\\:\\:createFolderByPath\\(\\) should return Pimcore\\\\Model\\\\Document\\\\Folder but returns Pimcore\\\\Model\\\\Asset\\\\Folder\\|Pimcore\\\\Model\\\\DataObject\\\\Folder\\|Pimcore\\\\Model\\\\Document\\\\Folder\\.$#"
+			count: 1
+			path: src/Helper/DocumentHelper.php
