@@ -2,6 +2,10 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Command;
 
+use Neusta\Pimcore\FixtureBundle\Event\CreateFixture;
+use Neusta\Pimcore\FixtureBundle\Event\FixtureWasCreated;
+use Neusta\Pimcore\FixtureBundle\EventListener\ExecutionTimesListener;
+use Neusta\Pimcore\FixtureBundle\EventListener\ExecutionTreeListener;
 use Neusta\Pimcore\FixtureBundle\Factory\FixtureFactory;
 use Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator\FixtureInstantiatorForAll;
 use Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator\FixtureInstantiatorForParametrizedConstructors;
@@ -12,6 +16,7 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 #[AsCommand(
     name: 'neusta:pimcore-fixtures:load',
@@ -26,6 +31,7 @@ class LoadFixturesCommand extends Command
      */
     public function __construct(
         private ContainerInterface $container,
+        private EventDispatcherInterface $eventDispatcher,
         private string $fixtureClass,
     ) {
         parent::__construct();
@@ -67,12 +73,20 @@ class LoadFixturesCommand extends Command
             new FixtureInstantiatorForAll(),
         ];
 
-        $trackExecutionTimes = OutputInterface::VERBOSITY_VERBOSE === $this->output->getVerbosity();
-        $fixtureFactory = new FixtureFactory($instantiators, $trackExecutionTimes);
+        if (OutputInterface::VERBOSITY_VERBOSE === $this->output->getVerbosity()) {
+            $executionTimesListener = new ExecutionTimesListener();
+            $executionTreeListener = new ExecutionTreeListener();
+            $this->eventDispatcher->addListener(CreateFixture::class, $executionTimesListener->onCreateFixture(...));
+            $this->eventDispatcher->addListener(FixtureWasCreated::class, $executionTimesListener->onFixtureWasCreated(...));
+            $this->eventDispatcher->addListener(CreateFixture::class, $executionTreeListener->onCreateFixture(...));
+        }
+
+        $fixtureFactory = new FixtureFactory($instantiators, $this->eventDispatcher);
         $fixtureFactory->createFixtures([$this->fixtureClass]);
 
-        if (OutputInterface::VERBOSITY_VERBOSE === $this->output->getVerbosity()) {
-            $executionTimes = $fixtureFactory->getExecutionTimes();
+        if (isset($executionTimesListener, $executionTreeListener)) {
+            $executionTimes = $executionTimesListener->getExecutionTimes();
+            $executionTimes['All together'] = $executionTimesListener->getTotalTime();
             $convertedExecutionTimes = array_map(
                 // some magic formatting '0.02' => '    0.020'
                 static fn ($value, $key) => [$key, str_pad(sprintf('%.3f', $value), 9, ' ', \STR_PAD_LEFT)],
@@ -80,7 +94,7 @@ class LoadFixturesCommand extends Command
                 array_keys($executionTimes),
             );
 
-            $output->writeln('<info>Print the execution times of the fixtures:</info>');
+            $output->writeln('<info>Execution times of the fixtures:</info>');
 
             $table = new Table($output->section());
             $table->setHeaders(['Fixture', 'Time in s']);
@@ -88,22 +102,20 @@ class LoadFixturesCommand extends Command
             $table->render();
 
             $output->writeln('When the duration is <info>0.000</info>,'
-                . ' that will likely mean the fixture was executed by dependency', );
+                . ' it will likely mean that the fixture has already been executed as a dependency of another fixture.');
             $output->writeln('');
 
-            $executionTree = $fixtureFactory->getExecutionTree();
-            $output->writeln('<info>Print the execution tree of the fixtures:</info>');
+            $executionTree = $executionTreeListener->getExecutionTree();
+            $output->writeln('<info>Execution tree of the fixtures:</info>');
 
-            foreach ($executionTree as $entry) {
-                $fixtureClass = $entry['fixtureClass'];
-                $level = $entry['level'];
+            foreach ($executionTree as ['fixtureClass' => $fixtureClass, 'level' => $level]) {
                 $prefix = str_pad(' ', $level * 2);
                 $output->writeln($prefix . $fixtureClass);
             }
             $output->writeln('');
         }
 
-        $output->writeln('Loading fixture completed.');
+        $output->writeln('Loading fixtures completed.');
 
         return Command::SUCCESS;
     }

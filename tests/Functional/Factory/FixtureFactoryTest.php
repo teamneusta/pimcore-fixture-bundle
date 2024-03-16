@@ -2,6 +2,8 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Tests\Functional\Factory;
 
+use Neusta\Pimcore\FixtureBundle\Event\CreateFixture;
+use Neusta\Pimcore\FixtureBundle\Event\FixtureWasCreated;
 use Neusta\Pimcore\FixtureBundle\Factory\FixtureFactory;
 use Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator\FixtureInstantiatorForAll;
 use Neusta\Pimcore\FixtureBundle\Fixture;
@@ -9,6 +11,7 @@ use Neusta\Pimcore\FixtureBundle\Tests\Fixtures\DependantFixture;
 use Neusta\Pimcore\FixtureBundle\Tests\Fixtures\FixtureWithDependency;
 use Neusta\Pimcore\FixtureBundle\Tests\Fixtures\SomeFixture;
 use Pimcore\Test\KernelTestCase;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 final class FixtureFactoryTest extends KernelTestCase
 {
@@ -110,5 +113,28 @@ final class FixtureFactoryTest extends KernelTestCase
         $factory->createFixtures([DependantFixture::class]);
 
         self::assertSame($dependantFixture, $factory->getFixture(DependantFixture::class));
+    }
+
+    /**
+     * @test
+     */
+    public function it_dispatches_fixture_creation_events(): void
+    {
+        $eventDispatcher = new EventDispatcher();
+        $factory = new FixtureFactory([new FixtureInstantiatorForAll()], $eventDispatcher);
+        $createFixtureEvent = null;
+        $fixtureWasCreatedEvent = null;
+
+        $eventDispatcher->addListener(CreateFixture::class, function ($event) use (&$createFixtureEvent) {
+            $createFixtureEvent = $event;
+        });
+        $eventDispatcher->addListener(FixtureWasCreated::class, function ($event) use (&$fixtureWasCreatedEvent) {
+            $fixtureWasCreatedEvent = $event;
+        });
+
+        $factory->createFixtures([SomeFixture::class]);
+
+        self::assertEquals(new CreateFixture(SomeFixture::class, 0), $createFixtureEvent);
+        self::assertEquals(new FixtureWasCreated($factory->getFixture(SomeFixture::class)), $fixtureWasCreatedEvent);
     }
 }

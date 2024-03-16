@@ -2,43 +2,26 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Factory;
 
+use Neusta\Pimcore\FixtureBundle\Event\CreateFixture;
+use Neusta\Pimcore\FixtureBundle\Event\FixtureWasCreated;
 use Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator\FixtureInstantiator;
 use Neusta\Pimcore\FixtureBundle\Fixture;
 use Pimcore\Cache;
 use Pimcore\Model\Version;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 class FixtureFactory
 {
     /** @var array<class-string<Fixture>, Fixture> */
     private array $instances = [];
-    /** @var array<class-string, float> */
-    private array $executionTimes = [];
-    /** @var array<array<class-string, int>> */
-    private array $executionTree = [];
 
     /**
      * @param list<FixtureInstantiator> $instantiators
      */
     public function __construct(
         private array $instantiators,
-        private bool $trackExecutionTime = false,
+        private ?EventDispatcherInterface $eventDispatcher = null,
     ) {
-    }
-
-    /**
-     * @return array<class-string, float>
-     */
-    public function getExecutionTimes(): array
-    {
-        return $this->executionTimes;
-    }
-
-    /**
-     * @return array<array<class-string, int>>
-     */
-    public function getExecutionTree(): array
-    {
-        return $this->executionTree;
     }
 
     /**
@@ -52,20 +35,8 @@ class FixtureFactory
         Cache::disable();
 
         foreach ($fixtures as $fixtureClass) {
-            if ($this->trackExecutionTime) {
-                $start = microtime(true);
-            }
-
             $this->ensureIsFixture($fixtureClass);
             $this->createFixture($fixtureClass, 0);
-
-            if ($this->trackExecutionTime) {
-                $this->executionTimes[$fixtureClass] = microtime(true) - $start;
-            }
-        }
-
-        if ($this->trackExecutionTime) {
-            $this->executionTimes['All together'] = array_sum($this->executionTimes);
         }
 
         $versionEnabled && Version::enable();
@@ -98,13 +69,11 @@ class FixtureFactory
      */
     private function createFixture(string $fixtureClass, int $level): void
     {
-        if ($this->trackExecutionTime) {
-            $this->executionTree[] = ['fixtureClass' => $fixtureClass, 'level' => $level];
-        }
-
         if (isset($this->instances[$fixtureClass])) {
             return;
         }
+
+        $this->eventDispatcher?->dispatch(new CreateFixture($fixtureClass, $level));
 
         $this->instances[$fixtureClass] = $this->instantiateFixture($fixtureClass);
 
@@ -115,6 +84,8 @@ class FixtureFactory
         }
 
         $this->instances[$fixtureClass]->create(...$args);
+
+        $this->eventDispatcher?->dispatch(new FixtureWasCreated($this->instances[$fixtureClass]));
     }
 
     /**
