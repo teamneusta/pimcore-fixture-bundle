@@ -1,22 +1,12 @@
 <?php declare(strict_types=1);
 
 use Neusta\Pimcore\FixtureBundle\NeustaPimcoreFixtureBundle;
-use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
-use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Component\HttpKernel\Kernel;
+use Pimcore\HttpKernel\BundleCollection\BundleCollection;
 
-class TestKernel extends Kernel
+final class TestKernel extends Neusta\Pimcore\TestingFramework\Kernel\TestKernel
 {
-    use MicroKernelTrait;
-
-    public function registerBundles(): iterable
+    public function registerBundlesToCollection(BundleCollection $collection)
     {
-        yield new FrameworkBundle();
-        yield new NeustaPimcoreFixtureBundle();
-    }
-
-    public function getProjectDir(): string
-    {
-        return __DIR__;
+        $collection->addBundle(NeustaPimcoreFixtureBundle::class);
     }
 }

@@ -1,8 +1,8 @@
 {
   "name": "teamneusta/pimcore-fixture-bundle",
-  "type": "pimcore-bundle",
   "description": "Provide basic functionality to enable installing fixtures in Pimcore",
   "license": "GPL-3.0-or-later",
+  "type": "pimcore-bundle",
   "authors": [
     {
       "name": "team neusta GmbH",
@@ -11,18 +11,14 @@
       "role": "Developer"
     }
   ],
-  "config": {
-    "sort-packages": true,
-    "allow-plugins": {
-      "phpstan/extension-installer": true
-    }
-  },
   "require": {
     "php": "~8.1.0",
     "pimcore/pimcore": "^10.5"
   },
   "require-dev": {
+    "ergebnis/composer-normalize": "^2.42",
     "friendsofphp/php-cs-fixer": "^3.11",
+    "laminas/laminas-zendframework-bridge": "^1.8",
     "phpspec/prophecy-phpunit": "^2.0",
     "phpstan/extension-installer": "^1.1",
     "phpstan/phpstan": "^1.8",
@@ -30,6 +26,11 @@
     "phpstan/phpstan-symfony": "^1.2",
     "phpunit/phpunit": "^9.5",
     "teamneusta/pimcore-testing-framework": "^0.11"
+  },
+  "conflict": {
+    "presta/sitemap-bundle": "<3.2",
+    "symfony/form": "<5.4",
+    "symfony/routing": "<5.4"
   },
   "autoload": {
     "psr-4": {
@@ -43,6 +44,13 @@
     "classmap": [
       "tests/app/TestKernel.php"
     ]
+  },
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true,
+      "phpstan/extension-installer": true
+    },
+    "sort-packages": true
   },
   "scripts": {
     "cs:check": "@cs:fix --dry-run",
