@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Profiler\Profiler;
 
 class FixtureFactory
 {
-    /** @var array<class-string, Fixture> */
+    /** @var array<class-string<Fixture>, Fixture> */
     private array $instances = [];
     /** @var array<class-string, float> */
     private array $executionTimes = [];
@@ -61,11 +61,15 @@ class FixtureFactory
             if ($this->trackExecutionTime) {
                 $start = microtime(true);
             }
-            $this->createFixture($this->fixtureMapping[$fixtureNameOrClass] ?? $fixtureNameOrClass, 0);
+
+            $this->ensureIsFixture($fixtureClass = $this->fixtureMapping[$fixtureNameOrClass] ?? $fixtureNameOrClass);
+            $this->createFixture($fixtureClass, 0);
+
             if ($this->trackExecutionTime) {
                 $this->executionTimes[$fixtureNameOrClass] = microtime(true) - $start;
             }
         }
+
         if ($this->trackExecutionTime) {
             $this->executionTimes['All together'] = array_sum($this->executionTimes);
         }
@@ -75,16 +79,11 @@ class FixtureFactory
         Cache::enable();
     }
 
+    /**
+     * @param class-string<Fixture> $fixtureClass
+     */
     private function createFixture(string $fixtureClass, int $level): void
     {
-        if (!is_a($fixtureClass, Fixture::class, true)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Expected "%s" to implement "%s", but it does not.',
-                $fixtureClass,
-                Fixture::class,
-            ));
-        }
-
         if ($this->trackExecutionTime) {
             $this->executionTree[] = ['fixtureClass' => $fixtureClass, 'level' => $level];
         }
@@ -96,9 +95,9 @@ class FixtureFactory
         $this->instances[$fixtureClass] = $this->instantiateFixture($fixtureClass);
 
         $args = [];
-        foreach ($this->iterateMethodParameterTypeNames($fixtureClass, 'create') as $type) {
-            $this->createFixture($type, $level + 1);
-            $args[] = $this->instances[$type];
+        foreach ($this->getDependencies($fixtureClass, 'create') as $dependentFixtureClass) {
+            $this->createFixture($dependentFixtureClass, $level + 1);
+            $args[] = $this->instances[$dependentFixtureClass];
         }
 
         $this->instances[$fixtureClass]->create(...$args);
@@ -113,28 +112,43 @@ class FixtureFactory
         }
 
         throw new \RuntimeException(sprintf(
-            'No instantiator found that is is able to instantiate fixtures of type "%s".',
+            'No instantiator found that is able to instantiate fixtures of type "%s".',
             $fixtureClass,
         ));
     }
 
     /**
-     * @return list<class-string>
+     * @return list<class-string<Fixture>>
      */
-    private function iterateMethodParameterTypeNames(string $fixtureClass, string $methodName): iterable
+    private function getDependencies(string $fixtureClass, string $methodName): iterable
     {
         foreach ((new \ReflectionMethod($fixtureClass, $methodName))->getParameters() as $parameter) {
-            if (!$type = $parameter->getType()) {
+            $type = $parameter->getType();
+
+            if (!$type instanceof \ReflectionNamedType) {
                 throw new \LogicException(sprintf(
-                    'Parameter "$%s" of %s::%s() has no type, while it should be an implementation of "%s".',
+                    'Parameter "$%s" of %s::%s() has an invalid type.',
                     $parameter->getName(),
                     $parameter->getDeclaringClass()->getName(),
                     $parameter->getDeclaringFunction()->getName(),
-                    Fixture::class,
                 ));
             }
 
+            $this->ensureIsFixture($type->getName());
+
             yield $type->getName();
+        }
+    }
+
+    /** @phpstan-assert class-string<Fixture> $fixtureClass */
+    private function ensureIsFixture(string $fixtureClass): void
+    {
+        if (!is_a($fixtureClass, Fixture::class, true)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Expected "%s" to implement "%s", but it does not.',
+                $fixtureClass,
+                Fixture::class,
+            ));
         }
     }
 }
