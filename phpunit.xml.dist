@@ -5,6 +5,7 @@
     xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
     beStrictAboutOutputDuringTests="true"
     beStrictAboutTodoAnnotatedTests="true"
+    bootstrap="tests/bootstrap.php"
     cacheResultFile=".phpunit.cache/test-results"
     colors="true"
     failOnRisky="true"
@@ -14,8 +15,6 @@
         <ini name="display_startup_errors" value="On"/>
         <ini name="display_errors" value="On"/>
         <ini name="error_reporting" value="-1"/>
-        <env name="KERNEL_CLASS" value="TestKernel"/>
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
     </php>
 
     <testsuites>

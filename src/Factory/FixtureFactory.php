@@ -80,6 +80,27 @@ class FixtureFactory
     }
 
     /**
+     * @template T of Fixture
+     *
+     * @param class-string<T> $fixture
+     *
+     * @return T
+     *
+     * @throws \RuntimeException when the fixture hasn't been created
+     */
+    public function getFixture(string $fixture): Fixture
+    {
+        if (!isset($this->instances[$fixture])) {
+            throw new \RuntimeException(sprintf('Fixture "%s" has not been created.', $fixture));
+        }
+
+        $instance = $this->instances[$fixture];
+        \assert($instance instanceof $fixture);
+
+        return $instance;
+    }
+
+    /**
      * @param class-string<Fixture> $fixtureClass
      */
     private function createFixture(string $fixtureClass, int $level): void
