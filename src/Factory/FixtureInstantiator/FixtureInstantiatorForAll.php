@@ -14,11 +14,13 @@ final class FixtureInstantiatorForAll implements FixtureInstantiator
 
         $class = new \ReflectionClass($fixtureClass);
 
-        if ($class->isAbstract() || !$constructor = $class->getConstructor()) {
+        if ($class->isAbstract()) {
             return false;
         }
 
-        return $constructor->isPublic() && $constructor->getNumberOfRequiredParameters() === 0;
+        $constructor = $class->getConstructor();
+
+        return !$constructor || ($constructor->isPublic() && $constructor->getNumberOfRequiredParameters() === 0);
     }
 
     public function instantiate(string $fixtureClass): Fixture
