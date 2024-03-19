@@ -14,7 +14,13 @@ final class FixtureInstantiatorForParametrizedConstructors implements FixtureIns
 
     public function supports(string $fixtureClass): bool
     {
-        if (!$constructor = $this->getConstructor($fixtureClass)) {
+        if (!class_exists($fixtureClass)) {
+            return false;
+        }
+
+        $class = new \ReflectionClass($fixtureClass);
+
+        if ($class->isAbstract() || !$constructor = $class->getConstructor()) {
             return false;
         }
 
@@ -23,7 +29,7 @@ final class FixtureInstantiatorForParametrizedConstructors implements FixtureIns
 
     public function instantiate(string $fixtureClass): Fixture
     {
-        $constructor = $this->getConstructor($fixtureClass);
+        $constructor = (new \ReflectionClass($fixtureClass))->getConstructor();
         \assert($constructor instanceof \ReflectionMethod);
 
         $constructorServices = [];
@@ -59,14 +65,6 @@ final class FixtureInstantiatorForParametrizedConstructors implements FixtureIns
         \assert($fixture instanceof Fixture);
 
         return $fixture;
-    }
-
-    /**
-     * @param class-string<Fixture> $fixtureClass
-     */
-    private function getConstructor(string $fixtureClass): ?\ReflectionMethod
-    {
-        return (new \ReflectionClass($fixtureClass))->getConstructor();
     }
 
     private function throwLogicException(string $message, \ReflectionParameter $parameter): never
