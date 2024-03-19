@@ -8,7 +8,17 @@ final class FixtureInstantiatorForAll implements FixtureInstantiator
 {
     public function supports(string $fixtureClass): bool
     {
-        return true;
+        if (!class_exists($fixtureClass)) {
+            return false;
+        }
+
+        $class = new \ReflectionClass($fixtureClass);
+
+        if ($class->isAbstract() || !$constructor = $class->getConstructor()) {
+            return false;
+        }
+
+        return $constructor->isPublic() && $constructor->getNumberOfRequiredParameters() === 0;
     }
 
     public function instantiate(string $fixtureClass): Fixture
