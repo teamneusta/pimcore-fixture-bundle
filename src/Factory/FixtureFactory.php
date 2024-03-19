@@ -5,9 +5,7 @@ namespace Neusta\Pimcore\FixtureBundle\Factory;
 use Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator\FixtureInstantiator;
 use Neusta\Pimcore\FixtureBundle\Fixture;
 use Pimcore\Cache;
-use Pimcore\Db;
 use Pimcore\Model\Version;
-use Symfony\Component\HttpKernel\Profiler\Profiler;
 
 class FixtureFactory
 {
@@ -25,7 +23,6 @@ class FixtureFactory
     public function __construct(
         private array $fixtureMapping,
         private array $instantiators,
-        private ?Profiler $profiler = null,
         private bool $trackExecutionTime = false,
     ) {
     }
@@ -53,9 +50,6 @@ class FixtureFactory
     {
         Version::disable();
         Cache::disable();
-        $originalSqlLogger = Db::getConnection()->getConfiguration()->getSQLLogger();
-        Db::getConnection()->getConfiguration()->setSQLLogger(null);
-        $this->profiler?->disable();
 
         foreach ($fixtures as $fixtureNameOrClass) {
             if ($this->trackExecutionTime) {
@@ -74,7 +68,6 @@ class FixtureFactory
             $this->executionTimes['All together'] = array_sum($this->executionTimes);
         }
 
-        Db::getConnection()->getConfiguration()->setSQLLogger($originalSqlLogger);
         Version::enable();
         Cache::enable();
     }

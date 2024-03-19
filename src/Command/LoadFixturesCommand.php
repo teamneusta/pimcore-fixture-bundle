@@ -11,7 +11,6 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Profiler\Profiler;
 
 #[AsCommand(
     name: 'neusta:pimcore-fixtures:load',
@@ -24,7 +23,6 @@ class LoadFixturesCommand extends Command
     public function __construct(
         private ContainerInterface $container,
         private string $fixtureClass,
-        private ?Profiler $profiler = null,
     ) {
         parent::__construct();
     }
@@ -66,7 +64,7 @@ class LoadFixturesCommand extends Command
         ];
 
         $trackExecutionTimes = OutputInterface::VERBOSITY_VERBOSE === $this->output->getVerbosity();
-        $fixtureFactory = new FixtureFactory([], $instantiators, $this->profiler, $trackExecutionTimes);
+        $fixtureFactory = new FixtureFactory([], $instantiators, $trackExecutionTimes);
         $fixtureFactory->createFixtures([$this->fixtureClass]);
 
         if (OutputInterface::VERBOSITY_VERBOSE === $this->output->getVerbosity()) {
