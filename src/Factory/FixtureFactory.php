@@ -17,11 +17,9 @@ class FixtureFactory
     private array $executionTree = [];
 
     /**
-     * @param array<string, class-string<Fixture>> $fixtureMapping
-     * @param list<FixtureInstantiator>            $instantiators
+     * @param list<FixtureInstantiator> $instantiators
      */
     public function __construct(
-        private array $fixtureMapping,
         private array $instantiators,
         private bool $trackExecutionTime = false,
     ) {
@@ -44,7 +42,7 @@ class FixtureFactory
     }
 
     /**
-     * @param list<string|class-string<Fixture>> $fixtures
+     * @param list<class-string<Fixture>> $fixtures
      */
     public function createFixtures(array $fixtures): void
     {
@@ -53,16 +51,16 @@ class FixtureFactory
         Version::disable();
         Cache::disable();
 
-        foreach ($fixtures as $fixtureNameOrClass) {
+        foreach ($fixtures as $fixtureClass) {
             if ($this->trackExecutionTime) {
                 $start = microtime(true);
             }
 
-            $this->ensureIsFixture($fixtureClass = $this->fixtureMapping[$fixtureNameOrClass] ?? $fixtureNameOrClass);
+            $this->ensureIsFixture($fixtureClass);
             $this->createFixture($fixtureClass, 0);
 
             if ($this->trackExecutionTime) {
-                $this->executionTimes[$fixtureNameOrClass] = microtime(true) - $start;
+                $this->executionTimes[$fixtureClass] = microtime(true) - $start;
             }
         }
 
