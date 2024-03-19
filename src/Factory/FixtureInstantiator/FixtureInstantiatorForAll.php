@@ -20,7 +20,7 @@ final class FixtureInstantiatorForAll implements FixtureInstantiator
 
         $constructor = $class->getConstructor();
 
-        return !$constructor || ($constructor->isPublic() && $constructor->getNumberOfRequiredParameters() === 0);
+        return !$constructor || ($constructor->isPublic() && 0 === $constructor->getNumberOfRequiredParameters());
     }
 
     public function instantiate(string $fixtureClass): Fixture
