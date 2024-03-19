@@ -48,6 +48,8 @@ class FixtureFactory
      */
     public function createFixtures(array $fixtures): void
     {
+        $versionEnabled = Version::isEnabled();
+        $cacheEnabled = Cache::isEnabled();
         Version::disable();
         Cache::disable();
 
@@ -68,8 +70,8 @@ class FixtureFactory
             $this->executionTimes['All together'] = array_sum($this->executionTimes);
         }
 
-        Version::enable();
-        Cache::enable();
+        $versionEnabled && Version::enable();
+        $cacheEnabled && Cache::enable();
     }
 
     /**
