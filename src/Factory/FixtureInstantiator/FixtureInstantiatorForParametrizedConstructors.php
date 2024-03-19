@@ -5,18 +5,16 @@ namespace Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator;
 use Neusta\Pimcore\FixtureBundle\Fixture;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class FixtureInstantiatorForParametrizedConstructors implements FixtureInstantiator
+final class FixtureInstantiatorForParametrizedConstructors implements FixtureInstantiator
 {
-    private ContainerInterface $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
+    public function __construct(
+        private readonly ContainerInterface $container,
+    ) {
     }
 
     public function supports(string $fixtureClass): bool
     {
-        if (!$constructor = (new \ReflectionClass($fixtureClass))->getConstructor()) {
+        if (!$constructor = $this->getConstructor($fixtureClass)) {
             return false;
         }
 
@@ -25,27 +23,29 @@ class FixtureInstantiatorForParametrizedConstructors implements FixtureInstantia
 
     public function instantiate(string $fixtureClass): Fixture
     {
-        $reflectionClass = new \ReflectionClass($fixtureClass);
-        $constructor = $reflectionClass->getConstructor();
+        $constructor = $this->getConstructor($fixtureClass);
+        \assert($constructor instanceof \ReflectionMethod);
 
         $constructorServices = [];
         foreach ($constructor->getParameters() as $parameter) {
             $reflectionType = $parameter->getType();
 
-            if (!$reflectionType) {
+            if (!$reflectionType instanceof \ReflectionNamedType) {
                 $this->throwLogicException(
                     'Parameter "$%s" of %s::%s() has no type, while it should be an implementation of "%s".',
                     $parameter,
                 );
             }
 
-            $reflectionTypeName = $reflectionType->getName();
-            if (ContainerInterface::class === $reflectionTypeName) {
+            $type = $reflectionType->getName();
+
+            if (ContainerInterface::class === $type) {
                 $constructorServices[] = $this->container;
                 continue;
             }
-            if ($this->container->has($reflectionTypeName)) {
-                $constructorServices[] = $this->container->get($reflectionTypeName);
+
+            if ($this->container->has($type)) {
+                $constructorServices[] = $this->container->get($type);
                 continue;
             }
 
@@ -55,19 +55,29 @@ class FixtureInstantiatorForParametrizedConstructors implements FixtureInstantia
             );
         }
 
-        return new $fixtureClass(...$constructorServices);
+        $fixture = new $fixtureClass(...$constructorServices);
+        \assert($fixture instanceof Fixture);
+
+        return $fixture;
     }
 
-    private function throwLogicException(string $message, \ReflectionParameter $parameter): void
+    /**
+     * @param class-string<Fixture> $fixtureClass
+     */
+    private function getConstructor(string $fixtureClass): ?\ReflectionMethod
     {
-        throw new \LogicException(
-            sprintf(
-                $message,
-                $parameter->getName(),
-                $parameter->getDeclaringClass()->getName(),
-                $parameter->getDeclaringFunction()->getName(),
-                Fixture::class,
-            ),
-        );
+        return (new \ReflectionClass($fixtureClass))->getConstructor();
+    }
+
+    private function throwLogicException(string $message, \ReflectionParameter $parameter): never
+    {
+        throw new \LogicException(sprintf(
+            $message,
+            $parameter->getName(),
+            // @phpstan-ignore-next-line this is a constructor parameter, so it always has a class
+            $parameter->getDeclaringClass()->getName(),
+            $parameter->getDeclaringFunction()->getName(),
+            Fixture::class,
+        ));
     }
 }

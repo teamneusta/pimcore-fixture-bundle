@@ -119,6 +119,9 @@ class FixtureFactory
         $this->instances[$fixtureClass]->create(...$args);
     }
 
+    /**
+     * @param class-string<Fixture> $fixtureClass
+     */
     private function instantiateFixture(string $fixtureClass): Fixture
     {
         foreach ($this->instantiators as $instantiator) {
