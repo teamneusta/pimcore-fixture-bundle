@@ -146,6 +146,7 @@ class FixtureFactory
                 throw new \LogicException(sprintf(
                     'Parameter "$%s" of %s::%s() has an invalid type.',
                     $parameter->getName(),
+                    // @phpstan-ignore-next-line this is a method parameter, so it always has a class
                     $parameter->getDeclaringClass()->getName(),
                     $parameter->getDeclaringFunction()->getName(),
                 ));

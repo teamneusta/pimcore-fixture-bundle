@@ -16,11 +16,6 @@ parameters:
 			path: src/Command/LoadFixturesCommand.php
 
 		-
-			message: "#^Cannot call method getName\\(\\) on ReflectionClass\\|null\\.$#"
-			count: 1
-			path: src/Factory/FixtureFactory.php
-
-		-
 			message: "#^Property Neusta\\\\Pimcore\\\\FixtureBundle\\\\Factory\\\\FixtureFactory\\:\\:\\$executionTimes \\(array\\<class\\-string, float\\>\\) does not accept array\\<string, float\\|int\\>\\.$#"
 			count: 1
 			path: src/Factory/FixtureFactory.php
