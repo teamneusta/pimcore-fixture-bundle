@@ -6,31 +6,6 @@ parameters:
 			path: src/Command/LoadFixturesCommand.php
 
 		-
-			message: "#^Offset 'fixtureClass' does not exist on array\\<class\\-string, int\\>\\.$#"
-			count: 1
-			path: src/Command/LoadFixturesCommand.php
-
-		-
-			message: "#^Offset 'level' does not exist on array\\<class\\-string, int\\>\\.$#"
-			count: 1
-			path: src/Command/LoadFixturesCommand.php
-
-		-
-			message: "#^Property Neusta\\\\Pimcore\\\\FixtureBundle\\\\Factory\\\\FixtureFactory\\:\\:\\$executionTimes \\(array\\<class\\-string, float\\>\\) does not accept array\\<string, float\\|int\\>\\.$#"
-			count: 1
-			path: src/Factory/FixtureFactory.php
-
-		-
-			message: "#^Property Neusta\\\\Pimcore\\\\FixtureBundle\\\\Factory\\\\FixtureFactory\\:\\:\\$executionTree \\(array\\<array\\<class\\-string, int\\>\\>\\) does not accept array\\<array\\<string, class\\-string\\<Neusta\\\\Pimcore\\\\FixtureBundle\\\\Fixture\\>\\|int\\>\\>\\.$#"
-			count: 1
-			path: src/Factory/FixtureFactory.php
-
-		-
-			message: "#^Variable \\$start might not be defined\\.$#"
-			count: 1
-			path: src/Factory/FixtureFactory.php
-
-		-
 			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Helper\\\\AssetHelper\\:\\:createAssetFolder\\(\\) should return Pimcore\\\\Model\\\\Asset\\\\Folder but returns Pimcore\\\\Model\\\\Asset\\\\Folder\\|Pimcore\\\\Model\\\\DataObject\\\\Folder\\|Pimcore\\\\Model\\\\Document\\\\Folder\\.$#"
 			count: 1
 			path: src/Helper/AssetHelper.php

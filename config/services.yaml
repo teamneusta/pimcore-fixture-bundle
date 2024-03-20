@@ -2,6 +2,7 @@ services:
   Neusta\Pimcore\FixtureBundle\Command\LoadFixturesCommand:
     arguments:
       $container: '@Symfony\Component\DependencyInjection\ContainerInterface'
+      $eventDispatcher: '@event_dispatcher'
       $fixtureClass: !abstract defined in extension
     tags:
       - { name: 'console.command' }
