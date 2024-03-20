@@ -36,36 +36,6 @@ parameters:
 			path: src/Factory/FixtureFactory.php
 
 		-
-			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Factory\\\\FixtureInstantiator\\\\FixtureInstantiatorForAll\\:\\:instantiate\\(\\) should return Neusta\\\\Pimcore\\\\FixtureBundle\\\\Fixture but returns object\\.$#"
-			count: 1
-			path: src/Factory/FixtureInstantiator/FixtureInstantiatorForAll.php
-
-		-
-			message: "#^Cannot call method getName\\(\\) on ReflectionClass\\|null\\.$#"
-			count: 1
-			path: src/Factory/FixtureInstantiator/FixtureInstantiatorForParametrizedConstructors.php
-
-		-
-			message: "#^Cannot call method getName\\(\\) on ReflectionType\\|null\\.$#"
-			count: 1
-			path: src/Factory/FixtureInstantiator/FixtureInstantiatorForParametrizedConstructors.php
-
-		-
-			message: "#^Cannot call method getParameters\\(\\) on ReflectionMethod\\|null\\.$#"
-			count: 1
-			path: src/Factory/FixtureInstantiator/FixtureInstantiatorForParametrizedConstructors.php
-
-		-
-			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Factory\\\\FixtureInstantiator\\\\FixtureInstantiatorForParametrizedConstructors\\:\\:instantiate\\(\\) should return Neusta\\\\Pimcore\\\\FixtureBundle\\\\Fixture but returns object\\.$#"
-			count: 1
-			path: src/Factory/FixtureInstantiator/FixtureInstantiatorForParametrizedConstructors.php
-
-		-
-			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
-			count: 2
-			path: src/Factory/FixtureInstantiator/FixtureInstantiatorForParametrizedConstructors.php
-
-		-
 			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Helper\\\\AssetHelper\\:\\:createAssetFolder\\(\\) should return Pimcore\\\\Model\\\\Asset\\\\Folder but returns Pimcore\\\\Model\\\\Asset\\\\Folder\\|Pimcore\\\\Model\\\\DataObject\\\\Folder\\|Pimcore\\\\Model\\\\Document\\\\Folder\\.$#"
 			count: 1
 			path: src/Helper/AssetHelper.php

@@ -4,15 +4,30 @@ namespace Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator;
 
 use Neusta\Pimcore\FixtureBundle\Fixture;
 
-class FixtureInstantiatorForAll implements FixtureInstantiator
+final class FixtureInstantiatorForAll implements FixtureInstantiator
 {
     public function supports(string $fixtureClass): bool
     {
-        return true;
+        if (!class_exists($fixtureClass)) {
+            return false;
+        }
+
+        $class = new \ReflectionClass($fixtureClass);
+
+        if ($class->isAbstract()) {
+            return false;
+        }
+
+        $constructor = $class->getConstructor();
+
+        return !$constructor || ($constructor->isPublic() && 0 === $constructor->getNumberOfRequiredParameters());
     }
 
     public function instantiate(string $fixtureClass): Fixture
     {
-        return new $fixtureClass();
+        $fixture = new $fixtureClass();
+        \assert($fixture instanceof Fixture);
+
+        return $fixture;
     }
 }
