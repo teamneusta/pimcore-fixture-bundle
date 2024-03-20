@@ -5,6 +5,7 @@ namespace Neusta\Pimcore\FixtureBundle\Command;
 use Neusta\Pimcore\FixtureBundle\Factory\FixtureFactory;
 use Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator\FixtureInstantiatorForAll;
 use Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator\FixtureInstantiatorForParametrizedConstructors;
+use Neusta\Pimcore\FixtureBundle\Fixture;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -20,6 +21,9 @@ class LoadFixturesCommand extends Command
 {
     private OutputInterface $output;
 
+    /**
+     * @param class-string<Fixture> $fixtureClass
+     */
     public function __construct(
         private ContainerInterface $container,
         private string $fixtureClass,
@@ -64,7 +68,7 @@ class LoadFixturesCommand extends Command
         ];
 
         $trackExecutionTimes = OutputInterface::VERBOSITY_VERBOSE === $this->output->getVerbosity();
-        $fixtureFactory = new FixtureFactory([], $instantiators, $trackExecutionTimes);
+        $fixtureFactory = new FixtureFactory($instantiators, $trackExecutionTimes);
         $fixtureFactory->createFixtures([$this->fixtureClass]);
 
         if (OutputInterface::VERBOSITY_VERBOSE === $this->output->getVerbosity()) {

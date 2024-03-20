@@ -22,7 +22,7 @@ final class FixtureFactoryTest extends KernelTestCase
      */
     public function it_creates_a_fixture(): void
     {
-        $factory = new FixtureFactory([], [new FixtureInstantiatorForAll()]);
+        $factory = new FixtureFactory([new FixtureInstantiatorForAll()]);
 
         $factory->createFixtures([SomeFixture::class]);
 
@@ -34,23 +34,9 @@ final class FixtureFactoryTest extends KernelTestCase
     /**
      * @test
      */
-    public function it_creates_a_fixture_from_a_mapped_name(): void
-    {
-        $factory = new FixtureFactory(['something' => SomeFixture::class], [new FixtureInstantiatorForAll()]);
-
-        $factory->createFixtures(['something']);
-
-        $fixture = $factory->getFixture(SomeFixture::class);
-        self::assertInstanceOf(SomeFixture::class, $fixture);
-        self::assertTrue($fixture->created);
-    }
-
-    /**
-     * @test
-     */
     public function it_throws_when_prompted_to_create_a_fixture_that_does_not_implement_the_Fixture_interface(): void
     {
-        $factory = new FixtureFactory([], [new FixtureInstantiatorForAll()]);
+        $factory = new FixtureFactory([new FixtureInstantiatorForAll()]);
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Expected "stdClass" to implement "Neusta\Pimcore\FixtureBundle\Fixture", but it does not.');
@@ -63,7 +49,7 @@ final class FixtureFactoryTest extends KernelTestCase
      */
     public function it_creates_depending_fixtures_first(): void
     {
-        $factory = new FixtureFactory([], [new FixtureInstantiatorForAll()]);
+        $factory = new FixtureFactory([new FixtureInstantiatorForAll()]);
 
         $factory->createFixtures([FixtureWithDependency::class]);
 
@@ -79,7 +65,7 @@ final class FixtureFactoryTest extends KernelTestCase
      */
     public function it_throws_when_dependency_has_invalid_type(): void
     {
-        $factory = new FixtureFactory([], [new FixtureInstantiatorForAll()]);
+        $factory = new FixtureFactory([new FixtureInstantiatorForAll()]);
         $fixture = new class() implements Fixture {
             public function create($something): void
             {
@@ -97,7 +83,7 @@ final class FixtureFactoryTest extends KernelTestCase
      */
     public function it_throws_when_depending_on_a_non_fixture_object(): void
     {
-        $factory = new FixtureFactory([], [new FixtureInstantiatorForAll()]);
+        $factory = new FixtureFactory([new FixtureInstantiatorForAll()]);
         $fixture = new class() implements Fixture {
             public function create(\stdClass $noFixture): void
             {
@@ -115,7 +101,7 @@ final class FixtureFactoryTest extends KernelTestCase
      */
     public function it_creates_a_fixture_only_once(): void
     {
-        $factory = new FixtureFactory([], [new FixtureInstantiatorForAll()]);
+        $factory = new FixtureFactory([new FixtureInstantiatorForAll()]);
 
         $factory->createFixtures([FixtureWithDependency::class]);
 
