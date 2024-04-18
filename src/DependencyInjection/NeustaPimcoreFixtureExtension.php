@@ -22,9 +22,6 @@ class NeustaPimcoreFixtureExtension extends ConfigurableExtension
         $loader = new YamlFileLoader($container, new FileLocator(\dirname(__DIR__, 2) . '/config'));
         $loader->load('services.yaml');
 
-        $definition = $container->getDefinition(LoadFixturesCommand::class);
-        $definition->setArgument('$fixtureClass', $mergedConfig['fixture_class']);
-
         $definition = $container->getDefinition(AssetHelper::class);
         $definition->setArgument('$prefix', $mergedConfig['asset_base_path']);
 
