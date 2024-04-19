@@ -10,3 +10,5 @@ services:
   Neusta\Pimcore\FixtureBundle\Helper\DocumentHelper:
     arguments:
       $prefix: !abstract defined in extension
+
+  Neusta\Pimcore\FixtureBundle\ReferenceRepository\DataObjectReferenceRepository: ~
