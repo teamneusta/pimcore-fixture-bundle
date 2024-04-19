@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Neusta\Pimcore\FixtureBundle\DependencyInjection;
 
-use Neusta\Pimcore\FixtureBundle\Command\LoadFixturesCommand;
 use Neusta\Pimcore\FixtureBundle\Helper\AssetHelper;
 use Neusta\Pimcore\FixtureBundle\Helper\DataObjectHelper;
 use Neusta\Pimcore\FixtureBundle\Helper\DocumentHelper;
