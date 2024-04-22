@@ -12,3 +12,7 @@ services:
       $prefix: !abstract defined in extension
 
   Neusta\Pimcore\FixtureBundle\ReferenceRepository\DataObjectReferenceRepository: ~
+
+  Neusta\Pimcore\FixtureBundle\EventListener\PimcoreLoadOptimization:
+    autowire: true
+    autoconfigure: true
