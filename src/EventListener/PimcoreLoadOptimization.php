@@ -21,7 +21,7 @@ class PimcoreLoadOptimization implements EventSubscriberInterface
     private bool $cacheEnabled;
 
     public function __construct(
-        private readonly ?Profiler $profiler,
+        private readonly ProfilerDisabler $profilerDisabler,
     ) {
     }
 
@@ -50,7 +50,7 @@ class PimcoreLoadOptimization implements EventSubscriberInterface
         $this->originalSqlLogger = Db::getConnection()->getConfiguration()->getSQLLogger();
         Db::getConnection()->getConfiguration()->setSQLLogger(null);
 
-        $this->profiler?->disable();
+        $this->profilerDisabler->disable();
     }
 
     public function afterCommand(ConsoleTerminateEvent $event): void
@@ -58,6 +58,8 @@ class PimcoreLoadOptimization implements EventSubscriberInterface
         if (!$this->isRelevantCommand($event)) {
             return;
         }
+
+        $this->profilerDisabler->enable();
 
         Db::getConnection()->getConfiguration()->setSQLLogger($this->originalSqlLogger);
 

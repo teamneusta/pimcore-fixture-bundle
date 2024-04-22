@@ -16,3 +16,6 @@ services:
   Neusta\Pimcore\FixtureBundle\EventListener\PimcoreLoadOptimization:
     autowire: true
     autoconfigure: true
+
+  Neusta\Pimcore\FixtureBundle\EventListener\ProfilerDisabler:
+    lazy: true
