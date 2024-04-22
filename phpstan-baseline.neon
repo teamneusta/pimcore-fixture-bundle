@@ -1,9 +1,14 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\:\\:section\\(\\)\\.$#"
+			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Fixtures\\\\AbstractFixture\\:\\:getReference\\(\\) has no return type specified\\.$#"
 			count: 1
-			path: src/Command/LoadFixturesCommand.php
+			path: src/Fixtures/AbstractFixture.php
+
+		-
+			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Helper\\\\AssetHelper\\:\\:createAssetFolder\\(\\) should return Pimcore\\\\Model\\\\Asset\\\\Folder but returns Pimcore\\\\Model\\\\Asset\\\\Folder\\|Pimcore\\\\Model\\\\DataObject\\\\Folder\\|Pimcore\\\\Model\\\\Document\\\\Folder\\|null\\.$#"
+			count: 1
+			path: src/Helper/AssetHelper.php
 
 		-
 			message: "#^Cannot call method getId\\(\\) on Pimcore\\\\Model\\\\DataObject\\\\Classificationstore\\\\GroupConfig\\|null\\.$#"
@@ -39,3 +44,13 @@ parameters:
 			message: "#^Parameter \\#4 \\$storeId of static method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Helper\\\\ClassificationstoreHelper\\:\\:createKeyConfig\\(\\) expects int, int\\|null given\\.$#"
 			count: 1
 			path: src/Helper/ClassificationstoreHelper.php
+
+		-
+			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Helper\\\\DataObjectHelper\\:\\:createFolderByPath\\(\\) should return Pimcore\\\\Model\\\\DataObject\\\\Folder but returns Pimcore\\\\Model\\\\Asset\\\\Folder\\|Pimcore\\\\Model\\\\DataObject\\\\Folder\\|Pimcore\\\\Model\\\\Document\\\\Folder\\|null\\.$#"
+			count: 1
+			path: src/Helper/DataObjectHelper.php
+
+		-
+			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Helper\\\\DocumentHelper\\:\\:createFolderByPath\\(\\) should return Pimcore\\\\Model\\\\Document\\\\Folder but returns Pimcore\\\\Model\\\\Asset\\\\Folder\\|Pimcore\\\\Model\\\\DataObject\\\\Folder\\|Pimcore\\\\Model\\\\Document\\\\Folder\\|null\\.$#"
+			count: 1
+			path: src/Helper/DocumentHelper.php

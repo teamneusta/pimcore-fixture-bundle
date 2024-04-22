@@ -4,14 +4,18 @@ namespace Neusta\Pimcore\FixtureBundle\ReferenceRepository;
 
 /**
  * based on \Doctrine\Common\DataFixtures\ReferenceRepository.
+ * @template T of object
  */
 class DataObjectReferenceRepository
 {
     /**
-     * @psalm-var array<class-string, array<string, object>>
+     * @psalm-var array<class-string, array<string, T>>
      */
     private array $referencesByClass = [];
 
+    /**
+     * @param T $reference
+     */
     public function setReference(string $name, object $reference): void
     {
         $class = $reference::class;
@@ -20,7 +24,7 @@ class DataObjectReferenceRepository
     }
 
     /**
-     * @param object $object - managed object
+     * @param T $object - managed object
      *
      * @throws \BadMethodCallException - if repository already has a reference by $name
      */
@@ -44,13 +48,11 @@ class DataObjectReferenceRepository
      *
      * @psalm-param class-string<T> $class
      *
-     * @return object
+     * @return T
      *
      * @psalm-return T
      *
      * @throws \OutOfBoundsException - if repository does not exist
-     *
-     * @template T of object
      */
     public function getReference(string $name, string $class)
     {

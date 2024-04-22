@@ -27,11 +27,17 @@ abstract class AbstractFixture implements FixtureInterface, ORMFixtureInterface
         $this->dataObjectReferenceRepository->addReference($name, $object);
     }
 
+    /**
+     * @psalm-param class-string $class
+     */
     protected function getReference(string $name, string $class)
     {
         return $this->dataObjectReferenceRepository->getReference($name, $class);
     }
 
+    /**
+     * @psalm-param class-string $class
+     */
     protected function hasReference(string $name, string $class): bool
     {
         return $this->dataObjectReferenceRepository->hasReference($name, $class);

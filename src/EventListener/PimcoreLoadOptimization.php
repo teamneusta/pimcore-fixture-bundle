@@ -42,18 +42,15 @@ class PimcoreLoadOptimization implements EventSubscriberInterface
         $output = $event->getOutput();
         $output->writeln('Disabling <info>Pimcore Versioning</info>, <info>Pimcore Cache</info> and <info>Pimcore SQL Logger</info>');
 
-        try {
-            $this->versionEnabled = Version::isEnabled();
-            $this->cacheEnabled = Cache::isEnabled();
-            Version::disable();
-            Cache::disable();
+        $this->versionEnabled = Version::isEnabled();
+        $this->cacheEnabled = Cache::isEnabled();
+        Version::disable();
+        Cache::disable();
 
-            $this->originalSqlLogger = Db::getConnection()->getConfiguration()?->getSQLLogger();
-            Db::getConnection()->getConfiguration()?->setSQLLogger(null);
+        $this->originalSqlLogger = Db::getConnection()->getConfiguration()->getSQLLogger();
+        Db::getConnection()->getConfiguration()->setSQLLogger(null);
 
-            $this->profiler?->disable();
-        } catch (\Throwable $exception) {
-        }
+        $this->profiler?->disable();
     }
 
     public function afterCommand(ConsoleTerminateEvent $event): void
@@ -62,7 +59,7 @@ class PimcoreLoadOptimization implements EventSubscriberInterface
             return;
         }
 
-        Db::getConnection()->getConfiguration()?->setSQLLogger($this->originalSqlLogger);
+        Db::getConnection()->getConfiguration()->setSQLLogger($this->originalSqlLogger);
 
         $this->versionEnabled && Version::enable();
         $this->cacheEnabled && Cache::enable();
