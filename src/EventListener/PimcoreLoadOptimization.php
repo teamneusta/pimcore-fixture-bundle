@@ -1,18 +1,18 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Neusta\Pimcore\FixtureBundle\EventListener;
 
 use Doctrine\Bundle\FixturesBundle\Command\LoadDataFixturesDoctrineCommand;
 use Doctrine\DBAL\Logging\SQLLogger;
+use Pimcore\Cache;
+use Pimcore\Db;
+use Pimcore\Model\Version;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Event\ConsoleEvent;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Pimcore\Db;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
-use Pimcore\Cache;
-use Pimcore\Model\Version;
 
 class PimcoreLoadOptimization implements EventSubscriberInterface
 {
@@ -53,7 +53,6 @@ class PimcoreLoadOptimization implements EventSubscriberInterface
 
             $this->profiler?->disable();
         } catch (\Throwable $exception) {
-
         }
     }
 
@@ -72,6 +71,7 @@ class PimcoreLoadOptimization implements EventSubscriberInterface
     private function isRelevantCommand(ConsoleEvent $event): bool
     {
         $command = $event->getCommand();
+
         return $command instanceof LoadDataFixturesDoctrineCommand;
     }
 }
