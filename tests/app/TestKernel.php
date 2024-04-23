@@ -5,7 +5,7 @@ use Pimcore\HttpKernel\BundleCollection\BundleCollection;
 
 final class TestKernel extends Neusta\Pimcore\TestingFramework\Kernel\TestKernel
 {
-    public function registerBundlesToCollection(BundleCollection $collection)
+    public function registerBundlesToCollection(BundleCollection $collection): void
     {
         $collection->addBundle(NeustaPimcoreFixtureBundle::class);
     }

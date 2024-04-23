@@ -1,7 +1,10 @@
 services:
+
+  Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
+
   Neusta\Pimcore\FixtureBundle\Command\LoadFixturesCommand:
     arguments:
-      $container: '@Symfony\Component\DependencyInjection\ContainerInterface'
+      $container: '@service_container'
       $eventDispatcher: '@event_dispatcher'
       $fixtureClass: !abstract defined in extension
     tags:
