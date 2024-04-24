@@ -50,7 +50,7 @@ final class ProductFixture extends AbstractFixture
 }
 ```
 
-### Referencing Fixtures
+### Referencing Fixtures and Depending on Other Fixtures
 
 Suppose you want to link a `Product` fixture to a `Group` fixture. To do this, you need to create a `Group` fixture first and keep a reference to it. Later, you can use this reference when creating the `Product` fixture.
 
@@ -119,22 +119,14 @@ use Pimcore\Test\KernelTestCase;
 
 abstract class BaseKernelTestCase extends KernelTestCase
 {
-    protected FixtureFactory $fixtureFactory;
-
-    /** @param list<class-string<Fixture>> $fixtures */
-    protected function importFixtures(array $fixtures): void
+    /** @param list<string> $fixtureGroups */
+    protected function importFixtures(array $fixtureGroups): void
     {
-        $this->fixtureFactory ??= (new FixtureFactory([
-            new FixtureInstantiatorForParametrizedConstructors(static::getContainer()),
-            new FixtureInstantiatorForAll(),
-        ]));
-
-        $this->fixtureFactory->createFixtures($fixtures);
+        (new InTestFixtureLoader(static::$kernel))->load($fixtureGroups);
     }
 
     protected function tearDown(): void
     {
-        unset($this->fixtureFactory);
         \Pimcore\Cache::clearAll();
         \Pimcore::collectGarbage();
 
@@ -166,104 +158,7 @@ final class MyCustomTest extends BaseKernelTestCase
 
 ### Accessing Services from the Fixtures
 
-Sometimes you may need to access your application's services inside a fixture class.
-You can use normal dependency injection for this:
-
-> [!IMPORTANT]
-> You need to create your `FixtureFactory` with the `FixtureInstantiatorForParametrizedConstructors` for this to work!
-
-```php
-final class SomeFixture implements Fixture
-{
-    public function __construct(
-        private Something $something,
-    ) {
-    }
-
-    public function create(): void
-    {
-        // ... use $this->something
-    }
-}
-```
-
-### Depending on Other Fixtures
-
-In a fixture, you can depend on other fixtures.
-Therefore, you have to reference them in your `create()` method as parameters.
-
-> [!IMPORTANT]
-> All parameters of the `create()` method in your fixtures may *only* reference other fixtures.
-> Everything else is not allowed!
-
-Referencing other fixtures ensures they are created before this one.
-
-This also allows accessing some state of the other fixtures.
-
-```php
-final class SomeFixture implements Fixture
-{
-    public function create(OtherFixture $otherFixture): void
-    {
-        // do something with $otherFixture->someInformation
-    }
-}
-
-final class OtherFixture implements Fixture
-{
-    public string $someInformation;
-
-    public function create(): void
-    {
-        $this->someInformation = 'some information created in this fixture';
-    }
-}
-```
-
-The state can also be accessed from the tests:
-
-```php
-use Neusta\Pimcore\FixtureBundle\Fixture;
-use Pimcore\Model\DataObject\Product;
-
-final class ProductFixture implements Fixture
-{
-    public int $productId;
-
-    public function create(): void
-    {
-        $product = new Product();
-        $product->setParentId(0);
-        $product->setPublished(true);
-        $product->setKey("Product Fixture");
-        // ...
-
-        $product->save();
-
-        $this->productId = $product->getId();
-    }
-}
-```
-
-```php
-use Pimcore\Model\DataObject;
-
-final class MyCustomTest extends BaseKernelTestCase
-{
-    /** @test */
-    public function some_product_test(): void
-    {
-        $this->importFixtures([
-            ProductFixture::class,
-        ]);
-
-        $productFixture = $this->fixtureFactory->getFixture(ProductFixture::class);
-        $product = DataObject::getById($productFixture->productId);
-
-        self::assertNotNull($product);
-    }
-}
-```
+As the Fixtures are just normal PHP Services you can use all DI features like constructor, setter or property injection as usual.
 
 ## Contribution
 
