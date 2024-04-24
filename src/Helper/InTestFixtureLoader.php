@@ -2,18 +2,24 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Helper;
 
+use Pimcore\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class InTestFixtureLoader
 {
+    private Application $application;
+
     public function __construct(KernelInterface $kernel)
     {
-        $this->application = new \Pimcore\Console\Application($kernel);
+        $this->application = new Application($kernel);
         $this->application->setAutoExit(false);
     }
 
+    /**
+     * @param array<string> $groups
+     */
     public function load(array $groups): void
     {
         $arguments = [
