@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Profiler\Profiler;
 class ProfilerDisabler
 {
     public function __construct(
-        private readonly ?Profiler $profiler,
+        private readonly ?Profiler $profiler = null,
     ) {
     }
 
