@@ -24,18 +24,18 @@ It can be useful for testing purposes, or for seeding a database with initial da
 
 ### Writing Fixtures
 
-Data fixtures are PHP classes where you create objects and persist them to the database.
+Data fixtures are PHP Service classes where you create objects and persist them to the database.
 
 Imagine that you want to add some `Product` objects to your database.
 To do this, create a fixture class and start adding products:
 
 ```php
-use Neusta\Pimcore\FixtureBundle\Fixture;
+use Neusta\Pimcore\FixtureBundle\Fixtures\AbstractFixture;
 use Pimcore\Model\DataObject\Product;
 
-final class ProductFixture implements Fixture
+final class ProductFixture extends AbstractFixture
 {
-    public function create(): void
+    public function load(ObjectManager $manager): void
     {
         for ($i = 1; $i <= 20; $i++) {
             $product = new Product();
@@ -46,6 +46,59 @@ final class ProductFixture implements Fixture
 
             $product->save();
         }
+    }
+}
+```
+
+### Referencing Fixtures
+
+Suppose you want to link a `Product` fixture to a `Group` fixture. To do this, you need to create a `Group` fixture first and keep a reference to it. Later, you can use this reference when creating the `Product` fixture.
+
+This process requires the `Group` fixture to exist before the `Product` fixture. You can achieve this ordering by implementing the `DependentFixtureInterface` interface.
+
+```php
+use Neusta\Pimcore\FixtureBundle\Fixtures\AbstractFixture;
+use Pimcore\Model\DataObject\ProductGroup;
+
+final class ProductGroupFixture extends AbstractFixture
+{
+    public function load(ObjectManager $manager): void
+    {
+        $productGroup = new ProductGroup();
+        $productGroup->setParentId(0);
+        $productGroup->setPublished(true);
+        $productGroup->setKey('My Product Group');
+        $productGroup->save();
+        
+        $this->addReference('my-product-group', $productGroup);
+    }
+}
+```
+
+```php
+use Neusta\Pimcore\FixtureBundle\Fixtures\AbstractFixture;
+use Pimcore\Model\DataObject\Product;
+use Pimcore\Model\DataObject\ProductGroup;
+
+final class ProductFixture extends AbstractFixture implements DependentFixtureInterface
+{
+    public function load(ObjectManager $manager): void
+    {
+        $productGroup = $this->getReference('my-product-group', ProductGroup::class);
+    
+        $product = new Product();
+        $product->setParentId(0);
+        $product->setPublished(true);
+        $product->setKey('My grouped Product');
+        $product->setProductGroup($productGroup);
+        $product->save();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            ProductGroupFixture::class,
+        ];
     }
 }
 ```
