@@ -13,6 +13,10 @@ class AssetHelper
 
     public function createAssetFolder(string $path = ''): Asset\Folder
     {
-        return Service::createFolderByPath('/' . trim($this->prefix, '/') . '/' . ltrim($path, '/'));
+        $assetFolder = Service::createFolderByPath('/' . trim($this->prefix, '/') . '/' . ltrim($path, '/'));
+        if ($assetFolder instanceof Asset\Folder) {
+            return $assetFolder;
+        }
+        throw new \Exception(sprintf('No asset folder with path %s could be created.', $path));
     }
 }
