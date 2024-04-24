@@ -4,6 +4,7 @@ namespace Neusta\Pimcore\FixtureBundle\ReferenceRepository;
 
 /**
  * based on \Doctrine\Common\DataFixtures\ReferenceRepository.
+ *
  * @template T of object
  */
 class DataObjectReferenceRepository
