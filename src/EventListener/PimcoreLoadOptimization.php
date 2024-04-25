@@ -13,7 +13,10 @@ use Symfony\Component\Console\Event\ConsoleEvent;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PimcoreLoadOptimization implements EventSubscriberInterface
+/**
+ * @internal
+ */
+final class PimcoreLoadOptimization implements EventSubscriberInterface
 {
     private ?SQLLogger $originalSqlLogger = null;
     private bool $versionEnabled;
@@ -39,7 +42,7 @@ class PimcoreLoadOptimization implements EventSubscriberInterface
         }
 
         $output = $event->getOutput();
-        $output->writeln('Disabling <info>Pimcore Versioning</info>, <info>Pimcore Cache</info> and <info>Pimcore SQL Logger</info>');
+        $output->writeln('Disabling <info>Pimcore Versioning</info>, <info>Pimcore Cache</info>, <info>Doctrine SQL Logger</info>, and <info>Symfony Profiler</info>');
 
         $this->versionEnabled = Version::isEnabled();
         $this->cacheEnabled = Cache::isEnabled();

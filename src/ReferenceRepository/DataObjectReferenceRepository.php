@@ -51,11 +51,9 @@ class DataObjectReferenceRepository
      *
      * @return T
      *
-     * @psalm-return T
-     *
      * @throws \OutOfBoundsException - if repository does not exist
      */
-    public function getReference(string $name, string $class)
+    public function getReference(string $name, string $class): object
     {
         if (!$this->hasReference($name, $class)) {
             throw new \OutOfBoundsException(sprintf('Reference to "%s" for class "%s" does not exist', $name, $class));
@@ -68,7 +66,7 @@ class DataObjectReferenceRepository
      * Check if an object is stored using reference
      * named by $name.
      *
-     * @psalm-param class-string $class
+     * @param class-string $class
      */
     public function hasReference(string $name, string $class): bool
     {

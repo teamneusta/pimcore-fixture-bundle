@@ -36,7 +36,7 @@ abstract class AbstractFixture implements FixtureInterface, ORMFixtureInterface
     }
 
     /**
-     * @psalm-param class-string $class
+     * @param class-string $class
      */
     protected function hasReference(string $name, string $class): bool
     {
