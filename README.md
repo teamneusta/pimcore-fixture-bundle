@@ -76,6 +76,7 @@ final class ProductGroupFixture extends AbstractFixture
 ```
 
 ```php
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Neusta\Pimcore\FixtureBundle\Fixtures\AbstractFixture;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductGroup;
@@ -105,15 +106,9 @@ final class ProductFixture extends AbstractFixture implements DependentFixtureIn
 
 ### Loading Fixtures
 
-To use fixtures in tests, a few preparations must be made.
-
-Currently, the `FixtureFactory` still has to be instantiated manually.
-The easiest way to do this is with a project-specific kernel base class.
+The Doctrine Fixtures Bundle doesn't natively support loading fixtures in tests or from other code. To address this, we offer an `InTestFixtureLoader`. To streamline your test setup, we recommend creating a base class with a method to load fixtures via the `InTestFixtureLoader`. Here's an example demonstrating how to implement this. 
 
 ```php
-use Neusta\Pimcore\FixtureBundle\Factory\FixtureFactory;
-use Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator\FixtureInstantiatorForAll;
-use Neusta\Pimcore\FixtureBundle\Factory\FixtureInstantiator\FixtureInstantiatorForParametrizedConstructors;
 use Neusta\Pimcore\FixtureBundle\Fixture;
 use Pimcore\Test\KernelTestCase;
 

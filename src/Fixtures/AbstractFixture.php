@@ -3,15 +3,17 @@
 namespace Neusta\Pimcore\FixtureBundle\Fixtures;
 
 use Doctrine\Bundle\FixturesBundle\ORMFixtureInterface;
-use Doctrine\Common\DataFixtures\FixtureInterface;
 use Neusta\Pimcore\FixtureBundle\ReferenceRepository\DataObjectReferenceRepository;
 use Symfony\Contracts\Service\Attribute\Required;
 
-abstract class AbstractFixture implements FixtureInterface, ORMFixtureInterface
+abstract class AbstractFixture implements ORMFixtureInterface
 {
     private DataObjectReferenceRepository $dataObjectReferenceRepository;
 
     #[Required]
+    /**
+     * @internal
+     */
     public function setDataObjectReferenceRepository(DataObjectReferenceRepository $dataObjectReferenceRepository): void
     {
         $this->dataObjectReferenceRepository = $dataObjectReferenceRepository;
@@ -28,9 +30,9 @@ abstract class AbstractFixture implements FixtureInterface, ORMFixtureInterface
     }
 
     /**
-     * @psalm-param class-string $class
+     * @param class-string $class
      */
-    protected function getReference(string $name, string $class)
+    protected function getReference(string $name, string $class): object
     {
         return $this->dataObjectReferenceRepository->getReference($name, $class);
     }

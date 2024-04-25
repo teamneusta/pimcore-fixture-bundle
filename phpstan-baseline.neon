@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method Neusta\\\\Pimcore\\\\FixtureBundle\\\\Fixtures\\\\AbstractFixture\\:\\:getReference\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Fixtures/AbstractFixture.php
-
-		-
 			message: "#^Cannot call method getId\\(\\) on Pimcore\\\\Model\\\\DataObject\\\\Classificationstore\\\\GroupConfig\\|null\\.$#"
 			count: 1
 			path: src/Helper/ClassificationstoreHelper.php
