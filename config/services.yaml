@@ -1,14 +1,21 @@
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    bind:
+      $allFixtures: !tagged_iterator neusta_pimcore_fixture.fixture
 
-  Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
+  Neusta\Pimcore\FixtureBundle\Command\:
+    resource: '../src/Command/*'
 
-  Neusta\Pimcore\FixtureBundle\Command\LoadFixturesCommand:
-    arguments:
-      $container: '@service_container'
-      $eventDispatcher: '@event_dispatcher'
-      $fixtureClass: !abstract defined in extension
-    tags:
-      - { name: 'console.command' }
+  Neusta\Pimcore\FixtureBundle\EventListener\:
+    resource: '../src/EventListener/*'
+
+  Neusta\Pimcore\FixtureBundle\Executor\:
+    resource: '../src/Executor/*'
+
+  Neusta\Pimcore\FixtureBundle\FixtureLoader\:
+    resource: '../src/FixtureLoader/*'
 
   Neusta\Pimcore\FixtureBundle\Helper\AssetHelper:
     arguments:
@@ -21,3 +28,18 @@ services:
   Neusta\Pimcore\FixtureBundle\Helper\DocumentHelper:
     arguments:
       $prefix: !abstract defined in extension
+
+  Neusta\Pimcore\FixtureBundle\Locator\:
+    resource: '../src/Locator/*'
+
+  Neusta\Pimcore\FixtureBundle\FixtureLoader\FixtureLoader:
+    arguments:
+      $fixtureLocator: '@Neusta\Pimcore\FixtureBundle\Locator\AllFixturesLocator'
+
+  Neusta\Pimcore\FixtureBundle\FixtureLoader\InTestFixtureLoader:
+    arguments:
+      $fixtureLocator: '@Neusta\Pimcore\FixtureBundle\Locator\NamedFixtureLocator'
+    public: true
+
+  Neusta\Pimcore\FixtureBundle\ReferenceRepository\:
+    resource: '../src/ReferenceRepository/*'

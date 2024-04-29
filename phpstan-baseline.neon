@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\:\\:section\\(\\)\\.$#"
-			count: 1
-			path: src/Command/LoadFixturesCommand.php
-
-		-
 			message: "#^Cannot call method getId\\(\\) on Pimcore\\\\Model\\\\DataObject\\\\Classificationstore\\\\GroupConfig\\|null\\.$#"
 			count: 1
 			path: src/Helper/ClassificationstoreHelper.php
