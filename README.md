@@ -192,6 +192,9 @@ The Bundle provides the following events to facilitate extensions and customizat
 3. **`BeforeExecuteFixture`**  
    This event is triggered just before a fixture is executed. Using this event, you can prevent the execution of a specific fixture by setting `$event->setPreventExecution(true)`.
 
+3. **`AfterExecuteFixture`**  
+   This event occurs after a fixture has been executed.
+
 ## Contribution
 
 Feel free to open issues for any bug, feature request, or other ideas.
