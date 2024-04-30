@@ -6,7 +6,7 @@ use Neusta\Pimcore\FixtureBundle\Fixture\DependentFixtureInterface;
 
 class MockFixtureGammaDependsOnAlpha implements DependentFixtureInterface
 {
-    public function load(): void
+    public function create(): void
     {
         // no-op
     }

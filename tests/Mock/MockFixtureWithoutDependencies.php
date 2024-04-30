@@ -6,7 +6,7 @@ use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
 
 class MockFixtureWithoutDependencies implements FixtureInterface
 {
-    public function load(): void
+    public function create(): void
     {
         // no-op
     }

@@ -4,5 +4,5 @@ namespace Neusta\Pimcore\FixtureBundle\Fixture;
 
 interface FixtureInterface
 {
-    public function load(): void;
+    public function create(): void;
 }

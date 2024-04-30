@@ -6,7 +6,7 @@ use Neusta\Pimcore\FixtureBundle\Fixture\DependentFixtureInterface;
 
 class MockFixtureTwoDependsOnOne implements DependentFixtureInterface
 {
-    public function load(): void
+    public function create(): void
     {
         // no-op
     }

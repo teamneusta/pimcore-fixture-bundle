@@ -35,7 +35,7 @@ use Pimcore\Model\DataObject\Product;
 
 final class ProductFixture extends AbstractFixture
 {
-    public function load(ObjectManager $manager): void
+    public function create(): void
     {
         for ($i = 1; $i <= 20; $i++) {
             $product = new Product();
@@ -62,7 +62,7 @@ use Pimcore\Model\DataObject\ProductGroup;
 
 final class ProductGroupFixture extends AbstractFixture
 {
-    public function load(ObjectManager $manager): void
+    public function create(): void
     {
         $productGroup = new ProductGroup();
         $productGroup->setParentId(0);
@@ -83,7 +83,7 @@ use Pimcore\Model\DataObject\ProductGroup;
 
 final class ProductFixture extends AbstractFixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager): void
+    public function create(): void
     {
         $productGroup = $this->getReference('my-product-group', ProductGroup::class);
     
