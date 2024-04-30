@@ -20,6 +20,23 @@ It can be useful for testing purposes, or for seeding a database with initial da
    Neusta\Pimcore\FixtureBundle\NeustaPimcoreFixtureBundle::class => ['test' => true],
    ```
 
+### Upgrading from ealrier Version
+
+Fixtures are now considered actual services and are loaded through Dependency Injection (DI). To align with this approach, you'll need to update your Fixture classes by moving service dependencies from the `create` method to the constructor. If your Fixture relies on other Fixtures, implement the `DependentFixtureInterface`.
+
+Here are the key changes:
+
+1. **Fixture Interface Update**  
+   The old fixture interface `Neusta\Pimcore\FixtureBundle\Fixture` has been replaced with `Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface`. You can also extend from `Neusta\Pimcore\FixtureBundle\Fixture\AbstractFixture` to implement your Fixtures.
+
+2. **Change in `create` Method**  
+   The signature of the `create` method has been modified. It no longer takes any arguments, meaning all service dependencies must be specified via Dependency Injection. This is typically done through the constructor.
+
+3. **Specifying Inter-Fixture Dependencies**  
+   If your Fixture depends on others, use the `DependentFixtureInterface` to specify these dependencies. You can learn more about this in the section "[Referencing Fixtures and Depending on Other Fixtures](#referencing-fixtures-and-depending-on-other-fixtures)".
+
+Make sure to update your Fixture classes according to these changes to ensure proper functionality and compatibility with this Bundle.
+
 ## Usage
 
 ### Writing Fixtures
@@ -158,6 +175,19 @@ final class MyCustomTest extends BaseKernelTestCase
 ### Accessing Services from the Fixtures
 
 As the Fixtures are just normal PHP Services you can use all DI features like constructor, setter or property injection as usual.
+
+### Extension and customization through Events
+
+The Bundle provides the following events to facilitate extensions and customization:
+
+1. **`BeforeLoadFixtures`**  
+   This event is triggered before any fixture is executed. It contains all the fixtures that are scheduled for execution, accessible via `$event->getFixtures()`. You can alter the list of fixtures to be loaded by using `$event->setFixtures(...)`.
+
+2. **`AfterLoadFixtures`**  
+   This event occurs after all relevant fixtures have been executed. It carries the fixtures that have been successfully loaded, which can be accessed through `$event->loadedFixtures`.
+
+3. **`BeforeExecuteFixture`**  
+   This event is triggered just before a fixture is executed. Using this event, you can prevent the execution of a specific fixture by setting `$event->setPreventExecution(true)`.
 
 ## Contribution
 
