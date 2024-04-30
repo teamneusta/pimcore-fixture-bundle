@@ -32,8 +32,11 @@ Here are the key changes:
 2. **Change in `create` Method**  
    The signature of the `create` method has been modified. It no longer takes any arguments, meaning all service dependencies must be specified via Dependency Injection. This is typically done through the constructor.
 
-3. **Specifying Inter-Fixture Dependencies**  
-   If your Fixture depends on others, use the `DependentFixtureInterface` to specify these dependencies. You can learn more about this in the section "[Referencing Fixtures and Depending on Other Fixtures](#referencing-fixtures-and-depending-on-other-fixtures)".
+3. **Fixtures as Services**  
+   Fixtures must be made available in the Dependency Injection container to be discovered. To do this, tag them with `neusta_pimcore_fixture.fixture`, or use autoconfiguration for automatic tagging.
+
+4. **Specifying Inter-Fixture Dependencies**  
+   If your Fixture depends on others, use the `DependentFixtureInterface` to specify these dependencies. Additional guidance is available in the section "[Referencing Fixtures and Depending on Other Fixtures](#referencing-fixtures-and-depending-on-other-fixtures)".
 
 Make sure to update your Fixture classes according to these changes to ensure proper functionality and compatibility with this Bundle.
 
