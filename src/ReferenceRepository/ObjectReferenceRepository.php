@@ -19,9 +19,7 @@ final class ObjectReferenceRepository
      */
     public function setReference(string $name, object $reference): void
     {
-        $class = $reference::class;
-
-        $this->referencesByClass[$class][$name] = $reference;
+        $this->referencesByClass[$reference::class][$name] = $reference;
     }
 
     /**
@@ -31,12 +29,11 @@ final class ObjectReferenceRepository
      */
     public function addReference(string $name, object $object): void
     {
-        $class = $object::class;
-        if (isset($this->referencesByClass[$class][$name])) {
+        if (isset($this->referencesByClass[$object::class][$name])) {
             throw new \BadMethodCallException(sprintf(
                 'Reference to "%s" for class "%s" already exists, use method setReference() in order to override it',
                 $name,
-                $class
+                $object::class
             ));
         }
 

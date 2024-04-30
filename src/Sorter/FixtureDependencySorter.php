@@ -44,12 +44,10 @@ final class FixtureDependencySorter
             return;
         }
 
-        $fixtureName = $fixture::class;
-
-        if (\in_array($fixtureName, $this->checking, true)) {
-            throw new CircularFixtureDependencyException($fixtureName);
+        if (\in_array($fixture::class, $this->checking, true)) {
+            throw new CircularFixtureDependencyException($fixture::class);
         }
-        $this->checking[] = $fixtureName;
+        $this->checking[] = $fixture::class;
 
         if (!$fixture instanceof DependentFixtureInterface || [] === $fixture->getDependencies()) {
             $sorted[] = $fixture;
@@ -62,7 +60,7 @@ final class FixtureDependencySorter
         }
         $sorted[] = $fixture;
 
-        $this->checking = array_filter($this->checking, fn ($v) => $v !== $fixtureName);
+        $this->checking = array_filter($this->checking, fn ($v) => $v !== $fixture::class);
     }
 
     private function getFixture(string $name): FixtureInterface
