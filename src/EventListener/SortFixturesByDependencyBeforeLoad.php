@@ -26,9 +26,7 @@ final class SortFixturesByDependencyBeforeLoad implements EventSubscriberInterfa
 
     public function sortFixturesByDependency(BeforeLoadFixtures $event): void
     {
-        $event->setFixtures(
-            (new FixtureDependencySorter(iterator_to_array($this->allFixtures, false)))
-                ->sort($event->getFixtures())
-        );
+        $event->fixtures = (new FixtureDependencySorter(iterator_to_array($this->allFixtures, false)))
+            ->sort($event->fixtures);
     }
 }

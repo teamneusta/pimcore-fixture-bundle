@@ -22,16 +22,11 @@ class FixtureLoader
 
     public function loadFixtures(): void
     {
-        $locatedFixtures = $this->locateFixtures();
-        /** @var BeforeLoadFixtures $beforeLoadFixtures */
-        $beforeLoadFixtures = $this->eventDispatcher->dispatch(new BeforeLoadFixtures($locatedFixtures));
-        $fixtures = $beforeLoadFixtures->getFixtures();
+        $fixtures = $this->eventDispatcher->dispatch(new BeforeLoadFixtures($this->locateFixtures()))->fixtures;
 
         $loadedFixtures = [];
         foreach ($fixtures as $fixture) {
-            /** @var BeforeExecuteFixture $beforeExecuteFixture */
-            $beforeExecuteFixture = $this->eventDispatcher->dispatch(new BeforeExecuteFixture($fixture));
-            if ($beforeExecuteFixture->preventExecution()) {
+            if ($this->eventDispatcher->dispatch(new BeforeExecuteFixture($fixture))->preventExecution) {
                 continue;
             }
 
