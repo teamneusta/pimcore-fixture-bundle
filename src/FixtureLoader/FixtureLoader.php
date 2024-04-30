@@ -2,6 +2,7 @@
 
 namespace Neusta\Pimcore\FixtureBundle\FixtureLoader;
 
+use Neusta\Pimcore\FixtureBundle\Event\AfterExecuteFixture;
 use Neusta\Pimcore\FixtureBundle\Event\AfterLoadFixtures;
 use Neusta\Pimcore\FixtureBundle\Event\BeforeExecuteFixture;
 use Neusta\Pimcore\FixtureBundle\Event\BeforeLoadFixtures;
@@ -35,6 +36,7 @@ class FixtureLoader
             }
 
             $this->executor->execute($fixture);
+            $this->eventDispatcher->dispatch(new AfterExecuteFixture($fixture));
 
             $loadedFixtures[] = $fixture;
         }

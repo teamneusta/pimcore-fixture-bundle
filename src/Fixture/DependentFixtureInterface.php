@@ -12,7 +12,7 @@ interface DependentFixtureInterface extends FixtureInterface
      * This method must return an array of fixtures classes
      * on which the implementing class depends on.
      *
-     * @psalm-return array<class-string<FixtureInterface>>
+     * @return array<class-string<FixtureInterface>>
      */
     public function getDependencies(): array;
 }

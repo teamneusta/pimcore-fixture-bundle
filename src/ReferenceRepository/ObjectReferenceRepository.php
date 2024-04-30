@@ -10,7 +10,7 @@ namespace Neusta\Pimcore\FixtureBundle\ReferenceRepository;
 class ObjectReferenceRepository
 {
     /**
-     * @psalm-var array<class-string, array<string, T>>
+     * @var array<class-string, array<string, T>>
      */
     private array $referencesByClass = [];
 
@@ -47,7 +47,7 @@ class ObjectReferenceRepository
      * Loads an object using stored reference
      * named by $name.
      *
-     * @psalm-param class-string<T> $class
+     * @param class-string<T> $class
      *
      * @return T
      *
