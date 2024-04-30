@@ -2,10 +2,10 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Tests\Mock;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureGroup;
 use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
+use Neusta\Pimcore\FixtureBundle\Fixture\HasGroups;
 
-class MockFixtureOfGroupRed implements Fixture, FixtureGroup
+class MockFixtureOfGroupRed implements Fixture, HasGroups
 {
     public function create(): void
     {

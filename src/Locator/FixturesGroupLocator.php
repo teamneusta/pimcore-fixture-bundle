@@ -2,8 +2,8 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Locator;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureGroup;
 use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
+use Neusta\Pimcore\FixtureBundle\Fixture\HasGroups;
 
 final class FixturesGroupLocator implements FixtureLocator
 {
@@ -46,7 +46,7 @@ final class FixturesGroupLocator implements FixtureLocator
 
         $fixtures = [];
         foreach ($this->allFixtures as $fixture) {
-            if (!$fixture instanceof FixtureGroup) {
+            if (!$fixture instanceof HasGroups) {
                 continue;
             }
 

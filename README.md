@@ -25,7 +25,7 @@ It can be useful for testing purposes, or for seeding a database with initial da
 Fixtures are now considered actual services and are loaded through Dependency Injection (DI).
 To align with this approach,
 you'll need to update your Fixture classes by moving service dependencies from the `create` method to the constructor.
-If your Fixture relies on other Fixtures, implement the `DependentFixture` interface.
+If your Fixture relies on other Fixtures, implement the `HasDependencies` interface.
 
 Here are the key changes:
 
@@ -39,7 +39,7 @@ Here are the key changes:
    Fixtures must be made available in the Dependency Injection container to be discovered. To do this, tag them with `neusta_pimcore_fixture.fixture`, or use autoconfiguration for automatic tagging.
 
 4. **Specifying Inter-Fixture Dependencies**  
-   If your Fixture depends on others, use the `DependentFixture` interface to specify these dependencies. Additional guidance is available in the section "[Referencing Fixtures and Depending on Other Fixtures](#referencing-fixtures-and-depending-on-other-fixtures)".
+   If your Fixture depends on others, use the `HasDependencies` interface to specify these dependencies. Additional guidance is available in the section "[Referencing Fixtures and Depending on Other Fixtures](#referencing-fixtures-and-depending-on-other-fixtures)".
 
 Make sure to update your Fixture classes according to these changes to ensure proper functionality and compatibility with this Bundle.
 
@@ -77,7 +77,7 @@ final class ProductFixture extends AbstractFixture
 
 Suppose you want to link a `Product` fixture to a `Group` fixture. To do this, you need to create a `Group` fixture first and keep a reference to it. Later, you can use this reference when creating the `Product` fixture.
 
-This process requires the `Group` fixture to exist before the `Product` fixture. You can achieve this ordering by implementing the `DependentFixture` interface.
+This process requires the `Group` fixture to exist before the `Product` fixture. You can achieve this ordering by implementing the `HasDependencies` interface.
 
 ```php
 use Neusta\Pimcore\FixtureBundle\Fixture\AbstractFixture;
@@ -100,11 +100,11 @@ final class ProductGroupFixture extends AbstractFixture
 
 ```php
 use Neusta\Pimcore\FixtureBundle\Fixture\AbstractFixture;
-use Neusta\Pimcore\FixtureBundle\Fixture\DependentFixture;
+use Neusta\Pimcore\FixtureBundle\Fixture\HasDependencies;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductGroup;
 
-final class ProductFixture extends AbstractFixture implements DependentFixture
+final class ProductFixture extends AbstractFixture implements HasDependencies
 {
     public function create(): void
     {

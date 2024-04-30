@@ -2,8 +2,8 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Sorter;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\DependentFixture;
 use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
+use Neusta\Pimcore\FixtureBundle\Fixture\HasDependencies;
 
 final class FixtureDependencySorter
 {
@@ -49,7 +49,7 @@ final class FixtureDependencySorter
         }
         $this->checking[] = $fixture::class;
 
-        if (!$fixture instanceof DependentFixture || [] === $fixture->getDependencies()) {
+        if (!$fixture instanceof HasDependencies || [] === $fixture->getDependencies()) {
             $sorted[] = $fixture;
 
             return;
