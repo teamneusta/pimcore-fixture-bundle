@@ -49,7 +49,7 @@ final class LoadFixturesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln('Loading fixture');
+        $output->writeln('Loading fixtures');
         $output->writeln('');
 
         $this->eventDispatcher->addListener(BeforeExecuteFixture::class, function (BeforeExecuteFixture $event) use ($output) {
