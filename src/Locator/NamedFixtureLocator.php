@@ -4,7 +4,7 @@ namespace Neusta\Pimcore\FixtureBundle\Locator;
 
 use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
 
-class NamedFixtureLocator implements FixtureLocatorInterface
+final class NamedFixtureLocator implements FixtureLocatorInterface
 {
     /** @var list<class-string<FixtureInterface>> */
     private array $fixturesToLoad = [];

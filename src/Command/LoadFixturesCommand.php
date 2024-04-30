@@ -14,7 +14,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
     name: 'neusta:pimcore-fixtures:load',
     description: 'Loads a defined fixture class.',
 )]
-class LoadFixturesCommand extends Command
+final class LoadFixturesCommand extends Command
 {
     public function __construct(
         private readonly FixtureLoader $fixtureLoader,

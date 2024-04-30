@@ -4,7 +4,7 @@ namespace Neusta\Pimcore\FixtureBundle\Event;
 
 use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
 
-class BeforeLoadFixtures
+final class BeforeLoadFixtures
 {
     /**
      * @param array<FixtureInterface> $fixtures

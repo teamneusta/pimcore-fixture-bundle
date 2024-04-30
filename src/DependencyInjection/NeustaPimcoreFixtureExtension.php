@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-class NeustaPimcoreFixtureExtension extends ConfigurableExtension
+final class NeustaPimcoreFixtureExtension extends ConfigurableExtension
 {
     /**
      * @param array<string, mixed> $mergedConfig

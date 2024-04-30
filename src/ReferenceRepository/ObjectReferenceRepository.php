@@ -7,7 +7,7 @@ namespace Neusta\Pimcore\FixtureBundle\ReferenceRepository;
  *
  * @template T of object
  */
-class ObjectReferenceRepository
+final class ObjectReferenceRepository
 {
     /**
      * @var array<class-string, array<string, T>>

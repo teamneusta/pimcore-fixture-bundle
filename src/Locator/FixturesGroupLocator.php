@@ -5,7 +5,7 @@ namespace Neusta\Pimcore\FixtureBundle\Locator;
 use Neusta\Pimcore\FixtureBundle\Fixture\FixtureGroupInterface;
 use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
 
-class FixturesGroupLocator implements FixtureLocatorInterface
+final class FixturesGroupLocator implements FixtureLocatorInterface
 {
     /** @var list<string> */
     private array $groupNamesToLoad = [];

@@ -4,7 +4,7 @@ namespace Neusta\Pimcore\FixtureBundle\Event;
 
 use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
 
-class BeforeExecuteFixture
+final class BeforeExecuteFixture
 {
     private bool $preventExecution = false;
 

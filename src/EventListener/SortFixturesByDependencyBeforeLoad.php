@@ -7,7 +7,7 @@ use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
 use Neusta\Pimcore\FixtureBundle\Sorter\FixtureDependencySorter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class SortFixturesByDependencyBeforeLoad implements EventSubscriberInterface
+final class SortFixturesByDependencyBeforeLoad implements EventSubscriberInterface
 {
     /**
      * @param \Traversable<FixtureInterface> $allFixtures

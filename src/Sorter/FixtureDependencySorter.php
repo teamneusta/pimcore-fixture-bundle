@@ -5,7 +5,7 @@ namespace Neusta\Pimcore\FixtureBundle\Sorter;
 use Neusta\Pimcore\FixtureBundle\Fixture\DependentFixtureInterface;
 use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
 
-class FixtureDependencySorter
+final class FixtureDependencySorter
 {
     /** @var array<class-string<FixtureInterface>> */
     private array $checking = [];

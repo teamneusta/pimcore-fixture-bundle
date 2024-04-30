@@ -4,7 +4,7 @@ namespace Neusta\Pimcore\FixtureBundle\Locator;
 
 use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
 
-class AllFixturesLocator implements FixtureLocatorInterface
+final class AllFixturesLocator implements FixtureLocatorInterface
 {
     /**
      * @param \Traversable<FixtureInterface> $allFixtures
