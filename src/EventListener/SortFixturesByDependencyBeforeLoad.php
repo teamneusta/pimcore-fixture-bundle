@@ -3,14 +3,14 @@
 namespace Neusta\Pimcore\FixtureBundle\EventListener;
 
 use Neusta\Pimcore\FixtureBundle\Event\BeforeLoadFixtures;
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 use Neusta\Pimcore\FixtureBundle\Sorter\FixtureDependencySorter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class SortFixturesByDependencyBeforeLoad implements EventSubscriberInterface
 {
     /**
-     * @param \Traversable<FixtureInterface> $allFixtures
+     * @param \Traversable<Fixture> $allFixtures
      */
     public function __construct(
         private readonly \Traversable $allFixtures,

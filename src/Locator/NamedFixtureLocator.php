@@ -2,15 +2,15 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Locator;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 
-final class NamedFixtureLocator implements FixtureLocatorInterface
+final class NamedFixtureLocator implements FixtureLocator
 {
-    /** @var list<class-string<FixtureInterface>> */
+    /** @var list<class-string<Fixture>> */
     private array $fixturesToLoad = [];
 
     /**
-     * @param \Traversable<FixtureInterface> $allFixtures
+     * @param \Traversable<Fixture> $allFixtures
      */
     public function __construct(
         private readonly \Traversable $allFixtures,
@@ -18,7 +18,7 @@ final class NamedFixtureLocator implements FixtureLocatorInterface
     }
 
     /**
-     * @return list<class-string<FixtureInterface>>
+     * @return list<class-string<Fixture>>
      */
     public function getFixturesToLoad(): array
     {
@@ -26,7 +26,7 @@ final class NamedFixtureLocator implements FixtureLocatorInterface
     }
 
     /**
-     * @param list<class-string<FixtureInterface>> $fixtureNames
+     * @param list<class-string<Fixture>> $fixtureNames
      *
      * @return $this
      */

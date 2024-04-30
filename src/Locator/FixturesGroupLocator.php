@@ -2,16 +2,16 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Locator;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureGroupInterface;
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
+use Neusta\Pimcore\FixtureBundle\Fixture\FixtureGroup;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 
-final class FixturesGroupLocator implements FixtureLocatorInterface
+final class FixturesGroupLocator implements FixtureLocator
 {
     /** @var list<string> */
     private array $groupNamesToLoad = [];
 
     /**
-     * @param \Traversable<FixtureInterface> $allFixtures
+     * @param \Traversable<Fixture> $allFixtures
      */
     public function __construct(
         private readonly \Traversable $allFixtures,
@@ -46,7 +46,7 @@ final class FixturesGroupLocator implements FixtureLocatorInterface
 
         $fixtures = [];
         foreach ($this->allFixtures as $fixture) {
-            if (!$fixture instanceof FixtureGroupInterface) {
+            if (!$fixture instanceof FixtureGroup) {
                 continue;
             }
 

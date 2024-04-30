@@ -2,7 +2,7 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Fixture;
 
-interface FixtureInterface
+interface Fixture
 {
     public function create(): void;
 }

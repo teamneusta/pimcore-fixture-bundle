@@ -22,12 +22,15 @@ It can be useful for testing purposes, or for seeding a database with initial da
 
 ### Upgrading from earlier Version
 
-Fixtures are now considered actual services and are loaded through Dependency Injection (DI). To align with this approach, you'll need to update your Fixture classes by moving service dependencies from the `create` method to the constructor. If your Fixture relies on other Fixtures, implement the `DependentFixtureInterface`.
+Fixtures are now considered actual services and are loaded through Dependency Injection (DI).
+To align with this approach,
+you'll need to update your Fixture classes by moving service dependencies from the `create` method to the constructor.
+If your Fixture relies on other Fixtures, implement the `DependentFixture` interface.
 
 Here are the key changes:
 
 1. **Fixture Interface Update**  
-   The old fixture interface `Neusta\Pimcore\FixtureBundle\Fixture` has been replaced with `Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface`. You can also extend from `Neusta\Pimcore\FixtureBundle\Fixture\AbstractFixture` to implement your Fixtures.
+   The old fixture interface `Neusta\Pimcore\FixtureBundle\Fixture` has been replaced with `Neusta\Pimcore\FixtureBundle\Fixture\Fixture`. You can also extend from `Neusta\Pimcore\FixtureBundle\Fixture\AbstractFixture` to implement your Fixtures.
 
 2. **Change in `create` Method**  
    The signature of the `create` method has been modified. It no longer takes any arguments, meaning all service dependencies must be specified via Dependency Injection. This is typically done through the constructor.
@@ -36,7 +39,7 @@ Here are the key changes:
    Fixtures must be made available in the Dependency Injection container to be discovered. To do this, tag them with `neusta_pimcore_fixture.fixture`, or use autoconfiguration for automatic tagging.
 
 4. **Specifying Inter-Fixture Dependencies**  
-   If your Fixture depends on others, use the `DependentFixtureInterface` to specify these dependencies. Additional guidance is available in the section "[Referencing Fixtures and Depending on Other Fixtures](#referencing-fixtures-and-depending-on-other-fixtures)".
+   If your Fixture depends on others, use the `DependentFixture` interface to specify these dependencies. Additional guidance is available in the section "[Referencing Fixtures and Depending on Other Fixtures](#referencing-fixtures-and-depending-on-other-fixtures)".
 
 Make sure to update your Fixture classes according to these changes to ensure proper functionality and compatibility with this Bundle.
 
@@ -74,7 +77,7 @@ final class ProductFixture extends AbstractFixture
 
 Suppose you want to link a `Product` fixture to a `Group` fixture. To do this, you need to create a `Group` fixture first and keep a reference to it. Later, you can use this reference when creating the `Product` fixture.
 
-This process requires the `Group` fixture to exist before the `Product` fixture. You can achieve this ordering by implementing the `DependentFixtureInterface` interface.
+This process requires the `Group` fixture to exist before the `Product` fixture. You can achieve this ordering by implementing the `DependentFixture` interface.
 
 ```php
 use Neusta\Pimcore\FixtureBundle\Fixture\AbstractFixture;
@@ -97,11 +100,11 @@ final class ProductGroupFixture extends AbstractFixture
 
 ```php
 use Neusta\Pimcore\FixtureBundle\Fixture\AbstractFixture;
-use Neusta\Pimcore\FixtureBundle\Fixture\DependentFixtureInterface;
+use Neusta\Pimcore\FixtureBundle\Fixture\DependentFixture;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\ProductGroup;
 
-final class ProductFixture extends AbstractFixture implements DependentFixtureInterface
+final class ProductFixture extends AbstractFixture implements DependentFixture
 {
     public function create(): void
     {
@@ -135,7 +138,7 @@ use Pimcore\Test\KernelTestCase;
 abstract class BaseKernelTestCase extends KernelTestCase
 {
     /**
-     * @param list<class-string<FixtureInterface>> $fixtures
+     * @param list<class-string<Fixture>> $fixtures
      */
     protected function importFixtures(array $fixtures): void
     {

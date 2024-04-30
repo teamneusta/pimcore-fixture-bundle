@@ -3,15 +3,16 @@
 namespace Neusta\Pimcore\FixtureBundle\Fixture;
 
 /**
- * DependentFixtureInterface needs to be implemented by fixtures which depend on other fixtures
- * inspired by \Doctrine\Common\DataFixtures\DependentFixtureInterface.
+ * The DependentFixture interface needs to be implemented by fixtures which depend on other fixtures.
+ *
+ * It is inspired by: \Doctrine\Common\DataFixtures\DependentFixtureInterface
  */
-interface DependentFixtureInterface
+interface DependentFixture
 {
     /**
      * This method must return a list of fixtures classes on which the implementing class depends on.
      *
-     * @return list<class-string<FixtureInterface>>
+     * @return list<class-string<Fixture>>
      */
     public function getDependencies(): array;
 }

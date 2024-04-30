@@ -2,16 +2,16 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Sorter;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\DependentFixtureInterface;
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
+use Neusta\Pimcore\FixtureBundle\Fixture\DependentFixture;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 
 final class FixtureDependencySorter
 {
-    /** @var array<class-string<FixtureInterface>> */
+    /** @var array<class-string<Fixture>> */
     private array $checking = [];
 
     /**
-     * @param list<FixtureInterface> $allFixtures
+     * @param list<Fixture> $allFixtures
      */
     public function __construct(
         private readonly array $allFixtures,
@@ -19,9 +19,9 @@ final class FixtureDependencySorter
     }
 
     /**
-     * @param list<FixtureInterface> $fixtures
+     * @param list<Fixture> $fixtures
      *
-     * @return list<FixtureInterface>
+     * @return list<Fixture>
      */
     public function sort(array $fixtures = []): array
     {
@@ -36,9 +36,9 @@ final class FixtureDependencySorter
     }
 
     /**
-     * @param list<FixtureInterface> $sorted
+     * @param list<Fixture> $sorted
      */
-    private function add(FixtureInterface $fixture, array &$sorted): void
+    private function add(Fixture $fixture, array &$sorted): void
     {
         if (\in_array($fixture, $sorted, true)) {
             return;
@@ -49,7 +49,7 @@ final class FixtureDependencySorter
         }
         $this->checking[] = $fixture::class;
 
-        if (!$fixture instanceof DependentFixtureInterface || [] === $fixture->getDependencies()) {
+        if (!$fixture instanceof DependentFixture || [] === $fixture->getDependencies()) {
             $sorted[] = $fixture;
 
             return;
@@ -63,7 +63,7 @@ final class FixtureDependencySorter
         $this->checking = array_filter($this->checking, fn ($v) => $v !== $fixture::class);
     }
 
-    private function getFixture(string $name): FixtureInterface
+    private function getFixture(string $name): Fixture
     {
         foreach ($this->allFixtures as $fixture) {
             if ($fixture::class === $name) {

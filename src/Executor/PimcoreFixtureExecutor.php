@@ -2,11 +2,11 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Executor;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 
-final class PimcoreFixtureExecutor implements ExecutorInterface
+final class PimcoreFixtureExecutor implements Executor
 {
-    public function execute(FixtureInterface $fixture): void
+    public function execute(Fixture $fixture): void
     {
         $fixture->create();
     }

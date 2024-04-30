@@ -2,12 +2,12 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Event;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 
 final class BeforeLoadFixtures
 {
     /**
-     * @param list<FixtureInterface> $fixtures
+     * @param list<Fixture> $fixtures
      */
     public function __construct(
         public array $fixtures,

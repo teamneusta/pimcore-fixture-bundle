@@ -6,16 +6,16 @@ use Neusta\Pimcore\FixtureBundle\Event\AfterExecuteFixture;
 use Neusta\Pimcore\FixtureBundle\Event\AfterLoadFixtures;
 use Neusta\Pimcore\FixtureBundle\Event\BeforeExecuteFixture;
 use Neusta\Pimcore\FixtureBundle\Event\BeforeLoadFixtures;
-use Neusta\Pimcore\FixtureBundle\Executor\ExecutorInterface;
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
-use Neusta\Pimcore\FixtureBundle\Locator\FixtureLocatorInterface;
+use Neusta\Pimcore\FixtureBundle\Executor\Executor;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
+use Neusta\Pimcore\FixtureBundle\Locator\FixtureLocator;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class FixtureLoader
 {
     public function __construct(
-        private readonly FixtureLocatorInterface $fixtureLocator,
-        private readonly ExecutorInterface $executor,
+        private readonly FixtureLocator $fixtureLocator,
+        private readonly Executor $executor,
         private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
@@ -40,7 +40,7 @@ class FixtureLoader
     }
 
     /**
-     * @return list<FixtureInterface>
+     * @return list<Fixture>
      */
     protected function locateFixtures(): array
     {

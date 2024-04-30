@@ -5,7 +5,7 @@ namespace Neusta\Pimcore\FixtureBundle\Fixture;
 use Neusta\Pimcore\FixtureBundle\ReferenceRepository\ObjectReferenceRepository;
 use Symfony\Contracts\Service\Attribute\Required;
 
-abstract class AbstractFixture implements FixtureInterface
+abstract class AbstractFixture implements Fixture
 {
     private ObjectReferenceRepository $objectReferenceRepository;
 

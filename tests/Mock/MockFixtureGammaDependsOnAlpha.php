@@ -2,10 +2,10 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Tests\Mock;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\DependentFixtureInterface;
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
+use Neusta\Pimcore\FixtureBundle\Fixture\DependentFixture;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 
-class MockFixtureGammaDependsOnAlpha implements FixtureInterface, DependentFixtureInterface
+class MockFixtureGammaDependsOnAlpha implements Fixture, DependentFixture
 {
     public function create(): void
     {
