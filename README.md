@@ -20,7 +20,7 @@ It can be useful for testing purposes, or for seeding a database with initial da
    Neusta\Pimcore\FixtureBundle\NeustaPimcoreFixtureBundle::class => ['test' => true],
    ```
 
-### Upgrading from ealrier Version
+### Upgrading from earlier Version
 
 Fixtures are now considered actual services and are loaded through Dependency Injection (DI). To align with this approach, you'll need to update your Fixture classes by moving service dependencies from the `create` method to the constructor. If your Fixture relies on other Fixtures, implement the `DependentFixtureInterface`.
 
@@ -44,7 +44,7 @@ Make sure to update your Fixture classes according to these changes to ensure pr
 
 ### Writing Fixtures
 
-Data fixtures are PHP Service classes where you create objects and persist them to the database.
+Data fixtures are PHP service classes where you create objects and persist them to the database.
 
 Imagine that you want to add some `Product` objects to your database.
 To do this, create a fixture class and start adding products:

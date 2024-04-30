@@ -60,6 +60,8 @@ class FixturesGroupLocatorTest extends TestCase
         $fixture = new MockFixtureWithoutDependencies();
 
         $namedFixtureLocator = new FixturesGroupLocator(new \ArrayObject([$fixture]));
+        $emptyFilter = [];
+        $namedFixtureLocator->setGroupsToLoad($emptyFilter);
 
         $locatedFixtures = $namedFixtureLocator->getFixtures();
         self::assertSame([$fixture], $locatedFixtures);
