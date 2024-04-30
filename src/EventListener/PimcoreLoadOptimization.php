@@ -32,7 +32,7 @@ final class PimcoreLoadOptimization implements EventSubscriberInterface
         ];
     }
 
-    public function beforeCommand(BeforeLoadFixtures $event): void
+    public function beforeCommand(): void
     {
         $this->versionEnabled = Version::isEnabled();
         $this->cacheEnabled = Cache::isEnabled();
@@ -45,7 +45,7 @@ final class PimcoreLoadOptimization implements EventSubscriberInterface
         $this->profilerDisabler->disable();
     }
 
-    public function afterCommand(AfterLoadFixtures $event): void
+    public function afterCommand(): void
     {
         $this->profilerDisabler->enable();
 
