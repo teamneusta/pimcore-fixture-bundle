@@ -9,10 +9,8 @@ abstract class AbstractFixture implements FixtureInterface
 {
     private ObjectReferenceRepository $objectReferenceRepository;
 
+    /** @internal */
     #[Required]
-    /**
-     * @internal
-     */
     public function setObjectReferenceRepository(ObjectReferenceRepository $objectReferenceRepository): void
     {
         $this->objectReferenceRepository = $objectReferenceRepository;
