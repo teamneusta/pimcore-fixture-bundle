@@ -14,7 +14,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class FixtureLoader
 {
     public function __construct(
-        protected readonly FixtureLocatorInterface $fixtureLocator,
+        private readonly FixtureLocatorInterface $fixtureLocator,
         private readonly ExecutorInterface $executor,
         private readonly EventDispatcherInterface $eventDispatcher,
     ) {
