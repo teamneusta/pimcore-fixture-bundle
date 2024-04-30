@@ -9,10 +9,9 @@ namespace Neusta\Pimcore\FixtureBundle\Fixture;
 interface FixtureGroupInterface extends FixtureInterface
 {
     /**
-     * This method must return an array of groups
-     * on which the implementing class belongs to.
+     * This method must return a list of groups on which the implementing class belongs to.
      *
-     * @return array<string>
+     * @return list<string>
      */
     public static function getGroups(): array;
 }

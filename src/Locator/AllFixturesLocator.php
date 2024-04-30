@@ -16,6 +16,6 @@ final class AllFixturesLocator implements FixtureLocatorInterface
 
     public function getFixtures(): array
     {
-        return iterator_to_array($this->allFixtures);
+        return iterator_to_array($this->allFixtures, false);
     }
 }

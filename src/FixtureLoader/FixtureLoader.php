@@ -45,7 +45,7 @@ class FixtureLoader
     }
 
     /**
-     * @return array<FixtureInterface>
+     * @return list<FixtureInterface>
      */
     protected function locateFixtures(): array
     {

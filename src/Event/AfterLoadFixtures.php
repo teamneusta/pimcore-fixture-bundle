@@ -7,7 +7,7 @@ use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
 final class AfterLoadFixtures
 {
     /**
-     * @param array<FixtureInterface> $loadedFixtures
+     * @param list<FixtureInterface> $loadedFixtures
      */
     public function __construct(
         public readonly array $loadedFixtures,

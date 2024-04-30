@@ -7,7 +7,7 @@ use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
 interface FixtureLocatorInterface
 {
     /**
-     * @return array<FixtureInterface>
+     * @return list<FixtureInterface>
      */
     public function getFixtures(): array;
 }

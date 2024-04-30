@@ -11,7 +11,7 @@ final class FixtureDependencySorter
     private array $checking = [];
 
     /**
-     * @param array<FixtureInterface> $allFixtures
+     * @param list<FixtureInterface> $allFixtures
      */
     public function __construct(
         private readonly array $allFixtures,
@@ -19,9 +19,9 @@ final class FixtureDependencySorter
     }
 
     /**
-     * @param array<FixtureInterface> $fixtures
+     * @param list<FixtureInterface> $fixtures
      *
-     * @return array<FixtureInterface>
+     * @return list<FixtureInterface>
      */
     public function sort(array $fixtures = []): array
     {
@@ -36,7 +36,7 @@ final class FixtureDependencySorter
     }
 
     /**
-     * @param array<FixtureInterface> $sorted
+     * @param list<FixtureInterface> $sorted
      */
     private function add(FixtureInterface $fixture, array &$sorted): void
     {
@@ -51,7 +51,7 @@ final class FixtureDependencySorter
         }
         $this->checking[] = $fixtureName;
 
-        if (!$fixture instanceof DependentFixtureInterface || empty($fixture->getDependencies())) {
+        if (!$fixture instanceof DependentFixtureInterface || [] === $fixture->getDependencies()) {
             $sorted[] = $fixture;
 
             return;

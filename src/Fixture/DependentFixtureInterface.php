@@ -9,10 +9,9 @@ namespace Neusta\Pimcore\FixtureBundle\Fixture;
 interface DependentFixtureInterface extends FixtureInterface
 {
     /**
-     * This method must return an array of fixtures classes
-     * on which the implementing class depends on.
+     * This method must return a list of fixtures classes on which the implementing class depends on.
      *
-     * @return array<class-string<FixtureInterface>>
+     * @return list<class-string<FixtureInterface>>
      */
     public function getDependencies(): array;
 }

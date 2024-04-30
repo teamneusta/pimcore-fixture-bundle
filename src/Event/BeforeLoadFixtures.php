@@ -7,7 +7,7 @@ use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
 final class BeforeLoadFixtures
 {
     /**
-     * @param array<FixtureInterface> $fixtures
+     * @param list<FixtureInterface> $fixtures
      */
     public function __construct(
         private array $fixtures,
@@ -15,7 +15,7 @@ final class BeforeLoadFixtures
     }
 
     /**
-     * @return array<FixtureInterface>
+     * @return list<FixtureInterface>
      */
     public function getFixtures(): array
     {
@@ -23,7 +23,7 @@ final class BeforeLoadFixtures
     }
 
     /**
-     * @param array<FixtureInterface> $fixtures
+     * @param list<FixtureInterface> $fixtures
      */
     public function setFixtures(array $fixtures): void
     {

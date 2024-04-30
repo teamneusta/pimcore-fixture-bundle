@@ -38,7 +38,7 @@ final class NamedFixtureLocator implements FixtureLocatorInterface
     public function getFixtures(): array
     {
         if (empty($this->getFixturesToLoad())) {
-            return iterator_to_array($this->allFixtures);
+            return iterator_to_array($this->allFixtures, false);
         }
 
         $fixtures = [];
