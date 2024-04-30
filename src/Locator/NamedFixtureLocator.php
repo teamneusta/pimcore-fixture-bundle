@@ -27,6 +27,8 @@ final class NamedFixtureLocator implements FixtureLocatorInterface
 
     /**
      * @param list<class-string<FixtureInterface>> $fixtureNames
+     *
+     * @return $this
      */
     public function setFixturesToLoad(array $fixtureNames): self
     {

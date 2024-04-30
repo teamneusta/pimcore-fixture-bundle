@@ -28,6 +28,8 @@ final class FixturesGroupLocator implements FixtureLocatorInterface
 
     /**
      * @param list<string> $groupNames
+     *
+     * @return $this
      */
     public function setGroupsToLoad(array $groupNames): self
     {
