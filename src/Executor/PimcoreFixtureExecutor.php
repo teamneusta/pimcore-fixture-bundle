@@ -8,6 +8,6 @@ class PimcoreFixtureExecutor implements ExecutorInterface
 {
     public function execute(FixtureInterface $fixture): void
     {
-        $fixture->load();
+        $fixture->create();
     }
 }
