@@ -6,7 +6,7 @@ namespace Neusta\Pimcore\FixtureBundle\Fixture;
  * FixtureGroupInterface can to be implemented by fixtures that belong in groups
  * inspired by \Doctrine\Bundle\FixturesBundle\FixtureGroupInterface.
  */
-interface FixtureGroupInterface extends FixtureInterface
+interface FixtureGroupInterface
 {
     /**
      * This method must return a list of groups on which the implementing class belongs to.
