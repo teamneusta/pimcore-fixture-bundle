@@ -46,9 +46,10 @@ final class FixturesGroupLocator implements FixtureLocatorInterface
 
         $fixtures = [];
         foreach ($this->allFixtures as $fixture) {
-            if (!is_a($fixture, FixtureGroupInterface::class)) {
+            if (!$fixture instanceof FixtureGroupInterface) {
                 continue;
             }
+
             if (!$this->hasAtLeastOneGroupMatch($fixture::getGroups(), $this->getGroupsToLoad())) {
                 continue;
             }
