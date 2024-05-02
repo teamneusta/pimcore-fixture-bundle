@@ -12,7 +12,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 #[AsCommand(
     name: 'neusta:pimcore-fixtures:load',
-    description: 'Loads a defined fixture class.',
+    description: 'Loads all defined fixture classes.',
 )]
 final class LoadFixturesCommand extends Command
 {
@@ -27,19 +27,8 @@ final class LoadFixturesCommand extends Command
     {
         $this->setHelp(
             <<<'EOF'
-            The <info>%command.name%</info> command takes a single fixture and loads it.
-            That fixture itself may of course depend on further fixtures, thus allowing to build up
-            an entire fixture hierarchy to load.
-            The result is sample data in your Pimcore instance.
+            The <info>%command.name%</info> command loads all available fixtures.
 
-            Use <info>-v, --verbose</info> to output the time the fixtures took to create and to show an ordered list
-            of executed fixtures.
-
-              <info>php %command.name% -v</info>
-
-            <info>Important:</info> This command is currently very limited. The fixture that is
-            loaded is static at the moment. Its dependency hierarchy containing further fixtures must be extended
-            when new fixtures are created and need to be loaded as well.
             <info>Important:</info> This command <comment>must not</comment> be executed twice. On a second execution,
             this command would fail, because the keys of the Pimcore data objects are already present.
             To re-run the command, please reset the database first.
