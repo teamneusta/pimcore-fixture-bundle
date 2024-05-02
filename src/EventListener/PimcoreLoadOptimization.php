@@ -47,8 +47,6 @@ final class PimcoreLoadOptimization implements EventSubscriberInterface
 
     public function afterCommand(): void
     {
-        $this->profilerDisabler->enable();
-
         Db::getConnection()->getConfiguration()->setSQLLogger($this->originalSqlLogger);
 
         $this->versionEnabled && Version::enable();
