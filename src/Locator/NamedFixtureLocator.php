@@ -39,17 +39,27 @@ final class NamedFixtureLocator implements FixtureLocator
 
     public function getFixtures(): array
     {
-        if (empty($this->getFixturesToLoad())) {
+        $fixturesToLoad = $this->getFixturesToLoad();
+        if (empty($fixturesToLoad)) {
             return iterator_to_array($this->allFixtures, false);
         }
 
         $fixtures = [];
         foreach ($this->allFixtures as $fixture) {
-            if (!\in_array($fixture::class, $this->getFixturesToLoad(), true)) {
+            $keys = array_keys($fixturesToLoad, $fixture::class);
+            if (empty($keys)) {
                 continue;
             }
 
             $fixtures[] = $fixture;
+
+            array_walk($keys, static function ($k) use (&$fixturesToLoad) {
+                unset($fixturesToLoad[$k]);
+            });
+        }
+
+        if (!empty($fixturesToLoad)) {
+            throw FixtureNotFound::forFixtures($fixturesToLoad);
         }
 
         return $fixtures;

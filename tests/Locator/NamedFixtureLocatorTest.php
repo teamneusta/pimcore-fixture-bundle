@@ -18,7 +18,8 @@ class NamedFixtureLocatorTest extends TestCase
     public function it_works_with_empty_lists(): void
     {
         $namedFixtureLocator = new NamedFixtureLocator(new \ArrayObject());
-        $namedFixtureLocator->setFixturesToLoad([MockFixtureWithoutDependencies::class]);
+        $emptyList = [];
+        $namedFixtureLocator->setFixturesToLoad($emptyList);
 
         $locatedFixtures = $namedFixtureLocator->getFixtures();
         self::assertSame([], $locatedFixtures);
@@ -43,13 +44,14 @@ class NamedFixtureLocatorTest extends TestCase
      */
     public function it_skips_unwanted_fixture(): void
     {
-        $fixture = new MockFixtureWithoutDependencies();
+        $unwantedFixture = new MockFixtureWithoutDependencies();
+        $wantedFixture = new MockDependentFixtureWithoutDependencies();
 
-        $namedFixtureLocator = new NamedFixtureLocator(new \ArrayObject([$fixture]));
+        $namedFixtureLocator = new NamedFixtureLocator(new \ArrayObject([$unwantedFixture, $wantedFixture]));
         $namedFixtureLocator->setFixturesToLoad([MockDependentFixtureWithoutDependencies::class]);
 
         $locatedFixtures = $namedFixtureLocator->getFixtures();
-        self::assertSame([], $locatedFixtures);
+        self::assertSame([$wantedFixture], $locatedFixtures);
     }
 
     /**
