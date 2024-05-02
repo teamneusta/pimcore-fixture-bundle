@@ -2,7 +2,7 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Sorter;
 
-class CircularFixtureDependencyException extends \RuntimeException
+class CircularFixtureDependency extends \RuntimeException
 {
     public function __construct(string $name, int $code = 0, ?\Throwable $previous = null)
     {

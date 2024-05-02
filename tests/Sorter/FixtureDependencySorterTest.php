@@ -2,7 +2,7 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Tests\Sorter;
 
-use Neusta\Pimcore\FixtureBundle\Sorter\CircularFixtureDependencyException;
+use Neusta\Pimcore\FixtureBundle\Sorter\CircularFixtureDependency;
 use Neusta\Pimcore\FixtureBundle\Sorter\FixtureDependencySorter;
 use Neusta\Pimcore\FixtureBundle\Sorter\UnresolvedFixtureDependency;
 use Neusta\Pimcore\FixtureBundle\Tests\Mock\MockDependentFixtureWithoutDependencies;
@@ -69,7 +69,7 @@ class FixtureDependencySorterTest extends TestCase
 
         $fixtureDependencySorter = new FixtureDependencySorter([$fixture]);
 
-        $this->expectException(CircularFixtureDependencyException::class);
+        $this->expectException(CircularFixtureDependency::class);
         $this->expectExceptionMessage(
             'CircularFixtureDependency: Circular Reference detected in Fixture "Neusta\Pimcore\FixtureBundle\Tests\Mock\MockFixtureDependsOnItself"'
         );
@@ -102,7 +102,7 @@ class FixtureDependencySorterTest extends TestCase
 
         $fixtureDependencySorter = new FixtureDependencySorter([$fixture1, $fixture2]);
 
-        $this->expectException(CircularFixtureDependencyException::class);
+        $this->expectException(CircularFixtureDependency::class);
         $this->expectExceptionMessage(
             'CircularFixtureDependency: Circular Reference detected in Fixture "Neusta\Pimcore\FixtureBundle\Tests\Mock\MockFixtureOneDependsOnTwo"'
         );
@@ -120,7 +120,7 @@ class FixtureDependencySorterTest extends TestCase
 
         $fixtureDependencySorter = new FixtureDependencySorter([$fixture1, $fixture2, $fixture3]);
 
-        $this->expectException(CircularFixtureDependencyException::class);
+        $this->expectException(CircularFixtureDependency::class);
         $this->expectExceptionMessage(
             'CircularFixtureDependency: Circular Reference detected in Fixture "Neusta\Pimcore\FixtureBundle\Tests\Mock\MockFixtureAlphaDependsOnBeta"'
         );

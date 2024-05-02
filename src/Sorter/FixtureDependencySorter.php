@@ -45,7 +45,7 @@ final class FixtureDependencySorter
         }
 
         if (\in_array($fixture::class, $this->checking, true)) {
-            throw new CircularFixtureDependencyException($fixture::class);
+            throw new CircularFixtureDependency($fixture::class);
         }
         $this->checking[] = $fixture::class;
 
