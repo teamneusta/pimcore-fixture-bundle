@@ -36,7 +36,7 @@ services:
     arguments:
       $fixtureLocator: '@Neusta\Pimcore\FixtureBundle\Locator\AllFixturesLocator'
 
-  Neusta\Pimcore\FixtureBundle\FixtureLoader\InTestFixtureLoader:
+  Neusta\Pimcore\FixtureBundle\FixtureLoader\SelectiveFixtureLoader:
     arguments:
       $fixtureLocator: '@Neusta\Pimcore\FixtureBundle\Locator\NamedFixtureLocator'
     public: true

@@ -129,7 +129,7 @@ final class ProductFixture extends AbstractFixture implements HasDependencies
 
 ### Loading Fixtures
 
-To load fixtures in Tests, we offer an `InTestFixtureLoader`. To streamline your test setup, we recommend creating a base class with a method to load fixtures via the `InTestFixtureLoader`. Here's an example demonstrating how to implement this. 
+To load fixtures in Tests, we offer the `SelectiveFixtureLoader`. To streamline your test setup, we recommend creating a base class with a method to load fixtures via the `SelectiveFixtureLoader`. Here's an example demonstrating how to implement this. 
 
 ```php
 use Neusta\Pimcore\FixtureBundle\Fixture;
@@ -142,8 +142,8 @@ abstract class BaseKernelTestCase extends KernelTestCase
      */
     protected function importFixtures(array $fixtures): void
     {
-        /** @var InTestFixtureLoader $fixtureLoader */
-        $fixtureLoader = static::getContainer()->get(InTestFixtureLoader::class);
+        /** @var SelectiveFixtureLoader $fixtureLoader */
+        $fixtureLoader = static::getContainer()->get(SelectiveFixtureLoader::class);
         $fixtureLoader->setFixturesToLoad($fixtures)->loadFixtures();
     }
 

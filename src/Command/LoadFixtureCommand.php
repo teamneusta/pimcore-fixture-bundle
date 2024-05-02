@@ -3,7 +3,7 @@
 namespace Neusta\Pimcore\FixtureBundle\Command;
 
 use Neusta\Pimcore\FixtureBundle\Event\BeforeExecuteFixture;
-use Neusta\Pimcore\FixtureBundle\FixtureLoader\InTestFixtureLoader;
+use Neusta\Pimcore\FixtureBundle\FixtureLoader\SelectiveFixtureLoader;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -18,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 final class LoadFixtureCommand extends Command
 {
     public function __construct(
-        private readonly InTestFixtureLoader $fixtureLoader,
+        private readonly SelectiveFixtureLoader $fixtureLoader,
         private readonly EventDispatcherInterface $eventDispatcher,
     ) {
         parent::__construct();
