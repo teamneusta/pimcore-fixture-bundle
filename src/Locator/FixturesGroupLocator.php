@@ -2,16 +2,16 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Locator;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureGroupInterface;
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
+use Neusta\Pimcore\FixtureBundle\Fixture\HasGroups;
 
-class FixturesGroupLocator implements FixtureLocatorInterface
+final class FixturesGroupLocator implements FixtureLocator
 {
     /** @var list<string> */
     private array $groupNamesToLoad = [];
 
     /**
-     * @param \Traversable<FixtureInterface> $allFixtures
+     * @param \Traversable<Fixture> $allFixtures
      */
     public function __construct(
         private readonly \Traversable $allFixtures,
@@ -28,6 +28,8 @@ class FixturesGroupLocator implements FixtureLocatorInterface
 
     /**
      * @param list<string> $groupNames
+     *
+     * @return $this
      */
     public function setGroupsToLoad(array $groupNames): self
     {
@@ -39,14 +41,15 @@ class FixturesGroupLocator implements FixtureLocatorInterface
     public function getFixtures(): array
     {
         if (empty($this->getGroupsToLoad())) {
-            return iterator_to_array($this->allFixtures);
+            return iterator_to_array($this->allFixtures, false);
         }
 
         $fixtures = [];
         foreach ($this->allFixtures as $fixture) {
-            if (!is_a($fixture, FixtureGroupInterface::class)) {
+            if (!$fixture instanceof HasGroups) {
                 continue;
             }
+
             if (!$this->hasAtLeastOneGroupMatch($fixture::getGroups(), $this->getGroupsToLoad())) {
                 continue;
             }

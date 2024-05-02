@@ -2,31 +2,15 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Event;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 
-class BeforeLoadFixtures
+final class BeforeLoadFixtures
 {
     /**
-     * @param array<FixtureInterface> $fixtures
+     * @param list<Fixture> $fixtures
      */
     public function __construct(
-        private array $fixtures,
+        public array $fixtures,
     ) {
-    }
-
-    /**
-     * @return array<FixtureInterface>
-     */
-    public function getFixtures(): array
-    {
-        return $this->fixtures;
-    }
-
-    /**
-     * @param array<FixtureInterface> $fixtures
-     */
-    public function setFixtures(array $fixtures): void
-    {
-        $this->fixtures = $fixtures;
     }
 }

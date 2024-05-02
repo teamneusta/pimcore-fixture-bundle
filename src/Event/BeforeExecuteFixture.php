@@ -2,24 +2,13 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Event;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 
-class BeforeExecuteFixture
+final class BeforeExecuteFixture
 {
-    private bool $preventExecution = false;
-
     public function __construct(
-        public readonly FixtureInterface $fixture,
+        public readonly Fixture $fixture,
+        public bool $preventExecution = false,
     ) {
-    }
-
-    public function preventExecution(): bool
-    {
-        return $this->preventExecution;
-    }
-
-    public function setPreventExecution(bool $preventExecution): void
-    {
-        $this->preventExecution = $preventExecution;
     }
 }

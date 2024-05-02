@@ -2,12 +2,12 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Locator;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 
-interface FixtureLocatorInterface
+interface FixtureLocator
 {
     /**
-     * @return array<FixtureInterface>
+     * @return list<Fixture>
      */
     public function getFixtures(): array;
 }

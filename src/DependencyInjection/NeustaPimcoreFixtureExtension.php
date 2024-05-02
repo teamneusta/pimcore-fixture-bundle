@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Neusta\Pimcore\FixtureBundle\DependencyInjection;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 use Neusta\Pimcore\FixtureBundle\Helper\AssetHelper;
 use Neusta\Pimcore\FixtureBundle\Helper\DataObjectHelper;
 use Neusta\Pimcore\FixtureBundle\Helper\DocumentHelper;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-class NeustaPimcoreFixtureExtension extends ConfigurableExtension
+final class NeustaPimcoreFixtureExtension extends ConfigurableExtension
 {
     /**
      * @param array<string, mixed> $mergedConfig
@@ -31,7 +31,7 @@ class NeustaPimcoreFixtureExtension extends ConfigurableExtension
         $definition = $container->getDefinition(DocumentHelper::class);
         $definition->setArgument('$prefix', $mergedConfig['document_base_path']);
 
-        $container->registerForAutoconfiguration(FixtureInterface::class)
+        $container->registerForAutoconfiguration(Fixture::class)
             ->addTag('neusta_pimcore_fixture.fixture');
     }
 }

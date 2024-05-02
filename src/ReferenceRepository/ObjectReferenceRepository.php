@@ -4,48 +4,39 @@ namespace Neusta\Pimcore\FixtureBundle\ReferenceRepository;
 
 /**
  * based on \Doctrine\Common\DataFixtures\ReferenceRepository.
- *
- * @template T of object
  */
-class ObjectReferenceRepository
+final class ObjectReferenceRepository
 {
     /**
-     * @var array<class-string, array<string, T>>
+     * @var array<class-string, array<string, object>>
      */
     private array $referencesByClass = [];
 
-    /**
-     * @param T $reference
-     */
     public function setReference(string $name, object $reference): void
     {
-        $class = $reference::class;
-
-        $this->referencesByClass[$class][$name] = $reference;
+        $this->referencesByClass[$reference::class][$name] = $reference;
     }
 
     /**
-     * @param T $object - managed object
-     *
      * @throws \BadMethodCallException - if repository already has a reference by $name
      */
-    public function addReference(string $name, object $object): void
+    public function addReference(string $name, object $reference): void
     {
-        $class = $object::class;
-        if (isset($this->referencesByClass[$class][$name])) {
+        if (isset($this->referencesByClass[$reference::class][$name])) {
             throw new \BadMethodCallException(sprintf(
                 'Reference to "%s" for class "%s" already exists, use method setReference() in order to override it',
                 $name,
-                $class
+                $reference::class,
             ));
         }
 
-        $this->setReference($name, $object);
+        $this->setReference($name, $reference);
     }
 
     /**
-     * Loads an object using stored reference
-     * named by $name.
+     * Loads an object using stored reference named by $name.
+     *
+     * @template T of object
      *
      * @param class-string<T> $class
      *
@@ -59,12 +50,14 @@ class ObjectReferenceRepository
             throw new \OutOfBoundsException(sprintf('Reference to "%s" for class "%s" does not exist', $name, $class));
         }
 
-        return $this->referencesByClass[$class][$name];
+        $reference = $this->referencesByClass[$class][$name];
+        \assert($reference instanceof $class);
+
+        return $reference;
     }
 
     /**
-     * Check if an object is stored using reference
-     * named by $name.
+     * Check if an object is stored using reference named by $name.
      *
      * @param class-string $class
      */

@@ -6,32 +6,27 @@ use Neusta\Pimcore\FixtureBundle\Event\AfterExecuteFixture;
 use Neusta\Pimcore\FixtureBundle\Event\AfterLoadFixtures;
 use Neusta\Pimcore\FixtureBundle\Event\BeforeExecuteFixture;
 use Neusta\Pimcore\FixtureBundle\Event\BeforeLoadFixtures;
-use Neusta\Pimcore\FixtureBundle\Executor\ExecutorInterface;
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
-use Neusta\Pimcore\FixtureBundle\Locator\FixtureLocatorInterface;
+use Neusta\Pimcore\FixtureBundle\Executor\Executor;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
+use Neusta\Pimcore\FixtureBundle\Locator\FixtureLocator;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class FixtureLoader
 {
     public function __construct(
-        protected readonly FixtureLocatorInterface $fixtureLocator,
-        private readonly ExecutorInterface $executor,
+        private readonly FixtureLocator $fixtureLocator,
+        private readonly Executor $executor,
         private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
     public function loadFixtures(): void
     {
-        $locatedFixtures = $this->locateFixtures();
-        /** @var BeforeLoadFixtures $beforeLoadFixtures */
-        $beforeLoadFixtures = $this->eventDispatcher->dispatch(new BeforeLoadFixtures($locatedFixtures));
-        $fixtures = $beforeLoadFixtures->getFixtures();
+        $fixtures = $this->eventDispatcher->dispatch(new BeforeLoadFixtures($this->locateFixtures()))->fixtures;
 
         $loadedFixtures = [];
         foreach ($fixtures as $fixture) {
-            /** @var BeforeExecuteFixture $beforeExecuteFixture */
-            $beforeExecuteFixture = $this->eventDispatcher->dispatch(new BeforeExecuteFixture($fixture));
-            if ($beforeExecuteFixture->preventExecution()) {
+            if ($this->eventDispatcher->dispatch(new BeforeExecuteFixture($fixture))->preventExecution) {
                 continue;
             }
 
@@ -45,7 +40,7 @@ class FixtureLoader
     }
 
     /**
-     * @return array<FixtureInterface>
+     * @return list<Fixture>
      */
     protected function locateFixtures(): array
     {

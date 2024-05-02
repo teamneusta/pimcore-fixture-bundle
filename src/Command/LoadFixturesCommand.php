@@ -14,7 +14,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
     name: 'neusta:pimcore-fixtures:load',
     description: 'Loads a defined fixture class.',
 )]
-class LoadFixturesCommand extends Command
+final class LoadFixturesCommand extends Command
 {
     public function __construct(
         private readonly FixtureLoader $fixtureLoader,
@@ -49,7 +49,7 @@ class LoadFixturesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln('Loading fixture');
+        $output->writeln('Loading fixtures');
         $output->writeln('');
 
         $this->eventDispatcher->addListener(BeforeExecuteFixture::class, function (BeforeExecuteFixture $event) use ($output) {

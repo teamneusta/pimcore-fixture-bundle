@@ -2,16 +2,16 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Sorter;
 
-use Neusta\Pimcore\FixtureBundle\Fixture\DependentFixtureInterface;
-use Neusta\Pimcore\FixtureBundle\Fixture\FixtureInterface;
+use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
+use Neusta\Pimcore\FixtureBundle\Fixture\HasDependencies;
 
-class FixtureDependencySorter
+final class FixtureDependencySorter
 {
-    /** @var array<class-string<FixtureInterface>> */
+    /** @var array<class-string<Fixture>> */
     private array $checking = [];
 
     /**
-     * @param array<FixtureInterface> $allFixtures
+     * @param list<Fixture> $allFixtures
      */
     public function __construct(
         private readonly array $allFixtures,
@@ -19,9 +19,9 @@ class FixtureDependencySorter
     }
 
     /**
-     * @param array<FixtureInterface> $fixtures
+     * @param list<Fixture> $fixtures
      *
-     * @return array<FixtureInterface>
+     * @return list<Fixture>
      */
     public function sort(array $fixtures = []): array
     {
@@ -36,22 +36,20 @@ class FixtureDependencySorter
     }
 
     /**
-     * @param array<FixtureInterface> $sorted
+     * @param list<Fixture> $sorted
      */
-    private function add(FixtureInterface $fixture, array &$sorted): void
+    private function add(Fixture $fixture, array &$sorted): void
     {
         if (\in_array($fixture, $sorted, true)) {
             return;
         }
 
-        $fixtureName = $fixture::class;
-
-        if (\in_array($fixtureName, $this->checking, true)) {
-            throw new CircularFixtureDependencyException($fixtureName);
+        if (\in_array($fixture::class, $this->checking, true)) {
+            throw new CircularFixtureDependencyException($fixture::class);
         }
-        $this->checking[] = $fixtureName;
+        $this->checking[] = $fixture::class;
 
-        if (!$fixture instanceof DependentFixtureInterface || empty($fixture->getDependencies())) {
+        if (!$fixture instanceof HasDependencies || [] === $fixture->getDependencies()) {
             $sorted[] = $fixture;
 
             return;
@@ -62,10 +60,10 @@ class FixtureDependencySorter
         }
         $sorted[] = $fixture;
 
-        $this->checking = array_filter($this->checking, fn ($v) => $v !== $fixtureName);
+        $this->checking = array_filter($this->checking, fn ($v) => $v !== $fixture::class);
     }
 
-    private function getFixture(string $name): FixtureInterface
+    private function getFixture(string $name): Fixture
     {
         foreach ($this->allFixtures as $fixture) {
             if ($fixture::class === $name) {

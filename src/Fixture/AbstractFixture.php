@@ -5,14 +5,12 @@ namespace Neusta\Pimcore\FixtureBundle\Fixture;
 use Neusta\Pimcore\FixtureBundle\ReferenceRepository\ObjectReferenceRepository;
 use Symfony\Contracts\Service\Attribute\Required;
 
-abstract class AbstractFixture implements FixtureInterface
+abstract class AbstractFixture implements Fixture
 {
     private ObjectReferenceRepository $objectReferenceRepository;
 
+    /** @internal */
     #[Required]
-    /**
-     * @internal
-     */
     public function setObjectReferenceRepository(ObjectReferenceRepository $objectReferenceRepository): void
     {
         $this->objectReferenceRepository = $objectReferenceRepository;
@@ -23,13 +21,22 @@ abstract class AbstractFixture implements FixtureInterface
         $this->objectReferenceRepository->setReference($name, $reference);
     }
 
+    /**
+     * @throws \BadMethodCallException - if repository already has a reference by $name
+     */
     protected function addReference(string $name, object $object): void
     {
         $this->objectReferenceRepository->addReference($name, $object);
     }
 
     /**
-     * @param class-string $class
+     * @template T of object
+     *
+     * @param class-string<T> $class
+     *
+     * @return T
+     *
+     * @throws \OutOfBoundsException - if repository does not exist
      */
     protected function getReference(string $name, string $class): object
     {

@@ -4,7 +4,7 @@ namespace Neusta\Pimcore\FixtureBundle\Sorter;
 
 class UnresolvedFixtureDependency extends \OutOfRangeException
 {
-    public function __construct(string $name = '', int $code = 0, ?\Throwable $previous = null)
+    public function __construct(string $name, int $code = 0, ?\Throwable $previous = null)
     {
         parent::__construct(sprintf(
             'UnresolvedFixtureDependency: Fixture "%s" not found',
