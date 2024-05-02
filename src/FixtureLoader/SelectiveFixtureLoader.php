@@ -7,7 +7,7 @@ use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 use Neusta\Pimcore\FixtureBundle\Locator\NamedFixtureLocator;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class InTestFixtureLoader extends FixtureLoader
+class SelectiveFixtureLoader extends FixtureLoader
 {
     public function __construct(
         private readonly NamedFixtureLocator $fixtureLocator,
