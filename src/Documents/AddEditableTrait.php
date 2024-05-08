@@ -54,7 +54,7 @@ trait AddEditableTrait
         // block::getDataForResource returns an array
         // but block::setDataForResource expects a serialized array in string form
         $block->setDataFromResource(
-            is_array($block->getDataForResource()) ? serialize($block->getDataForResource()) : $block->getDataForResource(),
+            \is_array($block->getDataForResource()) ? serialize($block->getDataForResource()) : $block->getDataForResource(),
         );
         $pageSnippet->setEditable($block);
     }
