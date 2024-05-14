@@ -184,7 +184,13 @@ To load fixtures in your local environment or as part of a deployment two comman
 
 Beware that loading a large amount of objects may lead to a high consumption of memory.
 Should you encounter memory issues when running the commands in `dev` environments you may want to try
-setting the environment to `prod`. This appears to be beneficial in terms of pimcore's memory consumption. 
+setting the environment to `prod`. Disabling the debug mode also seems to be beneficial in terms of memory consumption. 
+
+For example provide these options when using the symfony console: 
+```
+console --env=prod --no-debug neusta:pimcore-fixtures:load
+```
+
 
 ### Accessing Services from the Fixtures
 
