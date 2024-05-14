@@ -3,6 +3,7 @@
 namespace Neusta\Pimcore\FixtureBundle\EventListener;
 
 use Doctrine\DBAL\Logging\SQLLogger;
+use Neusta\Pimcore\FixtureBundle\Event\AfterExecuteFixture;
 use Neusta\Pimcore\FixtureBundle\Event\AfterLoadFixtures;
 use Neusta\Pimcore\FixtureBundle\Event\BeforeLoadFixtures;
 use Pimcore\Cache;
@@ -29,6 +30,7 @@ final class PimcoreLoadOptimization implements EventSubscriberInterface
         return [
             BeforeLoadFixtures::class => 'beforeCommand',
             AfterLoadFixtures::class => 'afterCommand',
+            AfterExecuteFixture::class => 'afterExecute',
         ];
     }
 
@@ -51,5 +53,10 @@ final class PimcoreLoadOptimization implements EventSubscriberInterface
 
         $this->versionEnabled && Version::enable();
         $this->cacheEnabled && Cache::enable();
+    }
+
+    public function afterExecute(): void
+    {
+        \Pimcore::collectGarbage();
     }
 }
