@@ -187,9 +187,8 @@ Should you encounter memory issues when running the commands in `dev` environmen
 setting the environment to `prod`. Disabling the debug mode also seems to be beneficial in terms of memory consumption. 
 
 For example provide these options when using the symfony console: 
-```
-console --env=prod --no-debug neusta:pimcore-fixtures:load
-```
+```shell
+bin/console --env=prod --no-debug neusta:pimcore-fixtures:load
 
 
 ### Accessing Services from the Fixtures
