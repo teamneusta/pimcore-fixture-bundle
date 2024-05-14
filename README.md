@@ -178,6 +178,19 @@ final class MyCustomTest extends BaseKernelTestCase
 }
 ```
 
+To load fixtures in your local environment or as part of a deployment two commands are provided:
+- `neusta:pimcore-fixture:load` (Loads a defined fixture class.)
+- `neusta:pimcore-fixtures:load` (Loads all defined fixture classes.)
+
+Beware that loading a large amount of objects may lead to a high consumption of memory.
+Should you encounter memory issues when running the commands in `dev` environments you may want to try
+setting the environment to `prod`. Disabling the debug mode also seems to be beneficial in terms of memory consumption. 
+
+For example provide these options when using the symfony console: 
+```shell
+bin/console --env=prod --no-debug neusta:pimcore-fixtures:load
+```
+
 ### Accessing Services from the Fixtures
 
 As the Fixtures are just normal PHP Services you can use all DI features like constructor, setter or property injection as usual.
