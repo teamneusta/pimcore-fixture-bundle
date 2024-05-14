@@ -189,7 +189,7 @@ setting the environment to `prod`. Disabling the debug mode also seems to be ben
 For example provide these options when using the symfony console: 
 ```shell
 bin/console --env=prod --no-debug neusta:pimcore-fixtures:load
-
+```
 
 ### Accessing Services from the Fixtures
 
