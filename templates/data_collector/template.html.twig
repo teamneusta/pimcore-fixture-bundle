@@ -1,0 +1,53 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block menu %}
+    <span class="label">
+        <span class="icon">
+            {{ include('@NeustaPimcoreFixture/data_collector/fixtures.svg') }}
+        </span>
+        <strong>Fixtures</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    <h2>Fixtures</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Identifier</th>
+            <th style="text-align: right;">Duration (ms)</th>
+            <th style="text-align: right;">Memory</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for fixtureReference in collector.dependencyFreeFixtures %}
+            {{ _self.print_references_row(collector, fixtureReference, 0, 2) }}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% macro print_references_row(collector, fixtureReference, level, maxLevels) %}
+    {% set indent_base = 10 %}
+    {% set indent_pixels_per_level = 20 %}
+    {% set performanceInfo = collector.timing(fixtureReference) %}
+
+    <tr>
+        <th style="padding-left: {{ indent_base + level * indent_pixels_per_level }}px;">{{ fixtureReference.name }}</th>
+        <td style="text-align: right;">{{ performanceInfo.duration|round(1) }}</td>
+        <td style="text-align: right;">{{ performanceInfo.memory / 1024 }} kB</td>
+    </tr>
+
+    {% if maxLevels > 0 %}
+        {% for ref in fixtureReference.dependencies %}
+            {{ _self.print_references_row(collector, ref, level + 1, maxLevels - 1) }}
+        {% endfor %}
+    {% elseif fixtureReference.dependencies|length > 0 %}
+        <tr>
+            <td colspan="3" style="padding-left: {{ indent_base + (level + 1) * indent_pixels_per_level }}px;">
+                <em>{{ fixtureReference.dependencies|length }} more direct dependencies</em>
+            </td>
+        </tr>
+    {% endif %}
+{% endmacro %}

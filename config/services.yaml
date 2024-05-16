@@ -43,3 +43,6 @@ services:
 
   Neusta\Pimcore\FixtureBundle\ReferenceRepository\:
     resource: '../src/ReferenceRepository/*'
+
+  Neusta\Pimcore\FixtureBundle\Profiler\:
+    resource: '../src/Profiler/*'
