@@ -17,6 +17,14 @@ services:
   Neusta\Pimcore\FixtureBundle\FixtureLoader\:
     resource: '../src/FixtureLoader/*'
 
+  Neusta\Pimcore\FixtureBundle\FixtureLoader\FixtureLoader:
+    arguments:
+      $fixtureLocator: '@Neusta\Pimcore\FixtureBundle\Locator\AllFixturesLocator'
+
+  Neusta\Pimcore\FixtureBundle\FixtureLoader\SelectiveFixtureLoader:
+    arguments:
+      $fixtureLocator: '@Neusta\Pimcore\FixtureBundle\Locator\NamedFixtureLocator'
+
   Neusta\Pimcore\FixtureBundle\Helper\AssetHelper:
     arguments:
       $prefix: !abstract defined in extension
@@ -31,18 +39,10 @@ services:
 
   Neusta\Pimcore\FixtureBundle\Locator\:
     resource: '../src/Locator/*'
-
-  Neusta\Pimcore\FixtureBundle\FixtureLoader\FixtureLoader:
-    arguments:
-      $fixtureLocator: '@Neusta\Pimcore\FixtureBundle\Locator\AllFixturesLocator'
-
-  Neusta\Pimcore\FixtureBundle\FixtureLoader\SelectiveFixtureLoader:
-    arguments:
-      $fixtureLocator: '@Neusta\Pimcore\FixtureBundle\Locator\NamedFixtureLocator'
     public: true
-
-  Neusta\Pimcore\FixtureBundle\ReferenceRepository\:
-    resource: '../src/ReferenceRepository/*'
 
   Neusta\Pimcore\FixtureBundle\Profiler\:
     resource: '../src/Profiler/*'
+
+  Neusta\Pimcore\FixtureBundle\ReferenceRepository\:
+    resource: '../src/ReferenceRepository/*'
