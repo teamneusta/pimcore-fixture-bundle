@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Neusta\Pimcore\FixtureBundle\Profiler\FixtureReference;
 
@@ -14,7 +14,6 @@ class FixtureReferenceResolver
 
     /**
      * @param array<Fixture> $loadedFixtures
-     * @return void
      */
     public function setFixtures(array $loadedFixtures): void
     {
@@ -35,6 +34,7 @@ class FixtureReferenceResolver
 
     /**
      * @param array<Fixture> $loadedFixtures
+     *
      * @return array<class-string, Fixture>
      */
     private function createIndexedListOfFixtures(array $loadedFixtures): array
@@ -42,7 +42,7 @@ class FixtureReferenceResolver
         $indexedList = [];
 
         foreach ($loadedFixtures as $fixture) {
-            $indexedList[get_class($fixture)] = $fixture;
+            $indexedList[$fixture::class] = $fixture;
         }
 
         return $indexedList;
@@ -50,7 +50,6 @@ class FixtureReferenceResolver
 
     /**
      * @param array<class-string, Fixture> $indexedListOfFixtures
-     * @return void
      */
     private function resolveDependencies(array $indexedListOfFixtures): void
     {

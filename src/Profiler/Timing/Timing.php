@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Neusta\Pimcore\FixtureBundle\Profiler\Timing;
 
@@ -50,5 +50,4 @@ class Timing
             $event->getMemory(),
         );
     }
-
 }

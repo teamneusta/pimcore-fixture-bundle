@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Neusta\Pimcore\FixtureBundle\Profiler\Timing;
 
@@ -12,7 +12,7 @@ class TimingCollector
 
     public function add(Fixture $fixture, PerformanceInfo $performanceInfo): void
     {
-        $this->timings[get_class($fixture)] = $performanceInfo;
+        $this->timings[$fixture::class] = $performanceInfo;
     }
 
     /**

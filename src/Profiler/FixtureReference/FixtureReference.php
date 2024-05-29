@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Neusta\Pimcore\FixtureBundle\Profiler\FixtureReference;
 
@@ -15,7 +15,7 @@ class FixtureReference
 
     public function __construct(Fixture $fixture)
     {
-        $this->fixtureFqcn = get_class($fixture);
+        $this->fixtureFqcn = $fixture::class;
     }
 
     /**
@@ -26,12 +26,12 @@ class FixtureReference
         return $this->fixtureFqcn;
     }
 
-    public function addDependencyReference(FixtureReference $dependency): void
+    public function addDependencyReference(self $dependency): void
     {
         $this->dependencies[] = $dependency;
     }
 
-    public function addDependantReference(FixtureReference $fixtureReference): void
+    public function addDependantReference(self $fixtureReference): void
     {
         $this->dependants[] = $fixtureReference;
     }
