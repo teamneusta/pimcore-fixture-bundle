@@ -8,9 +8,9 @@ use Neusta\Pimcore\FixtureBundle\Fixture\HasDependencies;
 class FixtureReferenceResolver
 {
     /** @var array<class-string, FixtureReference> */
-    private array $allReferences;
+    private array $allReferences = [];
     /** @var list<FixtureReference> */
-    private array $rootReferences;
+    private array $rootReferences = [];
 
     /**
      * @param list<Fixture> $loadedFixtures
@@ -86,11 +86,11 @@ class FixtureReferenceResolver
     }
 
     /**
-     * @return array<class-string, FixtureReference>
+     * @return list<FixtureReference>
      */
     public function getAllReferences(): array
     {
-        return $this->allReferences;
+        return array_values($this->allReferences);
     }
 
     /**
