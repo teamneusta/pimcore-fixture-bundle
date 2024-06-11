@@ -8,8 +8,10 @@ class FixtureReference
 {
     /** @var class-string */
     private string $fixtureFqcn;
+
     /** @var list<FixtureReference> */
     private array $dependencies = [];
+
     /** @var list<FixtureReference> */
     private array $dependants = [];
 
@@ -36,6 +38,9 @@ class FixtureReference
         $this->dependants[] = $fixtureReference;
     }
 
+    /**
+     * @return list<FixtureReference>
+     */
     public function getDependencies(): array
     {
         return $this->dependencies;
@@ -46,6 +51,9 @@ class FixtureReference
         return !empty($this->dependencies);
     }
 
+    /**
+     * @return list<FixtureReference>
+     */
     public function getDependants(): array
     {
         return $this->dependants;

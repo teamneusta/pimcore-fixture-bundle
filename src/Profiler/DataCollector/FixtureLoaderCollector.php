@@ -30,6 +30,9 @@ class FixtureLoaderCollector extends AbstractDataCollector
         return '@NeustaPimcoreFixture/data_collector/template.html.twig';
     }
 
+    /**
+     * @return list<FixtureReference>
+     */
     public function getDependencyFreeFixtures(): array
     {
         return $this->data['references'];

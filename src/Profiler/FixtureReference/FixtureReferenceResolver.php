@@ -13,7 +13,7 @@ class FixtureReferenceResolver
     private array $rootReferences;
 
     /**
-     * @param array<Fixture> $loadedFixtures
+     * @param list<Fixture> $loadedFixtures
      */
     public function setFixtures(array $loadedFixtures): void
     {
@@ -22,6 +22,9 @@ class FixtureReferenceResolver
         $this->collectRootReferences();
     }
 
+    /**
+     * @param list<Fixture> $loadedFixtures
+     */
     private function initAllReferences(array $loadedFixtures): void
     {
         $this->allReferences = [];
@@ -33,7 +36,7 @@ class FixtureReferenceResolver
     }
 
     /**
-     * @param array<Fixture> $loadedFixtures
+     * @param list<Fixture> $loadedFixtures
      *
      * @return array<class-string, Fixture>
      */
