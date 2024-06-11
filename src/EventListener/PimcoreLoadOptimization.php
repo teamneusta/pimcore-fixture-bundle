@@ -19,11 +19,6 @@ final class PimcoreLoadOptimization implements EventSubscriberInterface
     private bool $versionEnabled;
     private bool $cacheEnabled;
 
-    public function __construct(
-        private readonly ProfilerDisabler $profilerDisabler,
-    ) {
-    }
-
     public static function getSubscribedEvents(): array
     {
         return [
