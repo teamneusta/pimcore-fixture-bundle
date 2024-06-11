@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 namespace Neusta\Pimcore\FixtureBundle\Tests\Profiler\FixtureReference;
 
 use Neusta\Pimcore\FixtureBundle\Profiler\FixtureReference\FixtureReference;
