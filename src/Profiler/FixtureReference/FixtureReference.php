@@ -4,7 +4,10 @@ namespace Neusta\Pimcore\FixtureBundle\Profiler\FixtureReference;
 
 use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 
-class FixtureReference
+/**
+ * @internal
+ */
+final class FixtureReference
 {
     /** @var class-string */
     private string $fixtureFqcn;

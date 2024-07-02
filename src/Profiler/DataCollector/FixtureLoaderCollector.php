@@ -10,7 +10,10 @@ use Symfony\Bundle\FrameworkBundle\DataCollector\AbstractDataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class FixtureLoaderCollector extends AbstractDataCollector
+/**
+ * @internal
+ */
+final class FixtureLoaderCollector extends AbstractDataCollector
 {
     public function __construct(
         private readonly FixtureReferenceResolver $fixtureReferenceResolver,

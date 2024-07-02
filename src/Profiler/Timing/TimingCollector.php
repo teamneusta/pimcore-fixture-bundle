@@ -5,7 +5,10 @@ namespace Neusta\Pimcore\FixtureBundle\Profiler\Timing;
 use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 use Neusta\Pimcore\FixtureBundle\Profiler\PerformanceInfo\PerformanceInfo;
 
-class TimingCollector
+/**
+ * @internal
+ */
+final class TimingCollector
 {
     /** @var array<class-string, PerformanceInfo> */
     private array $timings = [];

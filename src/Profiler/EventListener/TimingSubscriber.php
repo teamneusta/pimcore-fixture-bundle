@@ -8,7 +8,10 @@ use Neusta\Pimcore\FixtureBundle\Profiler\Timing\Timing;
 use Neusta\Pimcore\FixtureBundle\Profiler\Timing\TimingCollector;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class TimingSubscriber implements EventSubscriberInterface
+/**
+ * @internal
+ */
+final class TimingSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly Timing $timing,

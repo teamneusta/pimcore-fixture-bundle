@@ -8,7 +8,10 @@ use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 use Neusta\Pimcore\FixtureBundle\Profiler\FixtureReference\FixtureReferenceResolver;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class FixtureDependencyGraphSubscriber implements EventSubscriberInterface
+/**
+ * @internal
+ */
+final class FixtureDependencyGraphSubscriber implements EventSubscriberInterface
 {
     /** @var list<Fixture> */
     private array $loadedFixtures = [];

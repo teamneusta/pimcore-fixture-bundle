@@ -5,7 +5,10 @@ namespace Neusta\Pimcore\FixtureBundle\Profiler\FixtureReference;
 use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 use Neusta\Pimcore\FixtureBundle\Fixture\HasDependencies;
 
-class FixtureReferenceResolver
+/**
+ * @internal
+ */
+final class FixtureReferenceResolver
 {
     /** @var array<class-string, FixtureReference> */
     private array $allReferences = [];

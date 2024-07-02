@@ -6,7 +6,10 @@ use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 use Neusta\Pimcore\FixtureBundle\Profiler\PerformanceInfo\PerformanceInfo;
 use Symfony\Component\Stopwatch\Stopwatch;
 
-class Timing
+/**
+ * @internal
+ */
+final class Timing
 {
     private const STOPWATCH_NAME_PREFIX = 'fixture:';
     private const STOPWATCH_CATEGORY = 'execute';

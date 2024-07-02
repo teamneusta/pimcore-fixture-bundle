@@ -2,7 +2,10 @@
 
 namespace Neusta\Pimcore\FixtureBundle\Profiler\PerformanceInfo;
 
-class PerformanceInfo
+/**
+ * @internal
+ */
+final class PerformanceInfo
 {
     public function __construct(
         public readonly float $duration,
