@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" data-icon-name="icon-tabler-database" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path
+     stroke="none"
+     d="M 12,-4.9705627 28.970563,12 12,28.970563 -4.9705627,12 Z"
+     fill="none"
+     id="path2" />
+  <ellipse
+     cx="16.970562"
+     cy="-6"
+     rx="8"
+     ry="3"
+     id="ellipse4"
+     transform="rotate(45)" />
+  <path
+     d="M 10.585786,2.1005051 6.3431458,6.3431458 A 8,3 45 0 0 17.656854,17.656854 l 4.242641,-4.24264"
+     id="path6" />
+  <path
+     d="M 6.3431458,6.3431458 2.1005051,10.585786 A 8,3 45 0 0 13.414214,21.899495 l 4.24264,-4.242641"
+     id="path8" />
+</svg>
