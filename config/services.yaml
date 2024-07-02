@@ -41,8 +41,10 @@ services:
     resource: '../src/Locator/*'
     public: true
 
-  Neusta\Pimcore\FixtureBundle\Profiler\:
-    resource: '../src/Profiler/*'
-
   Neusta\Pimcore\FixtureBundle\ReferenceRepository\:
     resource: '../src/ReferenceRepository/*'
+
+when@dev:
+  services:
+    Neusta\Pimcore\FixtureBundle\Profiler\:
+      resource: '../src/Profiler/*'
