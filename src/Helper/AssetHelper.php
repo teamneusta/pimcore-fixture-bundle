@@ -17,6 +17,6 @@ class AssetHelper
         if ($assetFolder instanceof Asset\Folder) {
             return $assetFolder;
         }
-        throw new \Exception(sprintf('No asset folder with path %s could be created.', $path));
+        throw new \Exception(\sprintf('No asset folder with path %s could be created.', $path));
     }
 }

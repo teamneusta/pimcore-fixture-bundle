@@ -16,7 +16,7 @@ class DataObjectHelper
         if ($dataObjectFolder instanceof DataObject\Folder) {
             return $dataObjectFolder;
         }
-        throw new \Exception(sprintf('No data object folder with path %s could be created.', $path));
+        throw new \Exception(\sprintf('No data object folder with path %s could be created.', $path));
     }
 
     public function getFullPathByPath(string $path): string

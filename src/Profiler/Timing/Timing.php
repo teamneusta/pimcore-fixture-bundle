@@ -33,7 +33,7 @@ final class Timing
     {
         $fixtureName = (new \ReflectionClass($fixture))->getShortName();
 
-        return sprintf(
+        return \sprintf(
             '%s%s',
             self::STOPWATCH_NAME_PREFIX,
             $fixtureName
