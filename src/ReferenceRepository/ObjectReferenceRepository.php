@@ -23,7 +23,7 @@ final class ObjectReferenceRepository
     public function addReference(string $name, object $reference): void
     {
         if (isset($this->referencesByClass[$reference::class][$name])) {
-            throw new \BadMethodCallException(sprintf(
+            throw new \BadMethodCallException(\sprintf(
                 'Reference to "%s" for class "%s" already exists, use method setReference() in order to override it',
                 $name,
                 $reference::class,
@@ -47,7 +47,7 @@ final class ObjectReferenceRepository
     public function getReference(string $name, string $class): object
     {
         if (!$this->hasReference($name, $class)) {
-            throw new \OutOfBoundsException(sprintf('Reference to "%s" for class "%s" does not exist', $name, $class));
+            throw new \OutOfBoundsException(\sprintf('Reference to "%s" for class "%s" does not exist', $name, $class));
         }
 
         $reference = $this->referencesByClass[$class][$name];

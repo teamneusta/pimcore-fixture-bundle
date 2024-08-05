@@ -11,7 +11,7 @@ class FixtureNotFound extends \OutOfBoundsException
      */
     public static function forFixtures(array $fixturesToLoad): self
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Fixtures not found: "%s"',
             implode('", "', $fixturesToLoad),
         ));

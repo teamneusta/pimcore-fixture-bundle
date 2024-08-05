@@ -16,7 +16,7 @@ class DocumentHelper
         if ($documentFolder instanceof Document\Folder) {
             return $documentFolder;
         }
-        throw new \Exception(sprintf('No document folder with path %s could be created.', $path));
+        throw new \Exception(\sprintf('No document folder with path %s could be created.', $path));
     }
 
     public function getFullPathByPath(string $path, string $locale = ''): string

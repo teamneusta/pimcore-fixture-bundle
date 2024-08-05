@@ -6,7 +6,7 @@ class UnresolvedFixtureDependency extends \OutOfRangeException
 {
     public function __construct(string $name, int $code = 0, ?\Throwable $previous = null)
     {
-        parent::__construct(sprintf(
+        parent::__construct(\sprintf(
             'UnresolvedFixtureDependency: Fixture "%s" not found',
             $name,
         ), $code, $previous);
