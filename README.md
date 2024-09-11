@@ -20,6 +20,18 @@ It can be useful for testing purposes, or for seeding a database with initial da
    Neusta\Pimcore\FixtureBundle\NeustaPimcoreFixtureBundle::class => ['test' => true],
    ```
 
+3. **Register your Fixtures Folder for Service autoconfiguration**
+
+   Depending on where you want to create your Fixtures or if they should only be accessible during test execution.
+
+   ```yaml
+   when@test:
+     services:
+       App\Tests\Fixture\:
+         autoconfigure: true
+         resource: '../tests/Fixture/'
+   ```
+
 ### Upgrading from earlier Version
 
 Fixtures are now considered actual services and are loaded through Dependency Injection (DI).
