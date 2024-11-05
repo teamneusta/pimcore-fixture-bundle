@@ -42,7 +42,7 @@ final class ObjectReferenceRepository
      *
      * @return T
      *
-     * @throws \OutOfBoundsException - if repository does not exist
+     * @throws \OutOfBoundsException - if reference does not exist
      */
     public function getReference(string $name, string $class): object
     {
