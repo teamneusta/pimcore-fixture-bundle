@@ -191,7 +191,7 @@ final class MyCustomTest extends BaseKernelTestCase
     }
 }
 ```
-#### As Initial Data in your Setup
+#### As Initial Data in your Project
 
 To load fixtures in your local environment or as part of a deployment, two commands are provided:
 - `neusta:pimcore-fixture:load` (Loads a defined fixture class.)
