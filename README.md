@@ -44,11 +44,11 @@ Here are the key changes:
 1. **Fixture Interface Update**  
    The old fixture interface `Neusta\Pimcore\FixtureBundle\Fixture` has been replaced with `Neusta\Pimcore\FixtureBundle\Fixture\Fixture`. You can also extend from `Neusta\Pimcore\FixtureBundle\Fixture\AbstractFixture` to implement your Fixtures.
 
-2. **Change in `create` Method**  
-   The signature of the `create` method has been modified. It no longer takes any arguments, meaning all service dependencies must be specified via Dependency Injection. This is typically done through the constructor.
-
-3. **Fixtures as Services**  
+2. **Fixtures as Services**  
    Fixtures must be made available in the Dependency Injection container to be discovered. To do this, tag them with `neusta_pimcore_fixture.fixture`, or use autoconfiguration for automatic tagging.
+
+3. **Change of the `create` Method**  
+   The signature of the `create` method has been modified. It no longer takes any arguments, meaning all dependencies must be specified via `HasDependencies`.
 
 4. **Specifying Inter-Fixture Dependencies**  
    If your Fixture depends on others, use the `HasDependencies` interface to specify these dependencies. Additional guidance is available in the section "[Referencing Fixtures and Depending on Other Fixtures](#referencing-fixtures-and-depending-on-other-fixtures)".
@@ -141,6 +141,8 @@ final class ProductFixture extends AbstractFixture implements HasDependencies
 
 ### Loading Fixtures
 
+#### In Tests
+
 To load fixtures in Tests, we offer the `SelectiveFixtureLoader`. To streamline your test setup, we recommend creating a base class with a method to load fixtures via the `SelectiveFixtureLoader`. Here's an example demonstrating how to implement this. 
 
 ```php
@@ -189,8 +191,9 @@ final class MyCustomTest extends BaseKernelTestCase
     }
 }
 ```
+#### As Initial Data in your Project
 
-To load fixtures in your local environment or as part of a deployment two commands are provided:
+To load fixtures in your local environment or as part of a deployment, two commands are provided:
 - `neusta:pimcore-fixture:load` (Loads a defined fixture class.)
 - `neusta:pimcore-fixtures:load` (Loads all defined fixture classes.)
 
