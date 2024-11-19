@@ -1,6 +1,6 @@
 services:
   database:
-    image: mariadb:10.11.4
+    image: mariadb:10.11.10
     command: [ "mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci" ]
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: yes
@@ -16,7 +16,7 @@ services:
       timeout: 10s
 
   php:
-    image: pimcore/pimcore:php8.1-latest
+    image: pimcore/pimcore:php8.3-latest
     volumes:
       - ./:/var/www/html/
     environment:
@@ -24,7 +24,7 @@ services:
       XDEBUG_MODE: debug
       # Use Host IP from Docker Daemon. See https://xdebug.org/docs/all_settings#client_host
       XDEBUG_CLIENT_HOST: "host.docker.internal"
-      MYSQL_SERVER_VERSION: mariadb-10.11.4
+      MYSQL_SERVER_VERSION: 10.11.10-MariaDB
     extra_hosts:
       # See https://gitlab.neusta.de/NSD/p_pimcore/pimcore-project-template/-/blob/2.1.0/compose.dev.yaml#L18-L24
       - "host.docker.internal:host-gateway"
