@@ -57,15 +57,12 @@ final class FixtureDependencySorter
         }
         $this->checking[] = $fixture::class;
 
-        if (!$fixture instanceof HasDependencies || [] === $fixture->getDependencies()) {
-            $sorted[] = $fixture;
-
-            return;
+        if ($fixture instanceof HasDependencies) {
+            foreach ($fixture->getDependencies() as $dependency) {
+                $this->add($this->getFixture($dependency), $sorted);
+            }
         }
 
-        foreach ($fixture->getDependencies() as $dependency) {
-            $this->add($this->getFixture($dependency), $sorted);
-        }
         $sorted[] = $fixture;
 
         $this->checking = array_filter($this->checking, fn ($v) => $v !== $fixture::class);
