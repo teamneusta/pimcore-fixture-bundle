@@ -24,9 +24,9 @@ abstract class AbstractFixture implements Fixture
     /**
      * @throws \BadMethodCallException - if repository already has a reference by $name
      */
-    protected function addReference(string $name, object $object): void
+    protected function addReference(string $name, object $reference): void
     {
-        $this->objectReferenceRepository->addReference($name, $object);
+        $this->objectReferenceRepository->addReference($name, $reference);
     }
 
     /**
