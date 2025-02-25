@@ -3,7 +3,6 @@
 namespace Neusta\Pimcore\FixtureBundle\Fixture;
 
 use Neusta\Pimcore\FixtureBundle\Toolbox\Repository\AssetRepository;
-use Pimcore\Model\Asset;
 use Pimcore\Model\Asset\Image;
 
 abstract class AbstractAssetFixture extends AbstractFixture
