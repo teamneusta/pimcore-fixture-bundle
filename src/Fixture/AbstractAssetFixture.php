@@ -32,7 +32,7 @@ abstract class AbstractAssetFixture extends AbstractFixture
     private function replaceIfExists(Image $asset): void
     {
         $oldAsset = $this->assetRepository->getByPath($this->pimcoreBasePath . $asset->getFullPath());
-        if ($oldAsset !== null) {
+        if (null !== $oldAsset) {
             $oldAsset->delete();
         }
 
