@@ -13,6 +13,8 @@ use Pimcore\Model\Listing\AbstractListing;
  * @method AbstractListing       getList(array $config = [])
  * @method int                   getTotalCount(array $config = [])
  * @method string[]              getTypes()
+ *
+ * @internal
  */
 abstract class AbstractElementRepository
 {

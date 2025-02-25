@@ -11,6 +11,8 @@ use Pimcore\Model\Asset;
  * @method Asset|null    getById(int $id, array $params = [])
  * @method Asset|null    getByPath(string $path)
  * @method Asset\Listing getList(array $config = [])
+ *
+ * @internal
  */
 class AssetRepository extends AbstractElementRepository
 {
