@@ -22,7 +22,7 @@ abstract class AbstractAssetFixture extends AbstractFixture
         $asset = new Image();
         $asset->setFilename($this->pimcoreFilename);
         $asset->setData(file_get_contents($this->fullQualifiedFilename));
-        $asset->setParent(Asset::getByPath($this->pimcoreBasePath));
+        $asset->setParent($this->assetRepository->getByPath($this->pimcoreBasePath));
 
         $this->replaceIfExists($asset);
 
