@@ -7,15 +7,23 @@ use Neusta\Pimcore\FixtureBundle\Fixture\HasDependencies;
 
 final class FixtureDependencySorter
 {
+    /** @var array<class-string<Fixture>, Fixture> */
+    private readonly array $allFixtures;
+
     /** @var array<class-string<Fixture>> */
     private array $checking = [];
 
     /**
-     * @param list<Fixture> $allFixtures
+     * @param iterable<Fixture> $allFixtures
      */
-    public function __construct(
-        private readonly array $allFixtures,
-    ) {
+    public function __construct(iterable $allFixtures)
+    {
+        $indexed = [];
+        foreach ($allFixtures as $fixture) {
+            $indexed[$fixture::class] = $fixture;
+        }
+
+        $this->allFixtures = $indexed;
     }
 
     /**
@@ -63,14 +71,11 @@ final class FixtureDependencySorter
         $this->checking = array_filter($this->checking, fn ($v) => $v !== $fixture::class);
     }
 
+    /**
+     * @param class-string<Fixture> $name
+     */
     private function getFixture(string $name): Fixture
     {
-        foreach ($this->allFixtures as $fixture) {
-            if ($fixture::class === $name) {
-                return $fixture;
-            }
-        }
-
-        throw new UnresolvedFixtureDependency($name);
+        return $this->allFixtures[$name] ?? throw new UnresolvedFixtureDependency($name);
     }
 }
