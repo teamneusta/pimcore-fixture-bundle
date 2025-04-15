@@ -16,7 +16,7 @@ final class SortFixturesByDependencyBeforeLoad implements EventSubscriberInterfa
     public static function getSubscribedEvents(): array
     {
         return [
-            BeforeLoadFixtures::class => 'sortFixturesByDependency',
+            BeforeLoadFixtures::class => ['sortFixturesByDependency', -100],
         ];
     }
 
