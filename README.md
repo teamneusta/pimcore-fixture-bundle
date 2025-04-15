@@ -2,7 +2,7 @@
 
 Provides a way to manage and execute the loading of data fixtures in Pimcore.
 
-It can be useful for testing purposes, or for seeding a database with initial data.
+It can be useful for testing purposes or for seeding a database with initial data.
 
 ## Installation
 
@@ -22,7 +22,7 @@ It can be useful for testing purposes, or for seeding a database with initial da
 
 3. **Register your Fixtures Folder for Service autoconfiguration**
 
-   Depending on where you want to create your Fixtures or if they should only be accessible during test execution.
+   Depending on where you want to create your Fixtures, or if they should only be accessible during test execution.
 
    ```yaml
    when@test:
@@ -32,26 +32,30 @@ It can be useful for testing purposes, or for seeding a database with initial da
          resource: '../tests/Fixture/'
    ```
 
-### Upgrading from earlier Version
+### Upgrading From an Earlier Version
 
 Fixtures are now considered actual services and are loaded through Dependency Injection (DI).
 To align with this approach,
-you'll need to update your Fixture classes by moving service dependencies from the `create` method to the constructor.
+you’ll need to update your Fixture classes by moving service dependencies from the `create` method to the constructor.
 If your Fixture relies on other Fixtures, implement the `HasDependencies` interface.
 
 Here are the key changes:
 
 1. **Fixture Interface Update**  
-   The old fixture interface `Neusta\Pimcore\FixtureBundle\Fixture` has been replaced with `Neusta\Pimcore\FixtureBundle\Fixture\Fixture`. You can also extend from `Neusta\Pimcore\FixtureBundle\Fixture\AbstractFixture` to implement your Fixtures.
+   The old fixture interface `Neusta\Pimcore\FixtureBundle\Fixture` has been replaced with `Neusta\Pimcore\FixtureBundle\Fixture\Fixture`. 
+   You can also extend from `Neusta\Pimcore\FixtureBundle\Fixture\AbstractFixture` to implement your Fixtures.
 
 2. **Fixtures as Services**  
-   Fixtures must be made available in the Dependency Injection container to be discovered. To do this, tag them with `neusta_pimcore_fixture.fixture`, or use autoconfiguration for automatic tagging.
+   Fixtures must be made available in the Dependency Injection container to be discovered. 
+   To do this, tag them with `neusta_pimcore_fixture.fixture`, or use autoconfiguration for automatic tagging.
 
 3. **Change of the `create` Method**  
-   The signature of the `create` method has been modified. It no longer takes any arguments, meaning all dependencies must be specified via `HasDependencies`.
+   The signature of the `create` method has been modified. 
+   It no longer takes any arguments, meaning all dependencies must be specified via `HasDependencies`.
 
 4. **Specifying Inter-Fixture Dependencies**  
-   If your Fixture depends on others, use the `HasDependencies` interface to specify these dependencies. Additional guidance is available in the section "[Referencing Fixtures and Depending on Other Fixtures](#referencing-fixtures-and-depending-on-other-fixtures)".
+   If your Fixture depends on others, use the `HasDependencies` interface to specify these dependencies. 
+   Additional guidance is available in the section "[Referencing Fixtures and Depending on Other Fixtures](#referencing-fixtures-and-depending-on-other-fixtures)".
 
 Make sure to update your Fixture classes according to these changes to ensure proper functionality and compatibility with this Bundle.
 
@@ -74,7 +78,7 @@ final class ProductFixture extends AbstractFixture
     {
         for ($i = 1; $i <= 20; $i++) {
             $product = new Product();
-            $product->setParentId(0);
+            $product->setParentId(1);
             $product->setPublished(true);
             $product->setKey("Product {$i}");
             // ...
@@ -87,9 +91,12 @@ final class ProductFixture extends AbstractFixture
 
 ### Referencing Fixtures and Depending on Other Fixtures
 
-Suppose you want to link a `Product` fixture to a `Group` fixture. To do this, you need to create a `Group` fixture first and keep a reference to it. Later, you can use this reference when creating the `Product` fixture.
+Suppose you want to link a `Product` fixture to a `Group` fixture. 
+To do this, you need to create a `Group` fixture first and keep a reference to it. 
+Later you can use this reference when creating the `Product` fixture.
 
-This process requires the `Group` fixture to exist before the `Product` fixture. You can achieve this ordering by implementing the `HasDependencies` interface.
+This process requires the `Group` fixture to exist before the `Product` fixture. 
+You can achieve this ordering by implementing the `HasDependencies` interface.
 
 ```php
 use Neusta\Pimcore\FixtureBundle\Fixture\AbstractFixture;
@@ -100,7 +107,7 @@ final class ProductGroupFixture extends AbstractFixture
     public function create(): void
     {
         $productGroup = new ProductGroup();
-        $productGroup->setParentId(0);
+        $productGroup->setParentId(1);
         $productGroup->setPublished(true);
         $productGroup->setKey('My Product Group');
         $productGroup->save();
@@ -123,7 +130,7 @@ final class ProductFixture extends AbstractFixture implements HasDependencies
         $productGroup = $this->getReference('my-product-group', ProductGroup::class);
     
         $product = new Product();
-        $product->setParentId(0);
+        $product->setParentId(1);
         $product->setPublished(true);
         $product->setKey('My grouped Product');
         $product->setProductGroup($productGroup);
@@ -143,7 +150,9 @@ final class ProductFixture extends AbstractFixture implements HasDependencies
 
 #### In Tests
 
-To load fixtures in Tests, we offer the `SelectiveFixtureLoader`. To streamline your test setup, we recommend creating a base class with a method to load fixtures via the `SelectiveFixtureLoader`. Here's an example demonstrating how to implement this. 
+To load fixtures in Tests, we offer the `SelectiveFixtureLoader`. 
+To streamline your test setup, we recommend creating a base class with a method to load fixtures via the `SelectiveFixtureLoader`. 
+Here’s an example demonstrating how to implement this. 
 
 ```php
 use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
@@ -192,40 +201,45 @@ final class MyCustomTest extends BaseKernelTestCase
     }
 }
 ```
-#### As Initial Data in your Project
+
+#### As Initial Data in Your Project
 
 To load fixtures in your local environment or as part of a deployment, two commands are provided:
 - `neusta:pimcore-fixture:load` (Loads a defined fixture class.)
 - `neusta:pimcore-fixtures:load` (Loads all defined fixture classes.)
 
-Beware that loading a large amount of objects may lead to a high consumption of memory.
-Should you encounter memory issues when running the commands in `dev` environments you may want to try
-setting the environment to `prod`. Disabling the debug mode also seems to be beneficial in terms of memory consumption. 
+Beware that loading a large number of objects may lead to high memory consumption.
+Should you encounter memory issues when running the commands in `dev` environments you may want to try setting the environment to `prod`.
+Disabling the debug mode also seems beneficial in terms of memory consumption. 
 
-For example provide these options when using the symfony console: 
+For example, provide these options when using the symfony console: 
 ```shell
 bin/console --env=prod --no-debug neusta:pimcore-fixtures:load
 ```
 
-### Accessing Services from the Fixtures
+### Accessing Services From the Fixtures
 
-As the Fixtures are just normal PHP Services you can use all DI features like constructor, setter or property injection as usual.
+As the Fixtures are just normal PHP services, you can use all DI features like constructor, setter, or property injection as usual.
 
-### Extension and customization through Events
+### Extension and Customization Through Events
 
 The Bundle provides the following events to facilitate extensions and customization:
 
 1. **`BeforeLoadFixtures`**  
-   This event is triggered before any fixture is executed. It contains all the fixtures that are scheduled for execution, accessible via `$event->getFixtures()`. You can alter the list of fixtures to be loaded by using `$event->setFixtures(...)`.
+   This event is dispatched before any fixture is executed. 
+   It contains all the fixtures that are scheduled for execution, accessible via `$event->fixtures`. 
+   You can alter the list of fixtures to be loaded by modifying it `$event->fixtures = ...`.
 
-2. **`AfterLoadFixtures`**  
-   This event occurs after all relevant fixtures have been executed. It carries the fixtures that have been successfully loaded, which can be accessed through `$event->loadedFixtures`.
-
-3. **`BeforeExecuteFixture`**  
-   This event is triggered just before a fixture is executed. Using this event, you can prevent the execution of a specific fixture by setting `$event->setPreventExecution(true)`.
+2. **`BeforeExecuteFixture`**  
+   This event is dispatched for each fixture just before it is executed.
+   Using this event, you can prevent the execution of a specific fixture by setting `$event->preventExecution = true`.
 
 3. **`AfterExecuteFixture`**  
-   This event occurs after a fixture has been executed.
+   This event is dispatched for each fixture after it has been executed.
+
+4. **`AfterLoadFixtures`**  
+   This event is dispatched after all relevant fixtures have been executed. 
+   It carries the fixtures that have been successfully loaded, which can be accessed through `$event->loadedFixtures`.
 
 ## Contribution
 
