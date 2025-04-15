@@ -63,6 +63,21 @@ class FixtureDependencySorterTest extends TestCase
     /**
      * @test
      */
+    public function it_sorts_two_fixtures_of_the_same_class(): void
+    {
+        $fixture1 = new MockFixtureWithoutDependencies();
+        $fixture2 = new MockFixtureWithoutDependencies();
+
+        $fixtureDependencySorter = new FixtureDependencySorter([$fixture1, $fixture2]);
+        $sorted = $fixtureDependencySorter->sort();
+
+        self::assertCount(2, $sorted);
+        self::assertEquals([$fixture1, $fixture2], $sorted);
+    }
+
+    /**
+     * @test
+     */
     public function it_throws_exception_for_one_fixture_depending_on_itself(): void
     {
         $fixture = new MockFixtureDependsOnItself();
