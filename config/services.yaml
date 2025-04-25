@@ -44,6 +44,8 @@ services:
   Neusta\Pimcore\FixtureBundle\ReferenceRepository\:
     resource: '../src/ReferenceRepository/*'
 
+  Neusta\Pimcore\FixtureBundle\Sorter\FixtureDependencySorter: ~
+
 when@dev:
   services:
     Neusta\Pimcore\FixtureBundle\Profiler\:
