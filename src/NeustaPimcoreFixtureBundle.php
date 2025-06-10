@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Neusta\Pimcore\FixtureBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
 
-final class NeustaPimcoreFixtureBundle extends Bundle
+final class NeustaPimcoreFixtureBundle extends AbstractPimcoreBundle
 {
     public function getPath(): string
     {
