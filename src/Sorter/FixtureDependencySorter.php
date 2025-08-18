@@ -10,7 +10,7 @@ final class FixtureDependencySorter
     /** @var array<class-string<Fixture>, Fixture> */
     private readonly array $allFixtures;
 
-    /** @var array<class-string<Fixture>> */
+    /** @var array<class-string<Fixture>, true> */
     private array $checking = [];
 
     /**
@@ -52,23 +52,21 @@ final class FixtureDependencySorter
             return;
         }
 
-        if (\in_array($fixture::class, $this->checking, true)) {
+        if (isset($this->checking[$fixture::class])) {
             throw new CircularFixtureDependency($fixture::class);
         }
-        $this->checking[] = $fixture::class;
 
-        if (!$fixture instanceof HasDependencies || [] === $fixture->getDependencies()) {
-            $sorted[] = $fixture;
+        $this->checking[$fixture::class] = true;
 
-            return;
+        if ($fixture instanceof HasDependencies) {
+            foreach ($fixture->getDependencies() as $dependency) {
+                $this->add($this->getFixture($dependency), $sorted);
+            }
         }
 
-        foreach ($fixture->getDependencies() as $dependency) {
-            $this->add($this->getFixture($dependency), $sorted);
-        }
         $sorted[] = $fixture;
 
-        $this->checking = array_filter($this->checking, fn ($v) => $v !== $fixture::class);
+        unset($this->checking[$fixture::class]);
     }
 
     /**
