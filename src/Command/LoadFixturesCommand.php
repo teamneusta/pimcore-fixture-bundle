@@ -41,7 +41,7 @@ final class LoadFixturesCommand extends Command
         $output->writeln('Loading fixtures');
         $output->writeln('');
 
-        $this->eventDispatcher->addListener(BeforeExecuteFixture::class, function (BeforeExecuteFixture $event) use ($output) {
+        $this->eventDispatcher->addListener(BeforeExecuteFixture::class, static function (BeforeExecuteFixture $event) use ($output) {
             $output->writeln(\sprintf(
                 ' - Loading <info>%s</info>',
                 $event->fixture::class

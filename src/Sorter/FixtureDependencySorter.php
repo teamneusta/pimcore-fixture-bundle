@@ -68,7 +68,7 @@ final class FixtureDependencySorter
         }
         $sorted[] = $fixture;
 
-        $this->checking = array_filter($this->checking, fn ($v) => $v !== $fixture::class);
+        $this->checking = array_filter($this->checking, static fn ($v) => $v !== $fixture::class);
     }
 
     /**
