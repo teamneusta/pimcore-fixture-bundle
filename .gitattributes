@@ -6,6 +6,7 @@
 /.gitlab-ci/ export-ignore
 /.php-cs-fixer.php export-ignore
 /bin/ export-ignore
+/compose.override.yaml.dist export-ignore
 /compose.yaml export-ignore
 /docs/ export-ignore
 /phpstan-baseline.neon export-ignore
