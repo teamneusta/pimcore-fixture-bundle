@@ -16,14 +16,14 @@
     "pimcore/pimcore": "^11.0 || ^12.0"
   },
   "require-dev": {
-    "ergebnis/composer-normalize": "^2.42",
-    "friendsofphp/php-cs-fixer": "^3.60",
-    "phpspec/prophecy-phpunit": "^2.0",
-    "phpstan/extension-installer": "^1.1",
-    "phpstan/phpstan": "^2.1.42",
+    "ergebnis/composer-normalize": "^2.50",
+    "friendsofphp/php-cs-fixer": "^3.94.2",
+    "phpspec/prophecy-phpunit": "^2.5",
+    "phpstan/extension-installer": "^1.4.3",
+    "phpstan/phpstan": "^2.1.43",
     "phpstan/phpstan-phpunit": "^2.0.16",
     "phpstan/phpstan-symfony": "^2.0.15",
-    "phpunit/phpunit": "^9.5",
+    "phpunit/phpunit": "^9.6.34",
     "pimcore/admin-ui-classic-bundle": "^1.0 || ^2.0",
     "teamneusta/pimcore-testing-framework": "^0.13"
   },
