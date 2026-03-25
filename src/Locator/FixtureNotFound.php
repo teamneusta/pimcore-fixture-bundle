@@ -7,7 +7,7 @@ use Neusta\Pimcore\FixtureBundle\Fixture\Fixture;
 class FixtureNotFound extends \OutOfBoundsException
 {
     /**
-     * @param list<class-string<Fixture>> $fixturesToLoad
+     * @param array<class-string<Fixture>> $fixturesToLoad
      */
     public static function forFixtures(array $fixturesToLoad): self
     {

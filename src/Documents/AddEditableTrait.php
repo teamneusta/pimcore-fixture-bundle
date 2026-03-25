@@ -7,6 +7,7 @@ use Pimcore\Model\Document\Editable;
 use Pimcore\Model\Document\Editable\Areablock;
 use Pimcore\Model\Document\PageSnippet;
 
+// @phpstan-ignore trait.unused
 trait AddEditableTrait
 {
     private function addEditable(PageSnippet $pageSnippet, EditableConfig $config): void
