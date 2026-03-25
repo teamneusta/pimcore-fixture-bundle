@@ -2,11 +2,10 @@
 
 namespace Neusta\Pimcore\FixtureBundle\EventListener;
 
-use Doctrine\DBAL\Logging\SQLLogger;
 use Neusta\Pimcore\FixtureBundle\Event\AfterLoadFixtures;
 use Neusta\Pimcore\FixtureBundle\Event\BeforeLoadFixtures;
+use Neusta\Pimcore\FixtureBundle\Logger\LoggingState;
 use Pimcore\Cache;
-use Pimcore\Db;
 use Pimcore\Model\Version;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -15,9 +14,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 final class PimcoreLoadOptimization implements EventSubscriberInterface
 {
-    private ?SQLLogger $originalSqlLogger = null;
     private bool $versionEnabled;
     private bool $cacheEnabled;
+
+    public function __construct(
+        private readonly LoggingState $loggingState,
+    ) {
+    }
 
     public static function getSubscribedEvents(): array
     {
@@ -31,18 +34,16 @@ final class PimcoreLoadOptimization implements EventSubscriberInterface
     {
         $this->versionEnabled = Version::isEnabled();
         $this->cacheEnabled = Cache::isEnabled();
+
         Version::disable();
         Cache::disable();
-
-        $this->originalSqlLogger = Db::getConnection()->getConfiguration()->getSQLLogger();
-        Db::getConnection()->getConfiguration()->setSQLLogger(null);
+        $this->loggingState->disable();
     }
 
     public function afterCommand(): void
     {
-        Db::getConnection()->getConfiguration()->setSQLLogger($this->originalSqlLogger);
-
         $this->versionEnabled && Version::enable();
         $this->cacheEnabled && Cache::enable();
+        $this->loggingState->enable();
     }
 }
