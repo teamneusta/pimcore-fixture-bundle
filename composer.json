@@ -1,7 +1,7 @@
 {
   "name": "teamneusta/pimcore-fixture-bundle",
   "description": "Provide basic functionality to enable installing fixtures in Pimcore",
-  "license": "GPL-3.0-or-later",
+  "license": "MIT",
   "type": "pimcore-bundle",
   "authors": [
     {
@@ -12,25 +12,32 @@
     }
   ],
   "require": {
-    "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
-    "pimcore/pimcore": "^10.5 || ^11.0"
+    "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
+    "doctrine/dbal": "^3.2 || ^4.0",
+    "pimcore/pimcore": "^11.0 || ^12.0",
+    "psr/log": "^2 || ^3",
+    "symfony/config": "^6.4 || ^7.4",
+    "symfony/console": "^6.4 || ^7.4",
+    "symfony/dependency-injection": "^6.4 || ^7.4",
+    "symfony/doctrine-bridge": "^6.4 || ^7.4",
+    "symfony/event-dispatcher": "^6.4 || ^7.4",
+    "symfony/framework-bundle": "^6.4 || ^7.4",
+    "symfony/http-foundation": "^6.4 || ^7.4",
+    "symfony/http-kernel": "^6.4 || ^7.4",
+    "symfony/service-contracts": "^2.0 || ^3.0",
+    "symfony/stopwatch": "^6.4 || ^7.4"
   },
   "require-dev": {
-    "ergebnis/composer-normalize": "^2.42",
-    "friendsofphp/php-cs-fixer": "^3.60",
-    "laminas/laminas-zendframework-bridge": "^1.8",
-    "phpspec/prophecy-phpunit": "^2.0",
-    "phpstan/extension-installer": "^1.1",
-    "phpstan/phpstan": "^1.8",
-    "phpstan/phpstan-phpunit": "^1.1",
-    "phpstan/phpstan-symfony": "^1.2",
-    "phpunit/phpunit": "^9.5",
-    "teamneusta/pimcore-testing-framework": "^0.12"
-  },
-  "conflict": {
-    "presta/sitemap-bundle": "<3.2",
-    "symfony/form": "<5.4",
-    "symfony/routing": "<5.4"
+    "ergebnis/composer-normalize": "^2.50",
+    "friendsofphp/php-cs-fixer": "^3.94.2",
+    "phpspec/prophecy-phpunit": "^2.5",
+    "phpstan/extension-installer": "^1.4.3",
+    "phpstan/phpstan": "^2.1.43",
+    "phpstan/phpstan-phpunit": "^2.0.16",
+    "phpstan/phpstan-symfony": "^2.0.15",
+    "phpunit/phpunit": "^9.6.34",
+    "pimcore/admin-ui-classic-bundle": "^1.0 || ^2.0",
+    "teamneusta/pimcore-testing-framework": "^0.13"
   },
   "autoload": {
     "psr-4": {
@@ -48,12 +55,20 @@
   "config": {
     "allow-plugins": {
       "ergebnis/composer-normalize": true,
+      "php-http/discovery": true,
       "phpstan/extension-installer": true
     },
     "audit": {
       "block-insecure": false
     },
     "sort-packages": true
+  },
+  "extra": {
+    "pimcore": {
+      "bundles": [
+        "Neusta\\Pimcore\\FixtureBundle\\NeustaPimcoreFixtureBundle"
+      ]
+    }
   },
   "scripts": {
     "cs:check": "@cs:fix --dry-run",

@@ -46,6 +46,15 @@ services:
 
   Neusta\Pimcore\FixtureBundle\Sorter\FixtureDependencySorter: ~
 
+  Neusta\Pimcore\FixtureBundle\Logger\LoggingState: ~
+
+  neusta_pimcore_fixture.dbal.logging_middleware:
+    class: Neusta\Pimcore\FixtureBundle\Logger\ConditionalLogger
+    decorates: monolog.logger.doctrine
+    arguments:
+      $inner: '@.inner'
+      $state: '@Neusta\Pimcore\FixtureBundle\Logger\LoggingState'
+
 when@dev:
   services:
     Neusta\Pimcore\FixtureBundle\Profiler\:

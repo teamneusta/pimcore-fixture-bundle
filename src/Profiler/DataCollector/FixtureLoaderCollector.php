@@ -28,7 +28,7 @@ final class FixtureLoaderCollector extends AbstractDataCollector
         $this->data['references'] = $this->fixtureReferenceResolver->getRootReferences();
     }
 
-    public static function getTemplate(): ?string
+    public static function getTemplate(): string
     {
         return '@NeustaPimcoreFixture/data_collector/template.html.twig';
     }

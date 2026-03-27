@@ -7,6 +7,7 @@ use Pimcore\Model\Document\Link;
 use Pimcore\Model\Document\Service;
 use Pimcore\Model\Element\AbstractElement;
 
+// @phpstan-ignore trait.unused
 trait CreateLinkTrait
 {
     private function createInternalLink(

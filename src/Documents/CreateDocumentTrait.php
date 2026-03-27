@@ -4,6 +4,7 @@ namespace Neusta\Pimcore\FixtureBundle\Documents;
 
 use Pimcore\Model\Document;
 
+// @phpstan-ignore trait.unused
 trait CreateDocumentTrait
 {
     private function createPage(
