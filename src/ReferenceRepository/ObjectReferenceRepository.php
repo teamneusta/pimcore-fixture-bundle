@@ -2,10 +2,7 @@
 
 namespace Neusta\Pimcore\FixtureBundle\ReferenceRepository;
 
-/**
- * based on \Doctrine\Common\DataFixtures\ReferenceRepository.
- */
-final class ObjectReferenceRepository
+final class ObjectReferenceRepository implements ReferenceRepository
 {
     /**
      * @var array<class-string, array<string, object>>
@@ -17,9 +14,6 @@ final class ObjectReferenceRepository
         $this->referencesByClass[$reference::class][$name] = $reference;
     }
 
-    /**
-     * @throws \BadMethodCallException - if repository already has a reference by $name
-     */
     public function addReference(string $name, object $reference): void
     {
         if (isset($this->referencesByClass[$reference::class][$name])) {
@@ -33,17 +27,6 @@ final class ObjectReferenceRepository
         $this->setReference($name, $reference);
     }
 
-    /**
-     * Loads an object using stored reference named by $name.
-     *
-     * @template T of object
-     *
-     * @param class-string<T> $class
-     *
-     * @return T
-     *
-     * @throws \OutOfBoundsException - if reference does not exist
-     */
     public function getReference(string $name, string $class): object
     {
         if (!$this->hasReference($name, $class)) {
@@ -56,11 +39,6 @@ final class ObjectReferenceRepository
         return $reference;
     }
 
-    /**
-     * Check if an object is stored using reference named by $name.
-     *
-     * @param class-string $class
-     */
     public function hasReference(string $name, string $class): bool
     {
         return isset($this->referencesByClass[$class][$name]);
